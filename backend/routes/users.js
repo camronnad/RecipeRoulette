@@ -16,5 +16,5 @@ const {getAllUsers} = require("../controllers/UserController")
 
 // module.exports = userRouter
 router.route("/").get(getAllUsers)
-
+router.route("/abc").get(getAllUsers)
 module.exports = router
