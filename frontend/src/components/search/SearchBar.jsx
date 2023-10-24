@@ -10,7 +10,7 @@ function SearchBar(props) {
 
   const searchHandler = () => {
     //can use search query here for futher processing with sending data to server
-    //props.onClick();
+    props.onClick();
     console.log('search query:', search);
     let searchData;
     const searchQuery = search;
