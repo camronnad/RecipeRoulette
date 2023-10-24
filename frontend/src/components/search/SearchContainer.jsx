@@ -24,7 +24,7 @@ function SearchContainer(props) {
       </div>
       <div className='searchBar'>
 
-        <SearchBar label="SPIN" onClick={handleClick} />
+        <SearchBar label="SPIN" onClick={handleClick} setRecipeData={props.setRecipeData} />
       </div>
       <div className='spinBlurb'>
         {/* <img src="recipeIcon.jpg" alt="recipe icon" height="300px" width={400} /> */}

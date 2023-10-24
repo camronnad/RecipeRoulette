@@ -20,7 +20,7 @@ function SearchBar(props) {
       .then((response) => response.json())
       .then((data) => {
         // Handle the JSON data from the response here
-        //searchData = data;
+        props.setRecipeData(data)
         console.log(data);
       })
       .catch(error => {
