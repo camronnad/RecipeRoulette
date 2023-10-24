@@ -18,6 +18,7 @@ function App() {
 
   return (
     <div className="App">
+      <SearchContainer />
       <RecipeItemGrid handleCardClick={handleCardClick} activeModal={activeModal} />
       {activeModal && <RecipeModal RecipeName={activeModal} onClose={handleCloseModal} />}
     </div>

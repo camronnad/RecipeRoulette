@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
 import SearchButton from './SearchButton';
 import SearchBar from './SearchBar';
-import '/Users/jessesandhu/lighthouse/finals/frontend/src/Search.css';
+import '/Users/camronnaderi/lighthouse/RecipeRoulette/frontend/src/Search.css';
 
 function SearchContainer(props) {
   const [imgSpin, setImgSpin] = useState(false);
