@@ -13,11 +13,15 @@ function SearchBar(props) {
     //props.onClick();
     console.log('search query:', search);
     // useEffect(() => {
-    fetch('http://localhost:3000/api/search')
+    fetch("/api/search")
       .then((response) => response.json())
       .then((data) => {
         // Handle the JSON data from the response here
         console.log(data);
+      })
+      .catch(error => {
+        // Handle the error, possibly by logging or displaying an error message.
+        console.error('Fetch error:', error);
       });
     // }, []);
     // searchHandler should be a hook and within use useEffect eg useSearchHandler
