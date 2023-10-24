@@ -1,0 +1,101 @@
+body {
+  background-color: rgb(255, 247, 224);
+}
+
+h1 {
+  color: rgb(72, 0, 0);
+
+}
+
+p {
+  font-family: "Arial", sans-serif;
+  text-align: justify;
+  font-size: 1.4em;
+  color: #333;
+  margin: 0 0 0 0;
+  background-color: #feeec5;
+  padding: 10px;
+  border: 1px solid #ccc;
+  text-indent: 1.5em;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .roulette {
+    animation: roulette-spin 6s ease-out forwards;
+    /* The total duration is 12 seconds */
+    transform-origin: center;
+  }
+}
+
+@keyframes roulette-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(3600deg);
+  }
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 50px;
+  margin-left: 50px;
+  margin-right: 50px;
+
+}
+
+
+.spinBlurb {
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  height: 400px;
+  width: 600px;
+  margin-top: 400px;
+
+
+}
+
+
+.bttn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  width: 500px;
+  border-radius: 20%;
+  font: xx-large;
+  background-color: green;
+  color: white;
+  font-weight: bolder;
+  font-size: 2em;
+}
+
+
+
+
+
+.searchBar {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: column;
+}
+
+/* .rouletteSearchBar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-right: 200px;
+
+} */
+
+.inputSize {
+  margin-top: 100px;
+  width: 500px;
+  height: 30px;
+}

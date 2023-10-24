@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import RecipeItemGrid from './components/RecipeItemGrid';
 import RecipeModal from './components/RecipeModal';
-
+import SearchContainer from './components/search/SearchContainer';
 function App() {
 
   const [activeModal, setActiveModal] = useState(null);
