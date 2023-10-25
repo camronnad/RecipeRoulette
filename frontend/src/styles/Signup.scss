@@ -1,0 +1,71 @@
+.form-container  {
+    position: absolute;
+    top: 250px;    
+    right: 60px;  
+    width: 500px;
+    padding: 40px;
+    border-radius: 70px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background: #759e3b;
+    font-size: 33px;
+  
+    h2 {
+      color: white;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+  
+    .input-group {
+      margin-bottom: 15px;
+    }
+  
+    label {
+      color: white;
+      font-weight: bold;
+      margin-bottom: 8px;
+      display: block;
+    }
+  
+    input {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: rgba(255, 255, 255, 0.9); // Slight transparency
+  
+      &:focus {
+        background-color: #fff;
+        outline: none;
+      }
+    }
+  
+    .form-button {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: #fff; // Bright color for the button
+      color:#759e3b;
+      cursor: pointer;
+  
+      &:hover {
+        background-color: #f2f2f2; // Slightly darker on hover
+      }
+    }
+  
+    .switch-form-button {
+      margin-top: 15px;
+      width: 100%;
+      padding: 10px;
+      background-color: transparent;
+      border: 2px solid white;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+  
+      &:hover {
+        background-color: white;
+        color: #759e3b; // Using the gradient color
+      }
+    }
+  }
