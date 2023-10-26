@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Grid from "@mui/material/Grid";
 import RecipeItem from "./RecipeItem";
 import { Card, CardContent, Typography } from "@mui/material";
@@ -14,6 +14,22 @@ const mockData = [
 ];
 
 const LikedRecipe = ({ handleCardClick, activeModal }) => {
+  //const [recipeData, setRecipeData] = useState([]);
+
+  fetch(`/api/liked-recipes`)
+    .then((response) => response.json())
+    .then((data) => {
+      // Handle the JSON data from the response here
+      //searchData = data;
+      console.log(data);
+      //setRecipeData(data);
+    })
+    .catch(error => {
+      // Handle the error, possibly by logging or displaying an error message.
+      console.error('Fetch error:', error);
+    });
+
+
   return (
     <Card sx={{ width: "auto", padding: 3, margin: "0 auto", borderRadius: 9 }}>
       <Grid container spacing={3} justifyContent="center" >
