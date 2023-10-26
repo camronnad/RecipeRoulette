@@ -5,6 +5,7 @@ import SearchContainer from './components/search/SearchContainer';
 import NavigationBar from './components/NavigationBar';
 import { BrowserRouter, Route, Routes, useNavigate, Navigate } from 'react-router-dom';
 import LikedRecipe from './components/LikedRecipe';
+import RecipeCardList from './components/RecipeCardList';
 
 function App() {
 
@@ -27,7 +28,7 @@ function App() {
       <BrowserRouter>
         <NavigationBar />
         <Routes>
-          <Route path="/Liked-Recipe" element={<LikedRecipe />} />
+          <Route path="/Liked-Recipe" element={<RecipeCardList />} />
           <Route path="*" element={<><SearchContainer /><RecipeItemGrid handleCardClick={handleCardClick} activeModal={activeModal} /></>} />
         </Routes>
       </BrowserRouter>
