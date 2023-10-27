@@ -16,6 +16,7 @@
     "react-particles": "^2.12.2",
     "react-router-dom": "^6.17.0",
     "react-scripts": "5.0.1",
+    "react-share": "^4.4.1",
     "sas": "^3.0.4",
     "sass": "^1.69.4",
     "tsparticles": "^2.12.0",
