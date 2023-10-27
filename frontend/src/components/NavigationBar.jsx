@@ -12,43 +12,32 @@ import Profile from './Profile'; // Adjust path if necessary
 
 const NavigationBar = () => {
     return (
-        <AppBar position="static" sx={{ backgroundColor: '#759e3b' }}>
+        <AppBar position="static" sx={{ backgroundColor: '#759e3b' }} className='NavBar'>
             <Container maxWidth="xl">
-                <Toolbar disableGutters>
-                    <RecipeRouLogo />
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component="a"
-                        href="#app-bar-with-responsive-menu"
-                        sx={{
-                            mr: 2,
-                            display: { xs: 'none', md: 'flex' },
-                            fontFamily: 'monospace',
-                            fontWeight: 700,
-                            letterSpacing: '.3rem',
-                            color: 'inherit',
-                            textDecoration: 'none',
-                        }}
+                <Toolbar disableGutters sx={{ paddingTop: '10px', paddingBottom: '10px' }}>
+                    <img src='logo.png' alt='Logo' style={{ width: '30%', height: 'auto', maxWidth: '500px'}} />
+                    
+                    {/* Profile Component */}
+                  
+
+                    {/* Let the logo, title, and profile take up all the left space */}
+                    <Box sx={{ flexGrow: 1 }}></Box>
+
+                    {/* Account Icon Button */}
+                    <IconButton
+                        size="large"
+                        aria-label="account of current user"
+                        aria-controls="menu-appbar"
+                        aria-haspopup="true"
+                        color="inherit"
                     >
-                        RecipeRoulette
-                    </Typography>
-                    <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-                        <IconButton
-                            size="large"
-                            aria-label="account of current user"
-                            aria-controls="menu-appbar"
-                            aria-haspopup="true"
-                            color="inherit"
-                        >
-                            <MenuIcon />
-                        </IconButton>
-                    </Box>
-                    <Profile />
+                          <Profile />
+                    </IconButton>
                 </Toolbar>
             </Container>
         </AppBar>
     );
 };
+
 
 export default NavigationBar;

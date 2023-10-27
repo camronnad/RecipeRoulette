@@ -17,12 +17,12 @@ export default function RecipeModal({ recipeData }) {
       <CardMedia
         component="img"
         height="194"
-        src={recipeData?.results.image}
+        src={recipeData?.image}
         alt="Recipe Image"
       />
       <Box sx={{ height: '35px', backgroundColor: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
-          {recipeData.results.title}
+          {recipeData.title}
         </Typography>
       </Box>
     

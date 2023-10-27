@@ -3,6 +3,7 @@ import RecipeItemGrid from './components/RecipeItemGrid';
 import RecipeModal from './components/RecipeModal';
 import SearchContainer from './components/search/SearchContainer';
 import NavigationBar from './components/NavigationBar'
+import "./App.css";
 
 function App() {
 
