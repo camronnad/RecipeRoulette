@@ -4,19 +4,23 @@ import SearchBar from './SearchBar';
 import '/Users/jessesandhu/lighthouse/finals/frontend/src/Search.css';
 
 function SearchContainer(props) {
-  const [imgSpin, setImgSpin] = useState(false);
-  const handleClick = () => {
-    setImgSpin(!imgSpin);
-  };
+
+  // const handleClick = () => {
+  //   console.log("handlelick", imgSpin);
+  //   setImgSpin(!imgSpin);
+  //   //props.setImgSpin(!imgSpin);
+  //   console.log("handlelick", imgSpin);
+
+  // };
   return (
     <div className='wrapper'>
       <div className='rouletteSearchBar'>
         <div className='rouletteSearch'>
-          {!imgSpin &&
+          {!props.imgSpin &&
             <div>
               <img src="roulette.jpg" alt="Roulette Image" height="500px" width="500px" />
             </div>}
-          {imgSpin &&
+          {props.imgSpin &&
             <div>
               <img src="roulette.jpg" className='roulette' alt="Roulette Image" height="500px" width="500px" />
             </div>}
@@ -24,7 +28,7 @@ function SearchContainer(props) {
       </div>
       <div className='searchBar'>
 
-        <SearchBar label="SPIN" onClick={handleClick} />
+        <SearchBar imgSpin={props.imgSpin} setImgSpin={props.setImgSpin} label="SPIN" />
       </div>
       <div className='spinBlurb'>
         {/* <img src="recipeIcon.jpg" alt="recipe icon" height="300px" width={400} /> */}

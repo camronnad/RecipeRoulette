@@ -17,20 +17,20 @@ import { Card, CardContent, Typography } from "@mui/material";
 const LikedRecipe = (props) => {
   console.log("Received props:", props);
 
-  //const [recipeData, setRecipeData] = useState([]);
+  //const [liedrecipeData, setLikedRecipeData] = useState([]);
 
-  // fetch(`/api/liked-recipes`)
-  //   .then((response) => response.json())
-  //   .then((data) => {
-  //     // Handle the JSON data from the response here
-  //     //searchData = data;
-  //     console.log(data);
-  //     //setRecipeData(data);
-  //   })
-  //   .catch(error => {
-  //     // Handle the error, possibly by logging or displaying an error message.
-  //     console.error('Fetch error:', error);
-  //   });
+  fetch(`/api/liked-recipes`)
+    .then((response) => response.json())
+    .then((data) => {
+      // Handle the JSON data from the response here
+      //searchData = data;
+      console.log(data);
+      //setLikedRecipeData(data);
+    })
+    .catch(error => {
+      // Handle the error, possibly by logging or displaying an error message.
+      console.error('Fetch error:', error);
+    });
 
 
   return (
@@ -40,8 +40,7 @@ const LikedRecipe = (props) => {
           <Card sx={{ padding: 2, borderRadius: 9, boxShadow: 3, margin: "0 auto", width: "100%", height: "150px" }}>
             <CardContent>
               <div style={{ height: "75px", overflow: "hidden" }}>
-
-                <img src={props.imgSrc} alt={props.name} style={{
+                <img src={props.imgSrc} alt={props.name} onClick={props.handleCardClick} style={{
                   width: "100%",
                   height: "100%",
                   objectFit: "contain", // This ensures the image fills the container.

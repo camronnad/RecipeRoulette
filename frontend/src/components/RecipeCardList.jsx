@@ -23,14 +23,14 @@ const mockData = [
   // Add more recipe objects as needed
 ];
 
-const RecipeCardList = () => {
+const RecipeCardList = (props) => {
 
 
   return (
     <div>
       {
         mockData.map(recipe => (
-          <LikedRecipe {...recipe} key={recipe.id} />))
+          <LikedRecipe {...recipe} key={recipe.id} handleCardClick={props.handleCardClick} activeModal={props.activeModal} />))
       }
     </div>
   );
