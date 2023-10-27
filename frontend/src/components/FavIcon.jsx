@@ -1,13 +1,19 @@
 import React, { useState } from "react";
 
-const FavIcon = ({ color }) => {
+const FavIcon = ({ color, onFavCLick}) => {
 
   const [selected, setSelected] = useState(false);
 
  
   const toggleSelected = () => {
     setSelected(!selected);
+
+    if(onFavCLick) {
+      onFavCLick();
+    }
   };
+
+ 
 
   return (
     <svg
