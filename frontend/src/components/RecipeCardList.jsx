@@ -8,18 +8,18 @@ const mockData = [
     name: "Mushroom Pasta",
     description: "Delicious mushroom pasta with creamy sauce.",
   },
-  {
-    id: 2,
-    imgSrc: "/ButterChicken.png",
-    name: "Butter Chicken",
-    description: "Delicious butter chicken with creamy sauce.",
-  },
-  {
-    id: 3,
-    imgSrc: "/BuddhaBowl.png",
-    name: "Buddha Bowl",
-    description: "Delicious buddha bowl with creamy sauce.",
-  }
+  // {
+  //   id: 2,
+  //   imgSrc: "/ButterChicken.png",
+  //   name: "Butter Chicken",
+  //   description: "Delicious butter chicken with creamy sauce.",
+  // },
+  // {
+  //   id: 3,
+  //   imgSrc: "/BuddhaBowl.png",
+  //   name: "Buddha Bowl",
+  //   description: "Delicious buddha bowl with creamy sauce.",
+  // }
   // Add more recipe objects as needed
 ];
 
@@ -30,7 +30,7 @@ const RecipeCardList = (props) => {
     <div>
       {
         mockData.map(recipe => (
-          <LikedRecipe {...recipe} key={recipe.id} handleCardClick={props.handleCardClick} activeModal={props.activeModal} />))
+          <LikedRecipe {...recipe} key={recipe.id} />))
       }
     </div>
   );

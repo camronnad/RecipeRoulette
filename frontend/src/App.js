@@ -27,7 +27,7 @@ function App() {
       <BrowserRouter>
         <NavigationBar />
         <Routes>
-          <Route path="/Liked-Recipe" element={<RecipeCardList handleCardClick={handleCardClick} activeModal={activeModal} />} />
+          <Route path="/Liked-Recipe" element={<RecipeCardList />} />
           <Route path="*" element={<><SearchContainer imgSpin={imgSpin} setImgSpin={setImgSpin} /><RecipeItemGrid handleCardClick={handleCardClick} activeModal={activeModal} /></>} />
         </Routes>
       </BrowserRouter>

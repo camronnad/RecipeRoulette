@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import RecipeItem from "./RecipeItem";
 import RecipeCardList from "./RecipeCardList";
@@ -17,21 +17,25 @@ import { Card, CardContent, Typography } from "@mui/material";
 const LikedRecipe = (props) => {
   console.log("Received props:", props);
 
-  //const [liedrecipeData, setLikedRecipeData] = useState([]);
+  const [likedRecipeData, setLikedRecipeData] = useState([]);
+  useEffect(() => {
+    // Fetch data when the component mounts
+    fetch(`/api/liked-recipes`)
+      .then((response) => response.json())
+      .then((data) => {
+        // Handle the JSON data from the response here
+        //searchData = data;
+        setLikedRecipeData(data);
+        console.log("liked recipe state data", data); // Log the data here
+        console.log("liked recipe state data", likedRecipeData);
+      })
+      .catch(error => {
+        // Handle the error, possibly by logging or displaying an error message.
+        console.error('Fetch error:', error);
+      });
+  }, []); // Empty dependency array ensures it only runs once on mount
 
-  fetch(`/api/liked-recipes`)
-    .then((response) => response.json())
-    .then((data) => {
-      // Handle the JSON data from the response here
-      //searchData = data;
-      console.log(data);
-      //setLikedRecipeData(data);
-    })
-    .catch(error => {
-      // Handle the error, possibly by logging or displaying an error message.
-      console.error('Fetch error:', error);
-    });
-
+  const firstLikedRecipe = likedRecipeData[0] || { title: '', description: '' }; // Provide default values
 
   return (
     <Card sx={{ width: "auto", padding: 3, margin: "0 auto", borderRadius: 9 }}>
@@ -40,7 +44,7 @@ const LikedRecipe = (props) => {
           <Card sx={{ padding: 2, borderRadius: 9, boxShadow: 3, margin: "0 auto", width: "100%", height: "150px" }}>
             <CardContent>
               <div style={{ height: "75px", overflow: "hidden" }}>
-                <img src={props.imgSrc} alt={props.name} onClick={props.handleCardClick} style={{
+                <img src={props.imgSrc} alt={props.name} style={{
                   width: "100%",
                   height: "100%",
                   objectFit: "contain", // This ensures the image fills the container.
@@ -48,7 +52,7 @@ const LikedRecipe = (props) => {
                 }} />
               </div>
               <Typography variant="h6" component="div" sx={{ textAlign: "center" }}>
-                {props.name}
+                {firstLikedRecipe.title}
               </Typography>
             </CardContent>
           </Card>
@@ -60,7 +64,7 @@ const LikedRecipe = (props) => {
                 Description
               </Typography>
               <Typography variant="body2" color="text.secondary" sx={{ textAlign: "center" }}>
-                {props.description}
+                {firstLikedRecipe.description}
               </Typography>
             </CardContent>
           </Card>
