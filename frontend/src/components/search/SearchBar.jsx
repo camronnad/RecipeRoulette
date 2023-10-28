@@ -11,12 +11,15 @@ function SearchBar(props) {
 
   const searchHandler = () => {
     //can use search query here for futher processing with sending data to server
+    console.log("Animation started.");
+
     props.setImgSpin(true); // Start the spin animation
 
     // After a certain delay (e.g., 1000ms or 1 second), set imgSpin to false
     setTimeout(() => {
+      console.log("Animation stopped.");
       props.setImgSpin(false);
-    }, 1000); // Adjust the delay as needed
+    }, 6000); // Adjust the delay as needed
   };
 
   //console.log('search query:', search);

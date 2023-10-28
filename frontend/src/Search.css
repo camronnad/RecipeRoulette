@@ -19,12 +19,13 @@ p {
   text-indent: 1.5em;
 }
 
-.roulette {
-  animation: roulette-spin 6s ease-out forwards;
-  /* The total duration is 12 seconds */
-  transform-origin: center;
+@media (prefers-reduced-motion: no-preference) {
+  .roulette {
+    animation: roulette-spin 6s ease-out forwards;
+    /* The total duration is 12 seconds */
+    transform-origin: center;
+  }
 }
-
 
 @keyframes roulette-spin {
   from {

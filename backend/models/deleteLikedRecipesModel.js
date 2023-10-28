@@ -18,8 +18,8 @@ const { pool } = require("../db/connect");
 //   }
 // };
 const queryDeleteLikedRecipes = async (resourceId) => {
-  console.log('queryDeleteLikedRecipes function called'); // Add this line
-  console.log("Received recipe ID for deletion:", resourceId); // Add this line
+  console.log('queryDeleteLikedRecipes function called');
+  console.log("Received recipe ID for deletion:", resourceId);
 
 
   const queryString = "DELETE FROM likedrecipes WHERE id = $1";

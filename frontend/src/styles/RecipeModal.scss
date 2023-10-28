@@ -1,7 +1,7 @@
 .recipe-details-modal {
   background-color: white;
-  box-shadow: 0 0 0 50vmax rgba(0,0,0,.5);
-  position: absolute;
+  box-shadow: 0 0 0 50vmax rgba(0, 0, 0, .5);
+  position: fixed;
   top: 55%;
   left: 50%;
   transform: translate(-50%, -40%);
@@ -9,4 +9,7 @@
   width: 55%;
   overflow-y: scroll;
   border-radius: 12px;
+  z-index: 1000;
+  /* Set a high z-index value to ensure it's in front of other content */
+
 }

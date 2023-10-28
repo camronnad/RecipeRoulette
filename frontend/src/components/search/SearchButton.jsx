@@ -2,6 +2,9 @@ import React, { useEffect } from 'react';
 import SearchBar from './SearchBar';
 function SearchButton(props) {
   const searchHandler = () => {
+
+    console.log("SearchButton: Animation started.");
+
     props.setImgSpin(true); // Start the spin animation
 
     const searchQuery = props.search;
@@ -10,8 +13,13 @@ function SearchButton(props) {
       .then((response) => response.json())
       .then((data) => {
         // Handle the JSON data from the response here
-        console.log(data);
-        props.setImgSpin(false); // Stop the spin animation
+        // Introduce a delay before stopping the animation
+        setTimeout(() => {
+          props.setImgSpin(false); // Stop the spin animation
+          console.log("SearchButton: Animation stopped after a delay.");
+        }, 6000);
+        // console.log(data);
+        // props.setImgSpin(false); // Stop the spin animation
       })
       .catch(error => {
         // Handle the error, possibly by logging or displaying an error message.

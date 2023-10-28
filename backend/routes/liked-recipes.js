@@ -4,6 +4,7 @@ const router = express.Router();
 const axios = require("axios");
 const { queryAllLikedRecipes } = require("../models/LikedRecipesModel.js");
 const { queryDeleteLikedRecipes } = require("../models/deleteLikedRecipesModel");
+const { queryRatingLikedRecipes } = require("../models/ratingLikedRecipesModel");
 
 const likedRecipeRouter = (pool) => {
 
@@ -28,6 +29,22 @@ const likedRecipeRouter = (pool) => {
     // Return the recipe details in the response
   });
   //const deleteLikedRecipeRouter = (pool) => {
+  router.put('/rate/:id', async (req, res) => {
+    const recipeId = req.params.id; // gets the id like above
+    const userId = 1; // hardcoded user id
+    const rating = req.body.rating; // gets the rating from the req body
+
+    console.log("Received PUT request for recipe ID:", recipeId);
+
+    queryRatingLikedRecipes(rating, userId, recipeId)
+      .then(() => {
+        res.status(200).json({ message: 'Rating updated successfully' });
+      })
+      .catch((error) => {
+        console.error("Error updating rating:", error);
+        res.status(500).json({ error: 'Internal Server Error' });
+      });
+  });
 
   router.delete('/:id', async (req, res) => {
     const recipeId = req.params.id;

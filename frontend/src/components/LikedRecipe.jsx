@@ -6,6 +6,7 @@ import { Card, CardContent, Typography } from "@mui/material";
 import { FacebookShareButton, TwitterShareButton } from 'react-share';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
+import InstagramIcon from '@mui/icons-material/Instagram'; // Import Instagram icon
 import StarIcon from '@mui/icons-material/Star';
 
 
@@ -21,7 +22,7 @@ import StarIcon from '@mui/icons-material/Star';
 // ];
 
 const LikedRecipe = (props) => {
-  const { openLikedModal, closeLikedModal } = props;
+  const { openLikedModal, closeLikedModal, photo } = props;
 
 
   console.log("props:", props);
@@ -67,21 +68,26 @@ const LikedRecipe = (props) => {
   //This way, the network request will be triggered when the component mounts (similar to componentDidMount in class components) and will not cause issues with component rendering. Wrapping it in a useEffect is the recommended approach for making asynchronous requests in functional components.
 
 
+  const handleInstagramShare = () => {
+    // Construct the Instagram share URL
+    const instagramUrl = 'https://www.instagram.com'; // Replace with your Instagram URL
 
-
-
+    // Open a new window with the Instagram share URL
+    window.open(instagramUrl, '_blank');
+  };
 
 
   const shareUrls = {
     facebook: 'https://www.facebook.com',
     twitter: 'https://www.twitter.com',
+    instagram: 'https://www.instagram.com'
   };
   // handle delete function 
   // dont forget to prevent sql injection!
   const handleDeleteRecipe = (recipeId) => {
     const deleteURL = `http://localhost:3000/api/liked-recipes/${recipeId}`;
     console.log(`Sending DELETE request to: ${deleteURL}`);
-    console.log("Deleting recipe with ID:", recipeId); // Add this line
+    console.log("Deleting recipe with ID:", recipeId); // Add this line for debugging
 
     fetch(`/api/liked-recipes/${recipeId}`, {
       method: 'DELETE',
@@ -106,20 +112,52 @@ const LikedRecipe = (props) => {
 
   //const firstLikedRecipe = likedRecipeData[0] || { title: '', description: '' }; // Provide default values
   // Update the rating for the recipe with the given ID
-  const handleRateRecipe = (recipeId, rating) => {
-    // Update the rating for the recipe with the given ID
-    const updatedLikedRecipeData = likedRecipeData.map(recipe => {
-      if (recipe.id === recipeId) {
-        return { ...recipe, rating };
-        console.log("rating:", rating);
-        console.log("recipe param:", recipe);
-      }
-      console.log("rating:", rating);
-      console.log("recipe param:", recipe);
-      return recipe;
-    });
+  // const handleRateRecipe = (recipeId, rating) => {
+  //   // Update the rating for the recipe with the given ID
+  //   const updatedLikedRecipeData = likedRecipeData.map(recipe => {
+  //     if (recipe.id === recipeId) {
+  //       return { ...recipe, rating };
+  //       console.log("rating:", rating);
+  //       console.log("recipe param:", recipe);
+  //     }
+  //     console.log("rating:", rating);
+  //     console.log("recipe param:", recipe);
+  //     return recipe;
+  //   });
 
-    setLikedRecipeData(updatedLikedRecipeData);
+  //   setLikedRecipeData(updatedLikedRecipeData);
+  // };
+
+  const handleRateRecipe = (recipeId, rating) => {
+    // Create a PUT request to update the rating
+    const putURL = `http://localhost:3000/api/liked-recipes/rate/${recipeId}`;
+    console.log(`Sending PUT request to: ${recipeId}`);
+    console.log("put recipe with ID:", recipeId); // Add this line
+    fetch(`/api/liked-recipes/rate/${recipeId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ rating }),
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          // If the update was successful, update the state with the new rating
+          const updatedLikedRecipeData = likedRecipeData.map(recipe => {
+            if (recipe.id === recipeId) {
+              return { ...recipe, rating };
+            }
+            return recipe;
+          });
+
+          setLikedRecipeData(updatedLikedRecipeData);
+        } else {
+          console.error('Failed to update rating');
+        }
+      })
+      .catch(error => {
+        console.error('Fetch error:', error);
+      });
   };
 
   return (

@@ -33,7 +33,7 @@ function App() {
   const closeLikedModal = () => {
     setLikedModalOpen(false);
   };
-
+  const mockPhoto = "mushroomPasta.png";
   return (
     // <div className="App">
     //   <BrowserRouter>
@@ -71,8 +71,10 @@ function App() {
       {likedModalOpen && (
         <RecipeModal
           RecipeName="Liked Recipes"
+          photo={"mushroomPasta.png"}
           onClose={closeLikedModal}
         >
+          <LikedRecipe photo={mockPhoto} />
           {/* <RecipeCardList /> */}
         </RecipeModal>
       )}
