@@ -22,36 +22,86 @@ import StarIcon from '@mui/icons-material/Star';
 
 const LikedRecipe = (props) => {
   const { openLikedModal, closeLikedModal } = props;
-  const handleDeleteRecipe = (recipeId) => {
-    // Filter out the recipe with the given ID from the likedRecipeData
-    const updatedLikedRecipeData = likedRecipeData.filter(recipe => recipe.id !== recipeId);
-    setLikedRecipeData(updatedLikedRecipeData);
-  };
+
+
   console.log("props:", props);
   //const { title, description, apiData } = props;
   // console.log("Received props:", props);
   // //const [likedModal, setLikedModal] = useState();
   const [likedRecipeData, setLikedRecipeData] = useState([]);
 
+  // useEffect(() => {
+  //   // Fetch data when the component mounts
+  //   fetch(`/api/liked-recipes`)
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       // Handle the JSON data from the response here
+  //       //searchData = data;
+  //       setLikedRecipeData(data);
+  //       console.log("liked recipe state data", data); // Log the data here
+  //       console.log("liked recipe state data", likedRecipeData);
+  //     })
+  //     .catch(error => {
+  //       // Handle the error, possibly by logging or displaying an error message.
+  //       console.error('Fetch error:', error);
+  //     });
+  // }, []); // Empty dependency array ensures it only runs once on mount
+
   useEffect(() => {
-    // Fetch data when the component mounts
     fetch(`/api/liked-recipes`)
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Request failed with status ${response.status}`);
+        }
+        return response.json();
+      })
       .then((data) => {
         // Handle the JSON data from the response here
-        //searchData = data;
         setLikedRecipeData(data);
-        console.log("liked recipe state data", data); // Log the data here
-        console.log("liked recipe state data", likedRecipeData);
       })
-      .catch(error => {
-        // Handle the error, possibly by logging or displaying an error message.
+      .catch((error) => {
+        // Handle and log the error
         console.error('Fetch error:', error);
       });
-  }, []); // Empty dependency array ensures it only runs once on mount
+  }, []); // The empty dependency array ensures this effect runs only once, similar to componentDidMount
+  //This way, the network request will be triggered when the component mounts (similar to componentDidMount in class components) and will not cause issues with component rendering. Wrapping it in a useEffect is the recommended approach for making asynchronous requests in functional components.
+
+
+
+
+
+
+
   const shareUrls = {
     facebook: 'https://www.facebook.com',
     twitter: 'https://www.twitter.com',
+  };
+  // handle delete function 
+  // dont forget to prevent sql injection!
+  const handleDeleteRecipe = (recipeId) => {
+    const deleteURL = `http://localhost:3000/api/liked-recipes/${recipeId}`;
+    console.log(`Sending DELETE request to: ${deleteURL}`);
+    console.log("Deleting recipe with ID:", recipeId); // Add this line
+
+    fetch(`/api/liked-recipes/${recipeId}`, {
+      method: 'DELETE',
+    })
+      .then((response) => {
+        if (response.status === 204) {
+          // If the deletion was successful, update the state to remove the recipe
+          const updatedLikedRecipeData = likedRecipeData.filter(recipe => recipe.id !== recipeId);
+          setLikedRecipeData(updatedLikedRecipeData);
+        } else {
+          console.error('Failed to delete recipe');
+        }
+      })
+      .catch(error => {
+        console.error('Fetch error:', error);
+      });
+
+    // Filter out the recipe with the given ID from the likedRecipeData
+    const updatedLikedRecipeData = likedRecipeData.filter(recipe => recipe.id !== recipeId);
+    setLikedRecipeData(updatedLikedRecipeData);
   };
 
   //const firstLikedRecipe = likedRecipeData[0] || { title: '', description: '' }; // Provide default values
@@ -61,7 +111,11 @@ const LikedRecipe = (props) => {
     const updatedLikedRecipeData = likedRecipeData.map(recipe => {
       if (recipe.id === recipeId) {
         return { ...recipe, rating };
+        console.log("rating:", rating);
+        console.log("recipe param:", recipe);
       }
+      console.log("rating:", rating);
+      console.log("recipe param:", recipe);
       return recipe;
     });
 
