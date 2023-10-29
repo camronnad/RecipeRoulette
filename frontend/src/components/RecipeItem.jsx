@@ -4,39 +4,71 @@ import CardMedia from "@mui/material/CardMedia";
 import FavIcon from "./FavIcon";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import axios from 'axios';
+import '../styles/RecipeModal.scss'
+import { useState } from "react";
+import RecipeModal from "./RecipeModal";
 
 export default function RecipeItem({
   photo,
   RecipeName,
   handleCardClick,
   activeModal,
+  recipeId,
 }) {
-  const clickHandler = () => {
+
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const clickHandler = (event) => {
+    event.stopPropagation();
     if (activeModal === null) {
       handleCardClick(RecipeName);
+      setModalOpen(true);
     }
   };
 
-  const handleFavClick = () => {
-   
-    fetch('/api/saveLikedRecipe', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ recipeName: RecipeName, photo: photo }),
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
+  const handleFavClick = (isLiked) => {
+ console.log(isLiked)
+    if (isLiked) {
+      axios.post('http://localhost:8080/api/saveLikeRecipe', {
+        title: RecipeName,
+        photo,
+        recipeId
+      
+      })
+      .then(response => {
+        
+        if(response.data.message) {
+          console.log("Recipe saved to liked recipes!");
+        } else {
+          console.error("Failed to save liked recipe:", response.data.error);
+        }
+      })
+      .catch(error => {
+        console.error("Error making the API call:", error);
+      });
+      
+    } else {
+      axios.delete(`http://localhost:8080/api/saveLikeRecipe/${recipeId}`) 
+      .then(() => {
+        console.log("Recipe removed from favorites!");
+        
     })
-    .then(response => response.json())
-    .then(data => {
-      if(data.success) {
-        console.log("Recipe saved to liked recipes!");
-      } else {
-        console.error("Failed to save liked recipe:", data.error);
-      }
+    .catch(error => {
+        console.error("Error removing the recipe:", error);
     });
+
+    }
+    
+ 
   };
 
   return (
+    <>
     <Card
       className="Card-item"
       sx={{ maxWidth: 245, borderRadius: 5, position: "relative" }}
@@ -55,10 +87,20 @@ export default function RecipeItem({
           justifyContent: "center",
         }}
       >
-        <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>
+        <Typography variant="subtitle1" sx={{ fontWeight: "bold", fontSize: '0.8em' }}>
           {RecipeName}
         </Typography>
       </Box>
     </Card>
+    <RecipeModal isOpen={isModalOpen} onClose={closeModal}>
+    <div className="modal-container">
+        <button className="modal-close-btn" onClick={closeModal}>×</button>
+        <h2 className="modal-title">Recipe Name: {RecipeName}</h2>
+        <img className="modal-img" src={photo} alt="Recipe Image" />
+        <p className="modal-description">Here, you can provide a detailed description of your recipe or any other relevant info you want to share.</p>
+    </div>
+</RecipeModal>
+
+  </>
   );
 }

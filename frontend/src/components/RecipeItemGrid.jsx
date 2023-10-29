@@ -6,15 +6,17 @@ import { Card } from "@mui/material";
 const getRandomIndices = (length) => {
     let indices = [];
     while (indices.length < 3) {
+      console.log(indices)
         let randomIndex = Math.floor(Math.random() * length);
         if (!indices.includes(randomIndex)) indices.push(randomIndex);
-    }
+    } 
+
     return indices;
 };
 
 const RecipeItemGrid = ({ handleCardClick, activeModal, recipeData }) => {
   // Get random recipes
-  const randomIndices = recipeData ? getRandomIndices(recipeData.length) : [];
+  const randomIndices = recipeData.length > 0 ? getRandomIndices(recipeData.length) : [];
   const randomRecipes = randomIndices.map(index => recipeData[index]);
 
   return (
@@ -30,6 +32,7 @@ const RecipeItemGrid = ({ handleCardClick, activeModal, recipeData }) => {
               RecipeName={recipe.title}
               handleCardClick={handleCardClick}
               activeModal={activeModal}
+              recipeId={recipe.id}
             />
           </Grid>
         ))}

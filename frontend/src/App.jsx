@@ -3,7 +3,7 @@ import RecipeItemGrid from './components/RecipeItemGrid';
 import RecipeModal from './components/RecipeModal';
 import SearchContainer from './components/search/SearchContainer';
 import NavigationBar from './components/NavigationBar'
-import "./App.css";
+import './App.css'
 
 function App() {
 
@@ -21,7 +21,7 @@ function App() {
   };
 
   return (
-    <div className="App">   
+    <div className="App">  
       <NavigationBar /> 
       <SearchContainer setRecipeData={setRecipeData} />
       <RecipeItemGrid handleCardClick={handleCardClick} activeModal={activeModal} recipeData={recipeData}/>

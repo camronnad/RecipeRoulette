@@ -7,10 +7,8 @@ const FavIcon = ({ color, onFavCLick}) => {
  
   const toggleSelected = () => {
     setSelected(!selected);
-
-    if(onFavCLick) {
-      onFavCLick();
-    }
+      onFavCLick(!selected);
+  
   };
 
  
