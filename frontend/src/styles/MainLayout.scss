@@ -24,17 +24,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative; // ensures z-index applies, already set in inline styles
+    position: relative; 
     z-index: 1;
     animation: float 4s infinite ease-in-out;
-    // Add the background image here
-    background-image: url('../../public/SignUp.jpg');
-    background-size: auto 80%; 
-    padding: 20%; 
-    border-radius: 25px;
-    background-position: 10% center;  
-    background-repeat: no-repeat; 
-  
-    box-shadow: inset 0px -3px 85px rgb(48, 124, 37); 
+ 
   }
 }

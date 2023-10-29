@@ -34,9 +34,10 @@ const SignupForm = () => {
   };
 
   return (
-    <animated.div style={fade} className="form-container">
+    <animated.div style={fade} className="signup-form">
+<div className="form-container">
       <h2>Sign Up</h2>
-      <form className='signup-form' onSubmit={handleSubmit}>
+      <form  onSubmit={handleSubmit}>
         <div>
           <label htmlFor="fullName">Full Name:</label>
           <input type="text" id="fullName" value={fullName} onChange={e => setFullName(e.target.value)} required />
@@ -56,6 +57,7 @@ const SignupForm = () => {
         <button type="submit" className="form-button">Sign Up</button>
       </form>
       <button onClick={haveAccount} className="switch-form-button">Already have an account? Log In</button>
+      </div>
       </animated.div>
   );
 };

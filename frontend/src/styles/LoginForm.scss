@@ -1,74 +1,96 @@
 .login-form {
-  position: fixed;
-  top: 250px;    
-  right: 60px;  
-  width: 500px;
-  padding: 50px;
-  border-radius: 70px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  background: #759e3b;
-  font-size: 30px;
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  font-family: 'Arial', sans-serif; 
 
-  h2 {
-    color: white;
-    text-align: center;
-    margin-bottom: 20px;
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 150;
+    width: 70%;
+    height: 100%;
+    background-image: url('../../public/Login.jpg');
+    background-size: auto 100%;
+    background-position: -10% center;
+    background-repeat: no-repeat;
+    z-index: -1;
   }
 
-  .input-group {
-    margin-bottom: 15px;
-  }
+  .form-container {
+    position: fixed;
+    top: 50%;
+    right: 5%; 
+    transform: translateY(-50%);
+    width: 20%;
+    padding: 40px;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0); 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 
-  label {
-    color: white;
-    font-weight: bold;
-    margin-bottom: 8px;
-    display: block;
-  }
-
-  input {
-    width: 100%;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    background-color: rgba(255, 255, 255, 0.9); // Slight transparency
-    transition: background-color 0.3s ease;
-
-    &:focus {
-      background-color: #fff;
-      outline: none;
+    h2 {
+      color: #759e3b; 
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 45px;
     }
-  }
 
-  .form-button {
-    width: 100%;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    background-color: #fff; // Bright color for the button
-    color: #759e3b;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-
-    &:hover {
-      background-color: #f2f2f2; // Slightly darker on hover
+    .input-group {
+      margin-bottom: 25px;
     }
-  }
 
-  .switch-form-button {
-    margin-top: 15px;
-    width: 100%;
-    padding: 10px;
-    background-color: transparent;
-    border: 2px solid #fff;
-    color: #fff;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    label {
+      color: #759e3b;
+      font-weight: bold;
+      margin-bottom: 12px;
+      display: block;
+      font-size: 30px;
+    }
 
-    &:hover {
-      background-color: white;
-      color: #759e3b; // Using the gradient color
+    input {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #759e3b;
+      border-radius: 5px;
+      background-color: rgba(255, 255, 255, 0.9);
+      font-size: 30px;
+      transition: border-color 0.3s ease;
+
+      &:focus {
+        border-color: #4a7e29;  
+        outline: none;
+      }
+    }
+
+    .form-button, .switch-form-button {
+      width: 100%;
+      padding: 20px;
+      border-radius: 5px;
+      font-size: 25px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .form-button {
+      border: none;
+      background-color: #759e3b;
+      color: #fff;
+
+      &:hover {
+        background-color: #4a7e29;  
+      }
+    }
+
+    .switch-form-button {
+      margin-top: 20px;
+      background-color: transparent;
+      border: 4px solid #759e3b;
+      color: #759e3b;
+
+      &:hover {
+        background-color: #f2f2f2;
+      }
     }
   }
 }
