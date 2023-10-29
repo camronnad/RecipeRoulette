@@ -8,6 +8,8 @@ const { connectDB } = require("./db/connect");
 const userRouter = require("./routes/users");
 const { searchRouter } = require("./routes/search");
 const likesRouter = require('./routes/likedRecipes');
+const { likedRecipeRouter } = require("./routes/liked-recipes");
+
 
 app.use(express.json());
 app.use(cors());
@@ -19,7 +21,8 @@ app.get("/", (req, res) => {
 
 app.use("/api/v1/users", userRouter);
 app.use("/api/search", searchRouter());
-app.use("/api/saveLikeRecipe", likesRouter)
+app.use("/api/saveLikeRecipe", likesRouter);
+app.use("/api/liked-recipes", likedRecipeRouter());
 
 
 const startApp = async () => {

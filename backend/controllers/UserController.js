@@ -1,5 +1,5 @@
 const { pool } = require("../db/connect");
-const {queryAllUsers, getUserEmailModel } = require("../models/UserModel")
+const { queryAllUsers, getUserEmailModel } = require("../models/UserModel");
 
 const getAllUsers = async (req, res) => {
   // const queryString = `SELECT * FROM users;`;
@@ -8,13 +8,13 @@ const getAllUsers = async (req, res) => {
   //   return resp.rows;
   // });
 
-  const allUsers = await queryAllUsers()
-   return res.json({allUsers})
+  const allUsers = await queryAllUsers();
+  return res.json({ allUsers });
 };
 
 const getUserEmail = async (req, res) => {
-  const {email} = req.body
-  const userEmail = await getUserEmailModel(email)
-}
+  const { email } = req.body;
+  const userEmail = await getUserEmailModel(email);
+};
 
 module.exports = { getAllUsers };

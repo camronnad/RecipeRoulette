@@ -13,7 +13,7 @@ function SearchBar(props) {
   };
 
   const searchHandler = () => {
-    toggleSpin()
+    toggleSpin();
     //can use search query here for futher processing with sending data to server
     console.log("search query:", search);
     let searchData;
@@ -26,14 +26,14 @@ function SearchBar(props) {
         // Handle the JSON data from the response here
         props.setRecipeData(data);
         console.log(data);
-        toggleSpin()
+        toggleSpin();
       })
       .catch((error) => {
         // Handle the error, possibly by logging or displaying an error message.
         console.error("Fetch error:", error);
-        toggleSpin()
+        toggleSpin();
       });
-      
+
     //console.log("searchData", searchData);
     // }, []);
     // searchHandler should be a hook and within use useEffect eg useSearchHandler
