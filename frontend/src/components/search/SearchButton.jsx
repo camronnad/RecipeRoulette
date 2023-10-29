@@ -12,6 +12,8 @@ function SearchButton(props) {
     fetch(`/api/search?query=${searchQuery}`)
       .then((response) => response.json())
       .then((data) => {
+        console.log("API response data:", data); // Log the response data
+
         // Handle the JSON data from the response here
         // Introduce a delay before stopping the animation
         setTimeout(() => {

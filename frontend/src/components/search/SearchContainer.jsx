@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import SearchButton from './SearchButton';
 import SearchBar from './SearchBar';
-import '/Users/jessesandhu/lighthouse/finals/frontend/src/Search.css';
+import '../../Search.css';
 
 function SearchContainer(props) {
 

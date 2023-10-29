@@ -71,37 +71,3 @@ const likedRecipeRouter = (pool) => {
 };
 
 module.exports = { likedRecipeRouter, router };
-
-
-
-
-
-
-
-//   try {
-//     // Call the function to delete the liked recipe and wait for it to complete
-//     const deletedRecipe = queryDeleteLikedRecipes(pool, recipeId);
-
-//     if (deletedRecipe) {
-//       console.log("Recipe deleted successfully:", recipeId);
-
-//       // The recipe was successfully deleted, you can return a success status
-//       res.status(204).send();
-//     } else {
-//       console.log("Recipe not found:", recipeId);
-
-//       // Recipe not found
-//       res.status(404).json({ error: "Recipe not found" });
-//     }
-//   } catch (error) {
-//     console.error("Error deleting recipe:", error);
-//     res.status(500).json({ error: "Internal Server Error" });
-//   }
-
-// });
-
-// return router;
-// };
-
-
-// module.exports = { likedRecipeRouter, router };

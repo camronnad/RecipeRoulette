@@ -8,7 +8,6 @@ const { connectDB, pool } = require("./db/connect");
 const userRouter = require("./routes/users");
 const { searchRouter } = require("./routes/search");
 const { likedRecipeRouter } = require("./routes/liked-recipes");
-//const { deleteLikedRecipeRouter } = require("./routes/delete-liked-recipes");
 
 
 app.use(express.json());
@@ -22,7 +21,6 @@ app.get("/", (req, res) => {
 app.use("/api/v1/users", userRouter);
 app.use("/api/search", searchRouter());
 app.use("/api/liked-recipes", likedRecipeRouter());
-//app.use("/api/delete-liked-recipes", deleteLikedRecipeRouter());
 
 
 const startApp = async () => {

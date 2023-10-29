@@ -35,18 +35,7 @@ function App() {
   };
   const mockPhoto = "mushroomPasta.png";
   return (
-    // <div className="App">
-    //   <BrowserRouter>
-    //     <NavigationBar />
-    //     <Routes>
-    //       <Route path="/Liked-Recipe" element={<RecipeCardList />} />
-    //       <Route path="*" element={<><SearchContainer imgSpin={imgSpin} setImgSpin={setImgSpin} /><RecipeItemGrid handleCardClick={handleCardClick} activeModal={activeModal} /></>} />
-    //     </Routes>
-    //   </BrowserRouter>
-    //   {/* <SearchContainer />
-    //   <RecipeItemGrid handleCardClick={handleCardClick} activeModal={activeModal} /> */}
-    //   {activeModal && <RecipeModal RecipeName={activeModal} onClose={handleCloseModal} />}
-    // </div>
+
     <div className="App">
       <BrowserRouter>
         <NavigationBar />

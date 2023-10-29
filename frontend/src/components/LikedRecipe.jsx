@@ -31,23 +31,6 @@ const LikedRecipe = (props) => {
   // //const [likedModal, setLikedModal] = useState();
   const [likedRecipeData, setLikedRecipeData] = useState([]);
 
-  // useEffect(() => {
-  //   // Fetch data when the component mounts
-  //   fetch(`/api/liked-recipes`)
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       // Handle the JSON data from the response here
-  //       //searchData = data;
-  //       setLikedRecipeData(data);
-  //       console.log("liked recipe state data", data); // Log the data here
-  //       console.log("liked recipe state data", likedRecipeData);
-  //     })
-  //     .catch(error => {
-  //       // Handle the error, possibly by logging or displaying an error message.
-  //       console.error('Fetch error:', error);
-  //     });
-  // }, []); // Empty dependency array ensures it only runs once on mount
-
   useEffect(() => {
     fetch(`/api/liked-recipes`)
       .then((response) => {
@@ -109,24 +92,6 @@ const LikedRecipe = (props) => {
     const updatedLikedRecipeData = likedRecipeData.filter(recipe => recipe.id !== recipeId);
     setLikedRecipeData(updatedLikedRecipeData);
   };
-
-  //const firstLikedRecipe = likedRecipeData[0] || { title: '', description: '' }; // Provide default values
-  // Update the rating for the recipe with the given ID
-  // const handleRateRecipe = (recipeId, rating) => {
-  //   // Update the rating for the recipe with the given ID
-  //   const updatedLikedRecipeData = likedRecipeData.map(recipe => {
-  //     if (recipe.id === recipeId) {
-  //       return { ...recipe, rating };
-  //       console.log("rating:", rating);
-  //       console.log("recipe param:", recipe);
-  //     }
-  //     console.log("rating:", rating);
-  //     console.log("recipe param:", recipe);
-  //     return recipe;
-  //   });
-
-  //   setLikedRecipeData(updatedLikedRecipeData);
-  // };
 
   const handleRateRecipe = (recipeId, rating) => {
     // Create a PUT request to update the rating
