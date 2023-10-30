@@ -4,6 +4,10 @@ import RecipeModal from './components/RecipeModal';
 import SearchContainer from './components/search/SearchContainer';
 import NavigationBar from './components/NavigationBar';
 
+import { BrowserRouter, Route, Routes, useNavigate, Navigate } from 'react-router-dom';
+import LikedRecipe from './components/LikedRecipe';
+import RecipeCardList from './components/RecipeCardList';
+
 function App() {
 
   const [activeModal, setActiveModal] = useState(null);
@@ -18,16 +22,29 @@ function App() {
   const handleCloseModal = () => {
     setActiveModal(null);
   };
+  //openLikedModal={openLikedModal} closeLikedModal={closeLikedModal}
 
   return (
-    <div className="App"  style={{ backgroundImage: `url(/HomeRouteImg.png)`, backgroundSize: '100%', // or 'contain', or '100% 50%', etc.
-    backgroundRepeat: 'no-repeat'}}>  
-      <NavigationBar /> 
-      <SearchContainer setRecipeData={setRecipeData} />
-      <RecipeItemGrid handleCardClick={handleCardClick} activeModal={activeModal} recipeData={recipeData}/>
-      {activeModal && <RecipeModal RecipeName={activeModal} onClose={handleCloseModal} recipeData={recipeData}/>}
-    </div> 
-  )
+    <div className="App">
+      <BrowserRouter>
+        <NavigationBar />
+        <Routes>
+          <Route path="/Liked-Recipe" element={<LikedRecipe />} />
+          <Route
+            path="*"
+            element={
+              <>
+                <SearchContainer setRecipeData={setRecipeData} />
+                <RecipeItemGrid handleCardClick={handleCardClick} activeModal={activeModal} recipeData={recipeData} />
+              </>
+            }
+          />
+        </Routes>
+      </BrowserRouter>
+
+      {activeModal && <RecipeModal RecipeName={activeModal} onClose={handleCloseModal} recipeData={recipeData} />}
+    </div>
+  );
 }
 
 export default App;
