@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import SearchBar from './SearchBar';
+
 function SearchButton(props) {
-  //'/api/search?query=${searchQuery}'
+
 
   return (
-    <div className='searchButton'>
-      <button className='bttn' onClick={props.clickHandler} height="30px" width="70px" >
+    <div className="btn-card">
+      <button className='bttn' onClick={props.clickHandler} >
         {props.label}
       </button>
     </div>

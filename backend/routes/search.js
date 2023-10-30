@@ -4,18 +4,6 @@ const axios = require("axios");
 const { pool } = require;
 
 const searchRouter = (pool) => {
-  //const searchQuery = req.query.searchQuery;
-
-  //   router.get("/", (req, res) => {
-  //     // You can use a plain object as a response
-  //     const response = { message: "Front end successfully connected to the server" };
-
-  //     // Send the response as JSON
-  //     res.json(response);
-  //   });
-  //   return router;
-  // };
-
 
 
   router.get('/', async (req, res) => {
@@ -28,9 +16,12 @@ const searchRouter = (pool) => {
       // Fetch the recipe data
       const response = await axios.get(url);
       const data = response.data;
-
+      const idsString = data.results.map(rec => rec.id).join(",") 
+      const bulkUrl = `https://api.spoonacular.com/recipes/informationBulk?ids=${idsString}&apiKey=${apiKey}`
+      const bulkResponse = await axios.get(bulkUrl);
+      const bulkData = bulkResponse.data
       // Send recipe data back to the front-end
-      res.json(data);
+      res.json(bulkData);
     } catch (error) {
       console.error('Error fetching data:', error);
       res.status(500).send('Server error');

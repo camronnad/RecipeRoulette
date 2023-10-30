@@ -20,9 +20,8 @@ p {
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .roulette {
+  .animate {
     animation: roulette-spin 6s ease-out forwards;
-    /* The total duration is 12 seconds */
     transform-origin: center;
   }
 }
@@ -39,15 +38,26 @@ p {
 
 .wrapper {
   display: flex;
+  justify-content: center;
+  /* align-items: center; */
+  /* max-width: 1024px; */
   flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 50px;
-  margin-left: 50px;
-  margin-right: 50px;
+  width: 100%;
+  gap: 100px;
 
 }
 
+.btn-card {
+  width: fit-content;  /* this makes sure the div only takes up as much space as it needs */
+  padding: 10px; /* space around the button */
+  background-color: #ffffff;
+  border-radius: 35px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: inline-flex; /* keeps it inline with other elements and still lets you use flex properties */
+  align-items: center;
+  justify-content: center;
+  height: 400px;
+}
 
 .spinBlurb {
   display: flex;
@@ -62,40 +72,61 @@ p {
 
 
 .bttn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100px;
-  width: 500px;
-  border-radius: 20%;
-  font: xx-large;
-  background-color: green;
-  color: white;
-  font-weight: bolder;
-  font-size: 2em;
+  background: #759e3b;  /* Button background color */
+  border: none;
+  border-radius: 30px;
+  color: #ffffff;  /* Text color */
+  font-weight: bold;
+  font-size: 5em;
+  padding: 15px 40px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+  transition: transform 0.2s ease;
+
+  /* Smooth transition for the hover effect */
+}
+
+.bttn:hover {
+  transform: scale(1.07); /* Make the button slightly larger when hovered */
 }
 
 
 
-
-
-.searchBar {
+.left-column {
   display: flex;
-  justify-content: space-evenly;
-  align-items: center;
   flex-direction: column;
+  align-items: center;
+  width: 60%; 
+  margin-top: 3em;
+
+  
 }
 
-/* .rouletteSearchBar {
+
+.right-column {
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
-  margin-right: 200px;
+  width: 40%; 
 
-} */
+}
+
+
 
 .inputSize {
-  margin-top: 100px;
   width: 500px;
-  height: 30px;
+  height: 70px;
+  border-radius: 40px;
+  border: 7px solid #759e3b;
+  padding: 0 20px;
+}
+
+
+
+
+.rouletteImg {
+  width: 40%;
 }

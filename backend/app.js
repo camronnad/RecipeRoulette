@@ -1,16 +1,19 @@
 require("dotenv").config();
 const express = require("express");
 const app = express();
-
-const { connectDB, pool } = require("./db/connect");
+const cors = require('cors');
+const { connectDB } = require("./db/connect");
 
 // routes 
 const userRouter = require("./routes/users");
 const { searchRouter } = require("./routes/search");
+const likesRouter = require('./routes/likedRecipes');
+const { likedRecipeRouter } = require("./routes/liked-recipes");
+
 
 app.use(express.json());
-
-
+app.use(cors());
+app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
   res.send("Hello world");
@@ -18,7 +21,8 @@ app.get("/", (req, res) => {
 
 app.use("/api/v1/users", userRouter);
 app.use("/api/search", searchRouter());
-
+app.use("/api/saveLikeRecipe", likesRouter);
+app.use("/api/liked-recipes", likedRecipeRouter());
 
 
 const startApp = async () => {
