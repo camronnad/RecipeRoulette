@@ -97,7 +97,9 @@ const LikedRecipe = (props) => {
     // Create a PUT request to update the rating
     const putURL = `http://localhost:3000/api/liked-recipes/rate/${recipeId}`;
     console.log(`Sending PUT request to: ${recipeId}`);
-    console.log("put recipe with ID:", recipeId); // Add this line
+    console.log("Updating rating for recipe ID:", recipeId, "with rating:", rating);
+
+
     fetch(`/api/liked-recipes/rate/${recipeId}`, {
       method: 'PUT',
       headers: {
@@ -134,7 +136,7 @@ const LikedRecipe = (props) => {
               <Card sx={{ padding: 2, borderRadius: 9, boxShadow: 3, margin: "0 auto", width: "100%", height: "150px" }}>
                 <CardContent>
                   <div onClick={openLikedModal} style={{ height: "75px", overflow: "hidden" }} >
-                    <img src="mushroomPasta.png" alt="mushroom pasta" style={{
+                    <img src={recipe.photo_url} alt={recipe.photo_url} style={{
                       width: "100%",
                       height: "100%",
                       objectFit: "contain", // This ensures the image fills the container.
@@ -157,7 +159,7 @@ const LikedRecipe = (props) => {
                     Description
                   </Typography>
                   <Typography variant="body2" color="text.secondary" sx={{ textAlign: "center" }}>
-                    {recipe.description}
+                    {recipe.title}
                   </Typography>
                 </CardContent>
               </Card>
@@ -216,7 +218,7 @@ const LikedRecipe = (props) => {
 
                         <span><h3>Share </h3></span>
                         <div>
-                          <FacebookShareButton url={shareUrls.facebook} quote="Check out Facebook">
+                          <FacebookShareButton url={recipe.photo_url} quote={`check it out`}>
                             <FacebookIcon />
                           </FacebookShareButton>
                           <TwitterShareButton url={shareUrls.twitter} title="Check out Twitter">
