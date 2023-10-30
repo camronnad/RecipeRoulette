@@ -25,21 +25,18 @@ const RecipeItemGrid = ({ handleCardClick, activeModal, recipeData }) => {
       className="recipe_grid"
     >
       <Grid container spacing={3} justifyContent="center">
-        {randomRecipes.map((recipe, index) => {
-          console.log("recipe id:", recipe.id);
-          return (
-            < Grid key={index} item xs={4} >
-              <RecipeItem
-                photo={recipe.image}
-                RecipeName={recipe.title}
-                handleCardClick={handleCardClick}
-                activeModal={activeModal}
-                recipeId={recipe.id}
-              />
-            </Grid>
-          );
-        })}
+        {randomRecipes.map((recipe, index) => (
+          <Grid key={index} item xs={4}>
+            <RecipeItem
 
+              photo={recipe.image}
+              RecipeName={recipe.title}
+              handleCardClick={handleCardClick}
+              activeModal={activeModal}
+              recipeId={recipe.id}
+            />
+          </Grid>
+        ))}
       </Grid>
     </Card >
   );

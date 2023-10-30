@@ -12,6 +12,7 @@ function App() {
 
   const [activeModal, setActiveModal] = useState(null);
   const [recipeData, setRecipeData] = useState([]);
+
   const handleCardClick = (RecipeName, photo,) => {
     if (activeModal === null) {
       setActiveModal(RecipeName);

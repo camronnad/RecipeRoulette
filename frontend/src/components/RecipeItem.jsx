@@ -34,7 +34,7 @@ export default function RecipeItem({
   const handleFavClick = (isLiked) => {
     console.log(isLiked);
     if (isLiked) {
-      axios.post('http://localhost:8080/api/saveLikeRecipe', {
+      axios.post('/api/saveLikeRecipe', {
         title: RecipeName,
         photo,
         recipeId

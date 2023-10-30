@@ -36,7 +36,7 @@ router.post('/', async (req, res) => {
 
 router.delete('/:recipeId', async (req, res) => {
   const { recipeId } = req.params;
-
+  console.log(recipeId);
   try {
 
     console.log("server call made");
