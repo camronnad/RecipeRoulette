@@ -21,7 +21,7 @@ export default function HomeRoute() {
   };
 
   return (
-    <div className="App"  style={{ backgroundImage: `url(/HomeRouteImg.png)`, backgroundSize: 'cover', // or 'contain', or '100% 50%', etc.
+    <div className="App"  style={{ backgroundImage: `url(/HomeRouteImg.png)`, backgroundSize: '100%', // or 'contain', or '100% 50%', etc.
     backgroundRepeat: 'no-repeat'}}>  
       <NavigationBar /> 
       <SearchContainer setRecipeData={setRecipeData} />
