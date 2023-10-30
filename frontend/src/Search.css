@@ -3,20 +3,13 @@ body {
 }
 
 h1 {
-  color: rgb(72, 0, 0);
+  color: rgb(0, 0, 0);
 
 }
 
-p {
-  font-family: "Arial", sans-serif;
-  text-align: justify;
-  font-size: 1.4em;
-  color: #333;
-  margin: 0 0 0 0;
-  background-color: #feeec5;
-  padding: 10px;
-  border: 1px solid #ccc;
-  text-indent: 1.5em;
+.btn-card-text {
+  color: #759e3b;
+  font-weight: bold;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -55,8 +48,10 @@ p {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   display: inline-flex; /* keeps it inline with other elements and still lets you use flex properties */
   align-items: center;
-  justify-content: center;
-  height: 400px;
+  justify-content: end;
+  height: 300px;
+  flex-direction: column;
+  margin-bottom: 80px;
 }
 
 .spinBlurb {
@@ -77,13 +72,14 @@ p {
   border-radius: 30px;
   color: #ffffff;  /* Text color */
   font-weight: bold;
-  font-size: 5em;
+  font-size: 4em;
   padding: 15px 40px;
   text-align: center;
   text-decoration: none;
   cursor: pointer;
   box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
   transition: transform 0.2s ease;
+  position: relative;
 
   /* Smooth transition for the hover effect */
 }
