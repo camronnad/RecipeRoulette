@@ -46,7 +46,7 @@ const UserProfile = () => {
       >
         {profiles.map((profile) => (
           <MenuItem key={profile} onClick={handleCloseUserMenu}>
-            {/* < Typography textAlign="center">{<Link to={`/${profile}`}>{profile}</Link >}</Typography> */}
+            < Typography textAlign="center">{<Link to={`/${profile}`}>{profile}</Link >}</Typography>
           </MenuItem>
         ))}
       </Menu>
