@@ -34,11 +34,10 @@ export default function RecipeItem({
   const handleFavClick = (isLiked) => {
  console.log(isLiked)
     if (isLiked) {
-      axios.post('http://localhost:8080/api/saveLikeRecipe', {
+      axios.post('/api/saveLikeRecipe', {
         title: RecipeName,
         photo,
         recipeId
-      
       })
       .then(response => {
         
@@ -53,7 +52,7 @@ export default function RecipeItem({
       });
       
     } else {
-      axios.delete(`http://localhost:8080/api/saveLikeRecipe/${recipeId}`) 
+      axios.delete(`/api/saveLikeRecipe/${recipeId}`) 
       .then(() => {
         console.log("Recipe removed from favorites!");
         

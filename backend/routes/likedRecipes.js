@@ -4,6 +4,7 @@ const { Pool } = require("pg");
 require('dotenv').config();
 
 
+
 const pool = new Pool({
   user: process.env.DB_USER,
   host: process.env.DB_HOST,
@@ -36,7 +37,7 @@ router.post('/', async (req, res) => {
 
 router.delete('/:recipeId', async (req, res) => {
   const { recipeId } = req.params;
-
+  console.log(recipeId);
   try {
 
     await pool.query('DELETE FROM likedRecipes WHERE recipe_id = $1', [recipeId]);
