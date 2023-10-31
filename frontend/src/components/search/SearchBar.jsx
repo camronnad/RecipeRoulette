@@ -21,25 +21,24 @@ function SearchBar(props) {
     const searchQuery = search;
     // useEffect(() => {
     // fetch(`/api/search?${searchQuery}`)
-    setTimeout(() => {
-      fetch(`/api/search?query=${searchQuery}`)
-        .then((response) => response.json())
-        .then((data) => {
-          // Handle the JSON data from the response here
-          console.log("togglespin called right after dataa:", imgSpin);
-          props.setRecipeData(data);
-          console.log("setRecipeData called with data:", data);
-          // Delay the stopping of the spinning animation
-          setTimeout(() => {
-            setImgSpin(false); // Stop spinning after a delay
-          }, 6000);
-        })
-        .catch((error) => {
-          // Handle the error, possibly by logging or displaying an error message.
-          console.error("Fetch error:", error);
-          toggleSpin();
-        });
-    }, 1000); // 6000 milliseconds (6 seconds) to match your CSS transition duration
+
+    fetch(`/api/search?query=${searchQuery}`)
+      .then((response) => response.json())
+      .then((data) => {
+        // Handle the JSON data from the response here
+        console.log("togglespin called right after dataa:", imgSpin);
+        props.setRecipeData(data);
+        console.log("setRecipeData called with data:", data);
+        // Delay the stopping of the spinning animation
+        setTimeout(() => {
+          setImgSpin(false); // Stop spinning after a delay
+        }, 6000);
+      })
+      .catch((error) => {
+        // Handle the error, possibly by logging or displaying an error message.
+        console.error("Fetch error:", error);
+        toggleSpin();
+      });
 
     //console.log("searchData", searchData);
     // }, []);
