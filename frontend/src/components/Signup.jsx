@@ -18,9 +18,40 @@ const SignupForm = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     console.log("Signup form submitted!");
+
+if (password !== confirmPassword){
+  alert("Passwords do not match");
+  return;
+}
+
+ // Send a POST request to the server
+ try {
+  const response = await fetch('/api/v1/users/signup', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      fullName,
+      email,
+      password
+    })
+  });
+
+  const data = await response.json();
+
+  if (data.userId) {
+    console.log("Signup successful! User ID:", data.userId);
+    navigate('/LoginForm'); // Navigate to login form after successful signup
+  } else {
+    console.error("Error signing up:", data.error);
+  }
+} catch (error) {
+  console.error("There was an error:", error);
+}
 
     // Reset the input values after submission
     setFullName("");

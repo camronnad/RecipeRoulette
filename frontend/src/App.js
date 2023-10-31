@@ -44,7 +44,6 @@ const HomePage = () => (
 
     <BrowserRouter>
       <MainLayout>
-      
         <ParticleBg />
         <Routes>
         <Route path="/" element={isLoggedIn ? <HomePage /> : <Navigate to="/loginForm" />} />
