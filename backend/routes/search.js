@@ -11,7 +11,7 @@ const searchRouter = (pool) => {
       // Capture the search query from the front-end
       const query = req.query.query;
       const apiKey = process.env.APIKEY;
-      const url = `https://api.spoonacular.com/recipes/complexSearch?query=${query}&apiKey=${apiKey}&number=3`;
+      const url = `https://api.spoonacular.com/recipes/complexSearch?query=${query}&apiKey=${apiKey}&sort=random&number=3`;
 
       // Fetch the recipe data
       const response = await axios.get(url);
