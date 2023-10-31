@@ -1,20 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const { getAllUsers, getUserEmail } = require("../controllers/UserController");
 
-const { getAllUsers } = require("../controllers/UserController");
-
-// const {pool} = require
-
-// const userRouter = (pool) => {
-
-//   router.route("/", (req, res) => {
-//     const queryString = `SELECT * FROM users;`
-//     pool.query(queryString)
-//     .then(res => res.rows[0]);
-//   })
-// }
-
-// module.exports = userRouter
-router.route("/").get(getAllUsers);
-router.route("/abc").get(getAllUsers);
+router.get('/', getAllUsers);
+router.post('/getUserEmail', getUserEmail); 
 module.exports = router;

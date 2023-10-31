@@ -5,21 +5,31 @@ import Tooltip from '@mui/material/Tooltip';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
-import { BrowserRouter, Link } from 'react-router-dom';
+import { BrowserRouter, Link, useNavigate } from 'react-router-dom';
 
 
 const profiles = ['Profile', 'Liked-Recipe', 'Logout'];
 
-const UserProfile = () => {
-  const [anchorElUser, setAnchorElUser] = useState(null);
+const UserProfile = ({ onLogout }) => {
+    const [anchorElUser, setAnchorElUser] = useState(null);
+    let navigate = useNavigate();
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
 
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
+    const handleCloseUserMenu = () => {
+        setAnchorElUser(null);
+    };
+
+    const handleMenuClick = (profileOption) => {
+        handleCloseUserMenu();
+        
+        if (profileOption === "Logout") {
+            onLogout();
+            navigate('/LoginForm');
+        }
+    };
 
   return (
     <>
@@ -45,7 +55,7 @@ const UserProfile = () => {
         onClose={handleCloseUserMenu}
       >
         {profiles.map((profile) => (
-          <MenuItem key={profile} onClick={handleCloseUserMenu}>
+          <MenuItem key={profile} onClick={() => handleMenuClick(profile)}>
             < Typography textAlign="center">{<Link to={`/${profile}`}>{profile}</Link >}</Typography>
           </MenuItem>
         ))}
