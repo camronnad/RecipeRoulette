@@ -15,6 +15,8 @@ export default function RecipeItem({
   handleCardClick,
   activeModal,
   recipeId,
+  instructions,
+  readyInMinutes
 }) {
 
   const [isModalOpen, setModalOpen] = useState(false);
@@ -97,6 +99,8 @@ export default function RecipeItem({
           <h2 className="modal-title">Recipe Name: {RecipeName}</h2>
           <img className="modal-img" src={photo} alt="Recipe Image" />
           <p className="modal-description">Here, you can provide a detailed description of your recipe or any other relevant info you want to share.</p>
+          <p>Ready In Minutes: {readyInMinutes}</p>
+          <p>Instructions: <br/> {instructions}</p>
         </div>
       </RecipeModal>
 

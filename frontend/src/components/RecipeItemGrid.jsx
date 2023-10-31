@@ -28,7 +28,8 @@ const RecipeItemGrid = ({ handleCardClick, activeModal, recipeData }) => {
         {randomRecipes.map((recipe, index) => (
           <Grid key={index} item xs={4}>
             <RecipeItem
-
+              instructions={recipe.instructions}
+              readyInMinutes={recipe.readyInMinutes}
               photo={recipe.image}
               RecipeName={recipe.title}
               handleCardClick={handleCardClick}
