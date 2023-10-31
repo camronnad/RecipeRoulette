@@ -1,6 +1,5 @@
-// UserController.js
-
-const { queryAllUsers, getUserByEmail } = require("../models/UserModel");
+const { pool } = require("../db/connect");
+const { queryAllUsers, getUserEmailModel } = require("../models/UserModel");
 
 const getAllUsers = async (req, res) => {
   try {

@@ -52,4 +52,5 @@ const NavigationBar = ({ onLogout, isLoggedIn }) => {
   );
 };
 
+
 export default NavigationBar;

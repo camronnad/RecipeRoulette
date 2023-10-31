@@ -12,7 +12,9 @@ CREATE TABLE users (
 CREATE TABLE likedRecipes (
   id SERIAL PRIMARY KEY NOT NULL,
   title VARCHAR(255) NOT NULL,
+  description VARCHAR(255),
   recipe_id INT NOT NULL,
   photo_url VARCHAR(255) NOT NULL,
-  user_id INT REFERENCES users(id) ON DELETE CASCADE
+  user_id INT REFERENCES users(id) ON DELETE CASCADE,
+  rating integer DEFAULT 0
 );

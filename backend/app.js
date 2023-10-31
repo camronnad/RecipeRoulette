@@ -1,9 +1,16 @@
 require("dotenv").config();
 const express = require("express");
+const app = express();
+const cors = require('cors');
 const morgan = require("morgan");
-const pool = require('./db/connect');  
+const { connectDB } = require("./db/connect");
+
+// routes 
 const userRouter = require("./routes/users");
 const { searchRouter } = require("./routes/search");
+const likesRouter = require('./routes/likedRecipes');
+const { likedRecipeRouter } = require("./routes/liked-recipes");
+
 
 const app = express();
 
@@ -12,8 +19,8 @@ app.use(morgan('combined'));
 
 // Middleware to parse JSON bodies
 app.use(express.json());
-
-//Signup Route
+app.use(cors());
+app.use(express.urlencoded({ extended: true }));//Signup Route
 app.post('/api/v1/users/signup', async(req, res) => {
   const {fullName, email, password} =req.body;
   try{
@@ -40,7 +47,12 @@ app.get("/", (req, res) => {
   res.send("API is running...");
 });
 
-// Function to start server and connect to the database
+app.use("/api/v1/users", userRouter);
+app.use("/api/search", searchRouter());
+app.use("/api/saveLikeRecipe", likesRouter);
+app.use("/api/liked-recipes", likedRecipeRouter());
+
+
 const startApp = async () => {
   try {
     // Try to connect to the database

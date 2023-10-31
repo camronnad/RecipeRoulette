@@ -5,17 +5,18 @@ import Tooltip from '@mui/material/Tooltip';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
-import { useNavigate } from 'react-router-dom'; 
+import { BrowserRouter, Link, useNavigate } from 'react-router-dom';
 
-const profiles = ['Profile', 'Logout'];
+
+const profiles = ['Profile', 'Liked-Recipe', 'Logout'];
 
 const UserProfile = ({ onLogout }) => {
     const [anchorElUser, setAnchorElUser] = useState(null);
     let navigate = useNavigate();
 
-    const handleOpenUserMenu = (event) => {
-        setAnchorElUser(event.currentTarget);
-    };
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
 
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
@@ -30,37 +31,38 @@ const UserProfile = ({ onLogout }) => {
         }
     };
 
-    return (
-        <>
-            <Tooltip title="Open profiles">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <PersonIcon />
-                </IconButton>
-            </Tooltip>
-            <Menu
-                sx={{ mt: '45px' }}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                }}
-                keepMounted
-                transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
-            >
-                {profiles.map((profile) => (
-                    <MenuItem key={profile} onClick={() => handleMenuClick(profile)}>
-                        <Typography textAlign="center">{profile}</Typography>
-                    </MenuItem>
-                ))}
-            </Menu>
-        </>
-    );
+  return (
+    <>
+      <Tooltip title="Open profiles">
+        <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+          <PersonIcon />
+        </IconButton>
+      </Tooltip>
+      <Menu
+        sx={{ mt: '45px' }}
+        id="menu-appbar"
+        anchorEl={anchorElUser}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        keepMounted
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        open={Boolean(anchorElUser)}
+        onClose={handleCloseUserMenu}
+      >
+        {profiles.map((profile) => (
+          <MenuItem key={profile} onClick={() => handleMenuClick(profile)}>
+            < Typography textAlign="center">{<Link to={`/${profile}`}>{profile}</Link >}</Typography>
+          </MenuItem>
+        ))}
+      </Menu>
+    </>
+  );
 };
 
 export default UserProfile;
+

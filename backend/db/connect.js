@@ -1,23 +1,26 @@
 const { Pool } = require('pg');
 require('dotenv').config();
 
-// Check if environment variables are loaded
-console.log('Database Name:', process.env.PGDATABASE);
+const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME } = process.env;
 
 const pool = new Pool({
-  user: process.env.PGUSER,
-  password: process.env.PGPASSWORD,
-  host: process.env.PGHOST,
-  port: process.env.PGPORT,
-  database: process.env.PGDATABASE,
+  user: DB_USER,
+  password: DB_PASSWORD,
+  host: DB_HOST,
+  database: DB_NAME,
 });
 
-pool.connect((err, client, release) => {
-  if (err) {
-    return console.error('Error acquiring client', err.stack);
-  }
-  console.log('Database connection established');
-  // further code for queries or routing
-});
+const connectDB = () => {
+  return pool
+    .connect()
+    .then(() =>
+      console.log(`The application is connected to ${DB_NAME} database`)
+    )
+    .catch((err) => console.error("connection error", err));
 
-module.exports = pool;
+  // return pool
+};
+
+
+
+module.exports = { connectDB, pool };
