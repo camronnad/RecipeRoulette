@@ -13,6 +13,20 @@ app.use(morgan('combined'));
 // Middleware to parse JSON bodies
 app.use(express.json());
 
+//Signup Route
+app.post('/api/v1/users/signup', async(req, res) => {
+  const {fullName, email, password} =req.body;
+  try{
+    const result =await pool.query(
+      'INSERT INTO users (name, email, password, created_at) VALUES ($1, $2, $3, NOW()) RETURNING id',
+    [fullName, email, password]
+      );
+      res.json({userId: result.rows[0].id })
+  } catch(error){
+    res.status(500).json({ error:error.message });
+  }
+});
+
 //Routes
 app.use("/api/v1/users", userRouter);
 app.use("/api/search", searchRouter);
