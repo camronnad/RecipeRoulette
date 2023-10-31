@@ -11,9 +11,6 @@ const { searchRouter } = require("./routes/search");
 const likesRouter = require('./routes/likedRecipes');
 const { likedRecipeRouter } = require("./routes/liked-recipes");
 
-
-const app = express();
-
 // Middleware for request logging
 app.use(morgan('combined'));
 
