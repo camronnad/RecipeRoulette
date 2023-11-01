@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import SearchButton from "./SearchButton";
 import SearchContainer from "./SearchContainer";
 function SearchBar(props) {
-  
+
   const toggleSpin = () => {
     props.setImgSpin(!props.imgSpin);
   };
@@ -21,26 +21,26 @@ function SearchBar(props) {
     const searchQuery = search;
     // useEffect(() => {
     // fetch(`/api/search?${searchQuery}`)
- 
-      fetch(`/api/search?query=${searchQuery}`)
-        .then((response) => response.json())
-        .then((data) => {
-          // Handle the JSON data from the response here
-          console.log("togglespin called right after dataa:", props.imgSpin);
-          setTimeout(() => {
+
+    fetch(`/api/search?query=${searchQuery}`)
+      .then((response) => response.json())
+      .then((data) => {
+        // Handle the JSON data from the response here
+        console.log("togglespin called right after dataa:", props.imgSpin);
+        setTimeout(() => {
           props.setRecipeData(data);
           console.log("setRecipeData called with data:", data);
           // Delay the stopping of the spinning animation
-         
-             props.setImgSpin(false); // Stop spinning after a delay
-           }, 6000);
-        })
-        .catch((error) => {
-          // Handle the error, possibly by logging or displaying an error message.
-          console.error("Fetch error:", error);
-          toggleSpin();
-        });
- // 6000 milliseconds (6 seconds) to match your CSS transition duration
+
+          props.setImgSpin(false); // Stop spinning after a delay
+        }, 6000);
+      })
+      .catch((error) => {
+        // Handle the error, possibly by logging or displaying an error message.
+        console.error("Fetch error:", error);
+        toggleSpin();
+      });
+    // 6000 milliseconds (6 seconds) to match your CSS transition duration
 
     //console.log("searchData", searchData);
     // }, []);

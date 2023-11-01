@@ -1,4 +1,4 @@
-import React ,{useState} from "react";
+import React, { useState } from "react";
 import Grid from "@mui/material/Grid";
 import RecipeItem from "./RecipeItem";
 import { Card } from "@mui/material";
@@ -21,8 +21,10 @@ const RecipeItemGrid = ({ handleCardClick, activeModal, recipeData, imgSpin }) =
     if (isLiked) {
       axios.post('/api/saveLikeRecipe', {
         title: selectedRecipe.title,
-        photo : selectedRecipe.photo,
-        recipeId: selectedRecipe.recipeId
+        photo: selectedRecipe.photo,
+        recipeId: selectedRecipe.recipeId,
+        recipe_link: selectedRecipe.recipe_link,
+        summary: selectedRecipe.summary
       })
         .then(response => {
 
@@ -49,39 +51,38 @@ const RecipeItemGrid = ({ handleCardClick, activeModal, recipeData, imgSpin }) =
 
   };
 
-  // console.log("recipe data:", recipeData);
-  const randomIndices = recipeData.length > 0 ? getRandomIndices(recipeData.length) : [];
-  const randomRecipes = randomIndices.map(index => recipeData[index]);
+
   return (
     <>
-    <Card
-      sx={{ width: "750px", padding: 3, margin: 3, borderRadius: 9 }}
-      className="recipe_grid"
-    >
-     { !imgSpin && 
-      <Grid container spacing={3} justifyContent="center">
-        {recipeData.map((recipe, index) => (
-          <Grid key={index} item xs={4}>
-            <RecipeItem
-              handleFavClick={handleFavClick}
-              setSelectedRecipe={setSelectedRecipe}
-              setModalOpen={setModalOpen}
-              instructions={recipe.instructions}
-              readyInMinutes={recipe.readyInMinutes}
-              photo={recipe.image}
-              RecipeName={recipe.title}
-              handleCardClick={handleCardClick}
-              activeModal={activeModal}
-              recipeId={recipe.id}
-              recipe={recipe}
-            />
+      <Card
+        sx={{ width: "750px", padding: 3, margin: 3, borderRadius: 9 }}
+        className="recipe_grid"
+      >
+        {!imgSpin &&
+          <Grid container spacing={3} justifyContent="center">
+            {recipeData.map((recipe, index) => (
+              <Grid key={index} item xs={4}>
+                <RecipeItem
+                  handleFavClick={handleFavClick}
+                  selectedRecipe={selectedRecipe}
+                  setSelectedRecipe={setSelectedRecipe}
+                  setModalOpen={setModalOpen}
+                  photo={recipe.image}
+                  RecipeName={recipe.title}
+                  handleCardClick={handleCardClick}
+                  activeModal={activeModal}
+                  recipeId={recipe.id}
+                  recipe={recipe}
+                  recipe_link={recipe.spoonacularSourceUrl}
+                  summary={recipe.summary}
+                />
+              </Grid>
+            ))}
           </Grid>
-        ))}
-      </Grid>
-} 
-    </Card >
+        }
+      </Card >
 
-    <RecipeModal isOpen={isModalOpen} >
+      <RecipeModal isOpen={isModalOpen} >
         <div className="modal-container">
           <button className="modal-close-btn" onClick={closeModal}>×</button>
           <h2 className="modal-title">Recipe Name: {selectedRecipe.title}</h2>
@@ -89,9 +90,9 @@ const RecipeItemGrid = ({ handleCardClick, activeModal, recipeData, imgSpin }) =
           <FavIcon onFavCLick={handleFavClick} />
           <p className="modal-description">Here, you can provide a detailed description of your recipe or any other relevant info you want to share.</p>
           <p>Ready In Minutes: {selectedRecipe.readyInMinutes}</p>
-          <>Instructions: <br/> {selectedRecipe.instructions}</>
+          <>Instructions: <br /> {selectedRecipe.instructions}</>
         </div>
-    </RecipeModal>
+      </RecipeModal>
     </>
   );
 };
