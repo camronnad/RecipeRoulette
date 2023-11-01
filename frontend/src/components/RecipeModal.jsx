@@ -13,7 +13,7 @@ function RecipeModal({ isOpen, children, onClose }) {
   });
 
   const downloadPDF = async () => {
-    const canvas = await html2canvas(modalRef.current);
+    const canvas = await html2canvas(modalRef.current, {useCORS: true});
     const imgData = canvas.toDataURL('image/png');
 
     const pdf = new jsPDF();
@@ -33,7 +33,11 @@ function RecipeModal({ isOpen, children, onClose }) {
       position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, 
       background: 'rgba(0,0,0,0.7)', display: 'flex', 
       alignItems: 'center', justifyContent: 'center' }}>
-      <animated.div style={springStyles}>
+      {/* <animated.div style={springStyles}> */}
+      <animated.div style={{ ...springStyles, 
+        maxHeight: '80vh', overflowY: 'auto', width: '80%', 
+        boxSizing: 'border-box', padding: '20px', 
+        background: '#fff', borderRadius: '8px' }}>
         <div ref={modalRef}>  {/* Attach ref to this inner div */}
           {children}
         </div>
