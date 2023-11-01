@@ -16,6 +16,9 @@ export default function RecipeItem({
   // recipeId,
   // instructions,
   // readyInMinutes,
+  recipeId,
+  recipe_link,
+  summary,
   setModalOpen,
   handleFavClick,
   setSelectedRecipe,
@@ -24,12 +27,12 @@ export default function RecipeItem({
 
   function FavIconEnhanced({ onFavCLick, onClick }) {
     return (
-        <div onClick={onClick}>
-             <FavIconEnhanced onFavCLick={handleFavClick} 
-             onClick={e => e.stopPropagation()} />
-        </div>
+      <div onClick={onClick}>
+        <FavIconEnhanced onFavCLick={handleFavClick}
+          onClick={e => e.stopPropagation()} />
+      </div>
     );
-}
+  }
   // const [isModalOpen, setModalOpen] = useState(false);
 
   const clickHandler = (event) => {
@@ -55,15 +58,16 @@ export default function RecipeItem({
   //     })
   //       .then(response => {
 
-  //         if (response.data.message) {
-  //           console.log("Recipe saved to liked recipes!");
-  //         } else {
-  //           console.error("Failed to save liked recipe:", response.data.error);
-  //         }
-  //       })
-  //       .catch(error => {
-  //         console.error("Error making the API call:", error);
-  //       });
+  //   if (response.data.message) {
+  //     console.log("Recipe saved to liked recipes!");
+  //   } else {
+  //     console.error("Failed to save liked recipe:", response.data.error);
+  //   }
+  // })
+  //         .catch (error => {
+  //   console.error("Error making the API call:", error);
+  // });
+  //       }
 
   //   } else {
   //     axios.delete(`http://localhost:8080/api/saveLikeRecipe/${recipeId}`)
@@ -105,4 +109,4 @@ export default function RecipeItem({
       </Card>
     </>
   );
-}
+};
