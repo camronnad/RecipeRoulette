@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import SearchButton from "./SearchButton";
 import SearchContainer from "./SearchContainer";
 function SearchBar(props) {
-  const [imgSpin, setImgSpin] = useState(false);
+
   const toggleSpin = () => {
-    setImgSpin(!imgSpin);
+    props.setImgSpin(!props.imgSpin);
   };
   const [search, setSearch] = useState("");
 
@@ -13,8 +13,8 @@ function SearchBar(props) {
   };
 
   const searchHandler = () => {
-    setImgSpin(true); // Start spinning at the beginning of the search
-    console.log("togglespin called:", imgSpin);
+    props.setImgSpin(true); // Start spinning at the beginning of the search
+    console.log("togglespin called:", props.imgSpin);
     //can use search query here for futher processing with sending data to server
     console.log("search query:", search);
     let searchData;
@@ -26,12 +26,13 @@ function SearchBar(props) {
       .then((response) => response.json())
       .then((data) => {
         // Handle the JSON data from the response here
-        console.log("togglespin called right after dataa:", imgSpin);
-        props.setRecipeData(data);
-        console.log("setRecipeData called with data:", data);
-        // Delay the stopping of the spinning animation
+        console.log("togglespin called right after dataa:", props.imgSpin);
         setTimeout(() => {
-          setImgSpin(false); // Stop spinning after a delay
+          props.setRecipeData(data);
+          console.log("setRecipeData called with data:", data);
+          // Delay the stopping of the spinning animation
+
+          props.setImgSpin(false); // Stop spinning after a delay
         }, 6000);
       })
       .catch((error) => {
@@ -39,6 +40,7 @@ function SearchBar(props) {
         console.error("Fetch error:", error);
         toggleSpin();
       });
+    // 6000 milliseconds (6 seconds) to match your CSS transition duration
 
     //console.log("searchData", searchData);
     // }, []);
@@ -48,7 +50,7 @@ function SearchBar(props) {
   return (
     <>
       <div className="left-column">
-        {imgSpin ? (
+        {props.imgSpin ? (
           <img
             src="roulette.png"
             className="rouletteImg animate"

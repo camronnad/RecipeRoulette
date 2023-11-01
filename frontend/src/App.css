@@ -1,5 +1,5 @@
 .App {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
+  /* background-image: url("/HomeRouteImg.png"); */
+  height: 100vh;
+  
 }

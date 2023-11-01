@@ -1,20 +1,28 @@
 const express = require("express");
 const router = express.Router();
+const { getAllUsers, getUserEmail } = require("../controllers/UserController");
+const { pool } = require("../db/connect");
 
-const { getAllUsers } = require("../controllers/UserController");
+router.get('/', getAllUsers);
+router.post('/getUserEmail', getUserEmail); 
 
-// const {pool} = require
 
-// const userRouter = (pool) => {
 
-//   router.route("/", (req, res) => {
-//     const queryString = `SELECT * FROM users;`
-//     pool.query(queryString)
-//     .then(res => res.rows[0]);
-//   })
-// }
+router.post('/signup', async(req, res) => {
+  const {fullName, email, password} = req.body;
+  try {
+    const result = await pool.query(
+      'INSERT INTO users (name, email, password, created_at) VALUES ($1, $2, $3, NOW()) RETURNING id',
+    [fullName, email, password]
+      );
+      res.json({userId: result.rows[0].id })
+  } catch(error){
+    res.status(500).json({ error:error.message });
+  }
+});
 
-// module.exports = userRouter
-router.route("/").get(getAllUsers);
-router.route("/abc").get(getAllUsers);
+
+
 module.exports = router;
+
+

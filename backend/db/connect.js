@@ -1,5 +1,5 @@
-require("dotenv").config();
-const { Pool } = require("pg");
+const { Pool } = require('pg');
+require('dotenv').config();
 
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME } = process.env;
 
