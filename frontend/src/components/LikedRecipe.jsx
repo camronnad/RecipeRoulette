@@ -158,8 +158,8 @@ const LikedRecipe = (props) => {
                   <Typography variant="h6" component="div" sx={{ textAlign: "center" }}>
                     Description
                   </Typography>
-                  <Typography variant="body2" color="text.secondary" sx={{ textAlign: "center" }}>
-                    {recipe.title}
+                  <Typography variant="body2" color="text.secondary" sx={{ textAlign: "center", maxHeight: "100px", overflowY: "auto" }}>
+                    {recipe.summary}
                   </Typography>
                 </CardContent>
               </Card>
@@ -218,7 +218,7 @@ const LikedRecipe = (props) => {
 
                         <span><h3>Share </h3></span>
                         <div>
-                          <FacebookShareButton url={recipe.photo_url} quote={`check it out`}>
+                          <FacebookShareButton url={recipe.recipe_link} quote={`check it out`}>
                             <FacebookIcon />
                           </FacebookShareButton>
                           <TwitterShareButton url={shareUrls.twitter} title="Check out Twitter">

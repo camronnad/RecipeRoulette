@@ -15,6 +15,9 @@ export default function RecipeItem({
   handleCardClick,
   activeModal,
   recipeId,
+  recipe_link,
+  summary
+
 }) {
 
   const [isModalOpen, setModalOpen] = useState(false);
@@ -37,10 +40,14 @@ export default function RecipeItem({
       axios.post('/api/saveLikeRecipe', {
         title: RecipeName,
         photo,
-        recipeId
+        recipeId,
+        recipe_link,
+        summary
       })
         .then(response => {
 
+          console.log(isLiked);
+          console.log("summary:", summary);
           if (response.data.message) {
             console.log("Recipe saved to liked recipes!");
           } else {
