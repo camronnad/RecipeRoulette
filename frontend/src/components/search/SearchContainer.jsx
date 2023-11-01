@@ -1,6 +1,6 @@
 
 import SearchBar from "./SearchBar";
-import "../../Search.css";
+import "../../styles/Search.css";
 
 function SearchContainer(props) {
 
@@ -10,6 +10,8 @@ function SearchContainer(props) {
       <SearchBar
         label="SPIN"
         setRecipeData={props.setRecipeData}
+        setImgSpin={props.setImgSpin}
+        imgSpin={props.imgSpin}
       />
     </div>
   );
