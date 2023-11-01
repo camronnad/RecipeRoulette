@@ -22,7 +22,9 @@ const RecipeItemGrid = ({ handleCardClick, activeModal, recipeData, imgSpin }) =
       axios.post('/api/saveLikeRecipe', {
         title: selectedRecipe.title,
         photo: selectedRecipe.photo,
-        recipeId: selectedRecipe.recipeId
+        recipeId: selectedRecipe.recipeId,
+        recipe_link: selectedRecipe.recipe_link,
+        summary: selectedRecipe.summary
       })
         .then(response => {
 
@@ -49,9 +51,7 @@ const RecipeItemGrid = ({ handleCardClick, activeModal, recipeData, imgSpin }) =
 
   };
 
-  // console.log("recipe data:", recipeData);
-  const randomIndices = recipeData.length > 0 ? getRandomIndices(recipeData.length) : [];
-  const randomRecipes = randomIndices.map(index => recipeData[index]);
+
   return (
     <>
       <Card
@@ -63,13 +63,18 @@ const RecipeItemGrid = ({ handleCardClick, activeModal, recipeData, imgSpin }) =
             {recipeData.map((recipe, index) => (
               <Grid key={index} item xs={4}>
                 <RecipeItem
-
+                  handleFavClick={handleFavClick}
+                  selectedRecipe={selectedRecipe}
+                  setSelectedRecipe={setSelectedRecipe}
+                  setModalOpen={setModalOpen}
                   photo={recipe.image}
                   RecipeName={recipe.title}
                   handleCardClick={handleCardClick}
                   activeModal={activeModal}
                   recipeId={recipe.id}
                   recipe={recipe}
+                  recipe_link={recipe.spoonacularSourceUrl}
+                  summary={recipe.summary}
                 />
               </Grid>
             ))}
