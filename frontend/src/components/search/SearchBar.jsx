@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import SearchButton from "./SearchButton";
 import SearchContainer from "./SearchContainer";
 function SearchBar(props) {
-  const [imgSpin, setImgSpin] = useState(false);
+  
   const toggleSpin = () => {
-    setImgSpin(!imgSpin);
+    props.setImgSpin(!props.imgSpin);
   };
   const [search, setSearch] = useState("");
 
@@ -13,33 +13,34 @@ function SearchBar(props) {
   };
 
   const searchHandler = () => {
-    setImgSpin(true); // Start spinning at the beginning of the search
-    console.log("togglespin called:", imgSpin);
+    props.setImgSpin(true); // Start spinning at the beginning of the search
+    console.log("togglespin called:", props.imgSpin);
     //can use search query here for futher processing with sending data to server
     console.log("search query:", search);
     let searchData;
     const searchQuery = search;
     // useEffect(() => {
     // fetch(`/api/search?${searchQuery}`)
-    setTimeout(() => {
+ 
       fetch(`/api/search?query=${searchQuery}`)
         .then((response) => response.json())
         .then((data) => {
           // Handle the JSON data from the response here
-          console.log("togglespin called right after dataa:", imgSpin);
+          console.log("togglespin called right after dataa:", props.imgSpin);
+          setTimeout(() => {
           props.setRecipeData(data);
           console.log("setRecipeData called with data:", data);
           // Delay the stopping of the spinning animation
-          setTimeout(() => {
-            setImgSpin(false); // Stop spinning after a delay
-          }, 6000);
+         
+             props.setImgSpin(false); // Stop spinning after a delay
+           }, 6000);
         })
         .catch((error) => {
           // Handle the error, possibly by logging or displaying an error message.
           console.error("Fetch error:", error);
           toggleSpin();
         });
-    }, 1000); // 6000 milliseconds (6 seconds) to match your CSS transition duration
+ // 6000 milliseconds (6 seconds) to match your CSS transition duration
 
     //console.log("searchData", searchData);
     // }, []);
@@ -49,7 +50,7 @@ function SearchBar(props) {
   return (
     <>
       <div className="left-column">
-        {imgSpin ? (
+        {props.imgSpin ? (
           <img
             src="roulette.png"
             className="rouletteImg animate"
