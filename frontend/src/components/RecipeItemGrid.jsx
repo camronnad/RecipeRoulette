@@ -51,7 +51,7 @@ const RecipeItemGrid = ({ handleCardClick, activeModal, recipeData, imgSpin }) =
 
   };
 
-
+  // console.log("recipe data:", recipeData);
   return (
     <>
       <Card
