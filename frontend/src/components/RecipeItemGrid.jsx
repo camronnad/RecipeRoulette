@@ -5,16 +5,7 @@ import { Card } from "@mui/material";
 import RecipeModal from "./RecipeModal";
 import axios from 'axios';
 import FavIcon from "./FavIcon";
-// const getRandomIndices = (length) => {
-//   let indices = [];
-//   while (indices.length < 3) {
-//     console.log(indices);
-//     let randomIndex = Math.floor(Math.random() * length);
-//     if (!indices.includes(randomIndex)) indices.push(randomIndex);
-//   }
 
-//   return indices;
-// };
 
 const RecipeItemGrid = ({ handleCardClick, activeModal, recipeData, imgSpin }) => {
   // Get random recipes
