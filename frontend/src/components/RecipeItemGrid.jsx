@@ -50,8 +50,6 @@ const RecipeItemGrid = ({ handleCardClick, activeModal, recipeData, imgSpin }) =
   };
 
   // console.log("recipe data:", recipeData);
-  const randomIndices = recipeData.length > 0 ? getRandomIndices(recipeData.length) : [];
-  const randomRecipes = randomIndices.map(index => recipeData[index]);
   return (
     <>
     <Card
