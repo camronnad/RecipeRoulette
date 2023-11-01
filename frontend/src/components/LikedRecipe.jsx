@@ -159,7 +159,7 @@ const LikedRecipe = (props) => {
                     Description
                   </Typography>
                   <Typography variant="body2" color="text.secondary" sx={{ textAlign: "center", maxHeight: "100px", overflowY: "auto" }}>
-                    {recipe.summary}
+                    {recipe.summary.replace(/<[^>]+>/g, '')}
                   </Typography>
                 </CardContent>
               </Card>
@@ -221,7 +221,7 @@ const LikedRecipe = (props) => {
                           <FacebookShareButton url={recipe.recipe_link} quote={`check it out`}>
                             <FacebookIcon />
                           </FacebookShareButton>
-                          <TwitterShareButton url={shareUrls.twitter} title="Check out Twitter">
+                          <TwitterShareButton url={recipe.recipe_link} title="Check out Twitter">
                             <TwitterIcon />
                             {/* need recipe id as well below const url! */}
                           </TwitterShareButton>
