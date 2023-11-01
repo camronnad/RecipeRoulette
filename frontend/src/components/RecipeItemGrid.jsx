@@ -5,20 +5,18 @@ import { Card } from "@mui/material";
 import RecipeModal from "./RecipeModal";
 import axios from 'axios';
 import FavIcon from "./FavIcon";
+// const getRandomIndices = (length) => {
+//   let indices = [];
+//   while (indices.length < 3) {
+//     console.log(indices);
+//     let randomIndex = Math.floor(Math.random() * length);
+//     if (!indices.includes(randomIndex)) indices.push(randomIndex);
+//   }
 
+//   return indices;
+// };
 
-const getRandomIndices = (length) => {
-  let indices = [];
-  while (indices.length < 3) {
-    console.log(indices);
-    let randomIndex = Math.floor(Math.random() * length);
-    if (!indices.includes(randomIndex)) indices.push(randomIndex);
-  }
-
-  return indices;
-};
-
-const RecipeItemGrid = ({ handleCardClick, activeModal, recipeData }) => {
+const RecipeItemGrid = ({ handleCardClick, activeModal, recipeData, imgSpin }) => {
   // Get random recipes
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedRecipe, setSelectedRecipe] = useState({});
@@ -69,8 +67,9 @@ const RecipeItemGrid = ({ handleCardClick, activeModal, recipeData }) => {
       sx={{ width: "750px", padding: 3, margin: 3, borderRadius: 9 }}
       className="recipe_grid"
     >
+     { !imgSpin && 
       <Grid container spacing={3} justifyContent="center">
-        {randomRecipes.map((recipe, index) => (
+        {recipeData.map((recipe, index) => (
           <Grid key={index} item xs={4}>
             <RecipeItem
               handleFavClick={handleFavClick}
@@ -88,6 +87,7 @@ const RecipeItemGrid = ({ handleCardClick, activeModal, recipeData }) => {
           </Grid>
         ))}
       </Grid>
+} 
     </Card >
 
     <RecipeModal isOpen={isModalOpen} >

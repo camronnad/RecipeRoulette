@@ -1,0 +1,32 @@
+@keyframes float {
+  0% {
+    transform: translatey(0px);
+  }
+  50% {
+    transform: translatey(-20px);
+  }
+  100% {
+    transform: translatey(0px);
+  }
+}
+
+.main-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+  background-color: #f7f7f7; 
+
+
+  .content {
+    border-radius: 25px;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative; 
+    z-index: 1;
+    animation: float 4s infinite ease-in-out;
+ 
+  }
+}
