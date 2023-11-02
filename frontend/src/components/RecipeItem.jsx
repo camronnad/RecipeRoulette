@@ -11,8 +11,8 @@ import RecipeModal from "./RecipeModal";
 export default function RecipeItem({
   photo,
   RecipeName,
-  handleCardClick,
-  activeModal,
+  // handleCardClick,
+  // activeModal,
   // recipeId,
   // instructions,
   // readyInMinutes,
@@ -33,15 +33,18 @@ export default function RecipeItem({
       </div>
     );
   }
+
   // const [isModalOpen, setModalOpen] = useState(false);
 
   const clickHandler = (event) => {
+    // console.log("clickHandler running", activeModal);
     event.stopPropagation();
-    if (activeModal === null) {
-      handleCardClick(RecipeName);
-      setModalOpen(true);
-      setSelectedRecipe(recipe);
-    }
+    // if (activeModal === null) {
+    // handleCardClick(RecipeName);
+    setModalOpen(true);
+    console.log("set selected recipe is called", recipe);
+    setSelectedRecipe(recipe);
+    // }
   };
 
   // const closeModal = () => {
@@ -81,6 +84,7 @@ export default function RecipeItem({
   //   }
 
   // };
+  // try to figure out why onclick is triggering modal even when hearting card
 
   return (
     <>

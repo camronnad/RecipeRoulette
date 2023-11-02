@@ -11,19 +11,28 @@ const RecipeItemGrid = ({ handleCardClick, activeModal, recipeData, imgSpin }) =
   // Get random recipes
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedRecipe, setSelectedRecipe] = useState({});
+  // const [activeModal, setActiveModal] = useState(null);
 
   const closeModal = () => {
     setModalOpen(false);
   };
 
+
+  // const handleCardClick = (RecipeName, photo,) => {
+  //   if (activeModal === null) {
+  //     setActiveModal(RecipeName);
+  //   }
+  // };
+
   const handleFavClick = (isLiked) => {
+    console.log("selected recipe.id", selectedRecipe.id);
     console.log(isLiked);
     if (isLiked) {
       axios.post('/api/saveLikeRecipe', {
         title: selectedRecipe.title,
-        photo: selectedRecipe.photo,
-        recipeId: selectedRecipe.recipeId,
-        recipe_link: selectedRecipe.recipe_link,
+        photo: selectedRecipe.image,
+        recipeId: selectedRecipe.id,
+        recipe_link: selectedRecipe.spoonacularSourceUrl,
         summary: selectedRecipe.summary
       })
         .then(response => {
