@@ -1,15 +1,8 @@
 import React, { useState } from "react";
 
-const FavIcon = ({ color, onFavClick }) => {
-
-  const [selected, setSelected] = useState(false);
+const FavIcon = ({ color, selected }) => {
 
 
-  const toggleSelected = () => {
-    setSelected(!selected);
-    onFavClick(!selected);
-
-  };
 
 
 
@@ -20,7 +13,6 @@ const FavIcon = ({ color, onFavClick }) => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
 
-      onClick={toggleSelected}
       style={{ cursor: "pointer" }}
     >
       <path

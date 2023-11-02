@@ -26,25 +26,46 @@ export default function RecipeItem({
   recipe
 }) {
 
-  function FavIconEnhanced({ onFavClick, onClick }) {
-    return (
-      <div onClick={onClick}>
-        <FavIconEnhanced onFavClick={handleFavClick}
-          onClick={e => e.stopPropagation()} />
-      </div>
-    );
-  }
+  const [selected, setSelected] = useState(false);
+
+
+
+
+
+
+  // console.log("recipe passed down to recipeitem", recipe);
+  // console.log("recipe passed downn with id", recipe.id);
+
+
+  // function FavIconEnhanced({ onFavClick, onClick }) {
+  //   return (
+  //     <div onClick={onClick}>
+  //       <FavIconEnhanced onFavClick={handleFavClick}
+  //         onClick={e => e.stopPropagation()} />
+  //     </div>
+  //   );
+  // }
 
   // const [isModalOpen, setModalOpen] = useState(false);
 
   const clickHandler = (event) => {
-    // console.log("clickHandler running", activeModal);
-    setSelectedRecipe(recipe);
-    event.stopPropagation();
-    // if (activeModal === null) {
-    // handleCardClick(RecipeName);
+    console.log("event target", event.target);
+    if (event.target.tagName === "path") {
+      handleFavClick(!selected);
+      setSelected(!selected);
+      return;
+    }
     setModalOpen(true);
-    console.log("set selected recipe is called", recipe);
+
+    // console.log("clickHandler running", activeModal);
+    // setSelectedRecipe(recipe);
+    // console.log("set selected recipe is called", recipe);
+    // console.log("set selected recipe is called with id", recipe.id);
+
+    // // event.stopPropagation();
+    // // if (activeModal === null) {
+    // // handleCardClick(RecipeName);
+    // setModalOpen(true);
     // }
   };
 
@@ -57,7 +78,7 @@ export default function RecipeItem({
         onClick={clickHandler}
       >
         <Box sx={{ position: "absolute", right: -2, bottom: 170, p: 1 }}>
-          <FavIcon onFavClick={handleFavClick} />
+          <FavIcon selected={selected} />
         </Box>
         <CardMedia component="img" height="194" src={photo} alt="Recipe Image" />
         <Box
