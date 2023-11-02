@@ -15,7 +15,8 @@ require('dotenv').config();
 
 router.post('/', async (req, res) => {
   const { title, recipe_link, summary, photo, recipeId } = req.body;
-
+  console.log("recipe id ", recipeId);
+  console.log("req body", req.body);
   if (!title || !recipe_link || !summary || !photo) {
     return res.status(400).json({ error: 'Missing required parameters.' });
   }

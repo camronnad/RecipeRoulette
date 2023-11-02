@@ -39,53 +39,15 @@ export default function RecipeItem({
 
   const clickHandler = (event) => {
     // console.log("clickHandler running", activeModal);
+    setSelectedRecipe(recipe);
     event.stopPropagation();
     // if (activeModal === null) {
     // handleCardClick(RecipeName);
     setModalOpen(true);
     console.log("set selected recipe is called", recipe);
-    setSelectedRecipe(recipe);
     // }
   };
 
-  // const closeModal = () => {
-  //   setModalOpen(false);
-  // };
-
-  // const handleFavClick = (isLiked) => {
-  //   console.log(isLiked);
-  //   if (isLiked) {
-  //     axios.post('/api/saveLikeRecipe', {
-  //       title: RecipeName,
-  //       photo,
-  //       recipeId
-  //     })
-  //       .then(response => {
-
-  //   if (response.data.message) {
-  //     console.log("Recipe saved to liked recipes!");
-  //   } else {
-  //     console.error("Failed to save liked recipe:", response.data.error);
-  //   }
-  // })
-  //         .catch (error => {
-  //   console.error("Error making the API call:", error);
-  // });
-  //       }
-
-  //   } else {
-  //     axios.delete(`http://localhost:8080/api/saveLikeRecipe/${recipeId}`)
-  //       .then(() => {
-  //         console.log("Recipe removed from favorites!");
-
-  //       })
-  //       .catch(error => {
-  //         console.error("Error removing the recipe:", error);
-  //       });
-  //   }
-
-  // };
-  // try to figure out why onclick is triggering modal even when hearting card
 
   return (
     <>
