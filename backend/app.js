@@ -14,8 +14,6 @@ const { likedRecipeRouter } = require("./routes/liked-recipes");
 const bcrypt = require('bcrypt');
 // Middleware for request logging
 app.use(morgan('combined'));
-
-// Middleware to parse JSON bodies
 app.use(express.json());
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));//Signup Route
@@ -57,9 +55,9 @@ app.use((err, req, res, next) => {
   res.status(500).send('Something broke!');
 });
 
-app.get("/", (req, res) => {
-  res.send("API is running...");
-});
+// app.get("/", (req, res) => {
+//   res.send("API is running...");
+// });
 
 //app.use("/api/v1/users", userRouter);
 //app.use("/api/search", searchRouter());
@@ -69,7 +67,11 @@ app.use("/api/liked-recipes", likedRecipeRouter());
 
 const startApp = async () => {
   try {
-    // Start the server directly, pool will handle connections implicitly.
+    // Try to connect to the database
+    await connectDB();
+    console.log(`Connected to database: ${process.env.DB_PORT}`);
+
+    // Specify the port to listen on
     const PORT = process.env.PORT || 5000;
 
     // Start the server

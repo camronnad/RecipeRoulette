@@ -4,7 +4,6 @@ import CardMedia from "@mui/material/CardMedia";
 import FavIcon from "./FavIcon";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import axios from 'axios';
 import '../styles/RecipeModal.scss';
 import { useState } from "react";
 import RecipeModal from "./RecipeModal";
@@ -14,57 +13,74 @@ export default function RecipeItem({
   RecipeName,
   handleCardClick,
   activeModal,
+  // recipeId,
+  // instructions,
+  // readyInMinutes,
   recipeId,
+  recipe_link,
+  summary,
+  setModalOpen,
+  handleFavClick,
+  setSelectedRecipe,
+  recipe
 }) {
 
-  const [isModalOpen, setModalOpen] = useState(false);
+  function FavIconEnhanced({ onFavCLick, onClick }) {
+    return (
+      <div onClick={onClick}>
+        <FavIconEnhanced onFavCLick={handleFavClick}
+          onClick={e => e.stopPropagation()} />
+      </div>
+    );
+  }
+  // const [isModalOpen, setModalOpen] = useState(false);
 
   const clickHandler = (event) => {
     event.stopPropagation();
     if (activeModal === null) {
       handleCardClick(RecipeName);
       setModalOpen(true);
+      setSelectedRecipe(recipe);
     }
   };
 
-  const closeModal = () => {
-    setModalOpen(false);
-  };
+  // const closeModal = () => {
+  //   setModalOpen(false);
+  // };
 
-  const handleFavClick = (isLiked) => {
-    console.log(isLiked);
-    if (isLiked) {
-      axios.post('/api/saveLikeRecipe', {
-        title: RecipeName,
-        photo,
-        recipeId
-      })
-        .then(response => {
+  // const handleFavClick = (isLiked) => {
+  //   console.log(isLiked);
+  //   if (isLiked) {
+  //     axios.post('/api/saveLikeRecipe', {
+  //       title: RecipeName,
+  //       photo,
+  //       recipeId
+  //     })
+  //       .then(response => {
 
-          if (response.data.message) {
-            console.log("Recipe saved to liked recipes!");
-          } else {
-            console.error("Failed to save liked recipe:", response.data.error);
-          }
-        })
-        .catch(error => {
-          console.error("Error making the API call:", error);
-        });
+  //   if (response.data.message) {
+  //     console.log("Recipe saved to liked recipes!");
+  //   } else {
+  //     console.error("Failed to save liked recipe:", response.data.error);
+  //   }
+  // })
+  //         .catch (error => {
+  //   console.error("Error making the API call:", error);
+  // });
+  //       }
 
-    } else {
-      axios.delete(`http://localhost:8080/api/saveLikeRecipe/${recipeId}`)
-        .then(() => {
-          console.log("Recipe removed from favorites!");
+  //   } else {
+  //     axios.delete(`http://localhost:8080/api/saveLikeRecipe/${recipeId}`)
+  //       .then(() => {
+  //         console.log("Recipe removed from favorites!");
 
-        })
-        .catch(error => {
-          console.error("Error removing the recipe:", error);
-        });
+  //       })
+  //       .catch(error => {
+  //         console.error("Error removing the recipe:", error);
+  //       });
+  //   }
 
-    }
-
-
-  };
+  // };
 
   return (
     <>
@@ -91,15 +107,6 @@ export default function RecipeItem({
           </Typography>
         </Box>
       </Card>
-      <RecipeModal isOpen={isModalOpen} onClose={closeModal}>
-        <div className="modal-container">
-          <button className="modal-close-btn" onClick={closeModal}>×</button>
-          <h2 className="modal-title">Recipe Name: {RecipeName}</h2>
-          <img className="modal-img" src={photo} alt="Recipe Image" />
-          <p className="modal-description">Here, you can provide a detailed description of your recipe or any other relevant info you want to share.</p>
-        </div>
-      </RecipeModal>
-
     </>
   );
-}
+};

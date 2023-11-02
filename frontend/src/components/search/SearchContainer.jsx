@@ -10,6 +10,8 @@ function SearchContainer(props) {
       <SearchBar
         label="SPIN"
         setRecipeData={props.setRecipeData}
+        setImgSpin={props.setImgSpin}
+        imgSpin={props.imgSpin}
       />
     </div>
   );
