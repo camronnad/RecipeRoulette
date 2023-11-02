@@ -25,10 +25,10 @@ export default function RecipeItem({
   recipe
 }) {
 
-  function FavIconEnhanced({ onFavCLick, onClick }) {
+  function FavIconEnhanced({ onFavClick, onClick }) {
     return (
       <div onClick={onClick}>
-        <FavIconEnhanced onFavCLick={handleFavClick}
+        <FavIconEnhanced onFavClick={handleFavClick}
           onClick={e => e.stopPropagation()} />
       </div>
     );
@@ -94,7 +94,7 @@ export default function RecipeItem({
         onClick={clickHandler}
       >
         <Box sx={{ position: "absolute", right: -2, bottom: 170, p: 1 }}>
-          <FavIcon onFavCLick={handleFavClick} />
+          <FavIcon onFavClick={handleFavClick} />
         </Box>
         <CardMedia component="img" height="194" src={photo} alt="Recipe Image" />
         <Box
