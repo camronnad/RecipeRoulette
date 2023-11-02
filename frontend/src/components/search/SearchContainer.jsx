@@ -1,6 +1,6 @@
 
 import SearchBar from "./SearchBar";
-import "../../Search.css";
+import "../../styles/Search.css";
 
 function SearchContainer(props) {
 

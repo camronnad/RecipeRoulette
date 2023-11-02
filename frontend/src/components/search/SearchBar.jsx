@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import SearchButton from "./SearchButton";
 import SearchContainer from "./SearchContainer";
 function SearchBar(props) {
@@ -19,9 +19,9 @@ function SearchBar(props) {
     console.log("search query:", search);
     let searchData;
     const searchQuery = search;
-    // useEffect(() => {
-    // fetch(`/api/search?${searchQuery}`)
-    setTimeout(() => {
+   // useEffect(() => {
+    //fetch(`/api/search?${searchQuery}`)
+   // setTimeout(() => {
       fetch(`/api/search?query=${searchQuery}`)
         .then((response) => response.json())
         .then((data) => {
@@ -30,19 +30,19 @@ function SearchBar(props) {
           props.setRecipeData(data);
           console.log("setRecipeData called with data:", data);
           // Delay the stopping of the spinning animation
-          setTimeout(() => {
-            setImgSpin(false); // Stop spinning after a delay
-          }, 6000);
+         // setTimeout(() => {
+         //   setImgSpin(false); // Stop spinning after a delay
+       //   }, 6000);
         })
         .catch((error) => {
           // Handle the error, possibly by logging or displaying an error message.
           console.error("Fetch error:", error);
           toggleSpin();
         });
-    }, 1000); // 6000 milliseconds (6 seconds) to match your CSS transition duration
+    //}, 1000); // 6000 milliseconds (6 seconds) to match your CSS transition duration
 
     //console.log("searchData", searchData);
-    // }, []);
+   // }, []);
     // searchHandler should be a hook and within use useEffect eg useSearchHandler
   };
 

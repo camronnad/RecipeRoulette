@@ -14,11 +14,17 @@ const getRandomIndices = (length) => {
   return indices;
 };
 
-const RecipeItemGrid = ({ handleCardClick, activeModal, recipeData }) => {
-  // Get random recipes
+const RecipeItemGrid = ({ handleCardClick, activeModal, recipeData = [] }) => {
+  // Ensure recipeData is an array before proceeding
+  if (!Array.isArray(recipeData)) {
+    console.error("recipeData should be an array");
+    return null;
+  }
+
   console.log("recipe data:", recipeData);
   const randomIndices = recipeData.length > 0 ? getRandomIndices(recipeData.length) : [];
   const randomRecipes = randomIndices.map(index => recipeData[index]);
+  
   return (
     <Card
       sx={{ width: "750px", padding: 3, margin: 3, borderRadius: 9 }}
