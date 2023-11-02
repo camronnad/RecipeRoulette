@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import SearchButton from "./SearchButton";
 import SearchContainer from "./SearchContainer";
 function SearchBar(props) {
@@ -43,7 +43,7 @@ function SearchBar(props) {
     // 6000 milliseconds (6 seconds) to match your CSS transition duration
 
     //console.log("searchData", searchData);
-    // }, []);
+   // }, []);
     // searchHandler should be a hook and within use useEffect eg useSearchHandler
   };
 
