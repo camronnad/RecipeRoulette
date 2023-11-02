@@ -48,7 +48,7 @@ const RecipeItemGrid = ({ handleCardClick, activeModal, recipeData, imgSpin }) =
         });
 
     } else {
-      axios.delete(`http://localhost:8080/api/saveLikeRecipe/${selectedRecipe.recipeId}`)
+      axios.delete(`http://localhost:8080/api/saveLikeRecipe/${selectedRecipe.id}`)
         .then(() => {
           console.log("Recipe removed from favorites!");
 
