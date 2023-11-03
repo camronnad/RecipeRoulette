@@ -7,11 +7,10 @@ const { queryDeleteLikedRecipes } = require("../models/deleteLikedRecipesModel")
 const { queryRatingLikedRecipes } = require("../models/ratingLikedRecipesModel");
 
 const likedRecipeRouter = (pool) => {
-
   router.get("/", (req, res) => {
     queryAllLikedRecipes()
       .then(likedRecipes => {
-        console.log("query all liked recipes:", likedRecipes);
+        // console.log("query all liked recipes:", likedRecipes);
 
         // Send the response as JSON with the query results
         res.json(likedRecipes);

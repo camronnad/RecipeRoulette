@@ -26,7 +26,7 @@ export default function RecipeItem({
   recipe
 }) {
 
-  const [selected, setSelected] = useState(false);
+  const [selectedColor, setSelectedColor] = useState(false);
 
 
 
@@ -50,9 +50,10 @@ export default function RecipeItem({
 
   const clickHandler = (event) => {
     console.log("event target", event.target);
+    setSelectedRecipe(recipe);
     if (event.target.tagName === "path") {
-      handleFavClick(!selected);
-      setSelected(!selected);
+      handleFavClick(!selectedColor);
+      setSelectedColor(!selectedColor);
       return;
     }
     setModalOpen(true);
@@ -78,7 +79,7 @@ export default function RecipeItem({
         onClick={clickHandler}
       >
         <Box sx={{ position: "absolute", right: -2, bottom: 170, p: 1 }}>
-          <FavIcon selected={selected} />
+          <FavIcon selected={selectedColor} />
         </Box>
         <CardMedia component="img" height="194" src={photo} alt="Recipe Image" />
         <Box

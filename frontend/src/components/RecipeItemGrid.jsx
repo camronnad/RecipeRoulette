@@ -11,6 +11,7 @@ const RecipeItemGrid = ({ handleCardClick, activeModal, recipeData, imgSpin }) =
   // Get random recipes
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedRecipe, setSelectedRecipe] = useState({});
+  const [modalFav, setModalFav] = useState(false);
   // const [activeModal, setActiveModal] = useState(null);
 
   const closeModal = () => {
@@ -59,7 +60,10 @@ const RecipeItemGrid = ({ handleCardClick, activeModal, recipeData, imgSpin }) =
     }
 
   };
-
+  const handleModalFav = () => {
+    setModalFav(!modalFav);
+    handleFavClick(modalFav, selectedRecipe);
+  };
   // console.log("recipe data:", recipeData);
   return (
     <>
@@ -74,7 +78,7 @@ const RecipeItemGrid = ({ handleCardClick, activeModal, recipeData, imgSpin }) =
                 <RecipeItem
                   handleFavClick={(isLiked) => { handleFavClick(isLiked, recipe); }}
                   selectedRecipe={selectedRecipe}
-                  setSelectedRecipe={() => { selectedRecipe(recipe); }}
+                  setSelectedRecipe={setSelectedRecipe}
                   setModalOpen={setModalOpen}
                   photo={recipe.image}
                   RecipeName={recipe.title}
@@ -96,7 +100,7 @@ const RecipeItemGrid = ({ handleCardClick, activeModal, recipeData, imgSpin }) =
           <button className="modal-close-btn" onClick={closeModal}>×</button>
           <h2 className="modal-title">Recipe Name: {selectedRecipe.title}</h2>
           <img className="modal-img" src={selectedRecipe.image} alt="Recipe Image" />
-          <FavIcon onFavClick={handleFavClick} />
+          <button onClick={handleModalFav}><FavIcon selected={modalFav} /></button>
           <p className="modal-description">Here, you can provide a detailed description of your recipe or any other relevant info you want to share.</p>
           <p>Ready In Minutes: {selectedRecipe.readyInMinutes}</p>
           <>Instructions: <br /> {selectedRecipe.instructions}</>
