@@ -12,7 +12,7 @@ const likedRecipeRouter = (pool) => {
     queryAllLikedRecipes()
       .then(likedRecipes => {
         console.log("query all liked recipes:", likedRecipes);
-
+        console.log("likedRecipes:", likedRecipes)
         // Send the response as JSON with the query results
         res.json(likedRecipes);
       })

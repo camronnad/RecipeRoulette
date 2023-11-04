@@ -3,6 +3,7 @@ import RecipeModal from '../components/RecipeModal';
 import SearchContainer from '../components/search/SearchContainer';
 import NavigationBar from '../components/NavigationBar';
 import RecipeItemGrid from '../components/RecipeItemGrid';
+import { useSpring, animated } from "react-spring";
 
 
 export default function HomeRoute({isLoggedIn, setIsLoggedIn}) {
@@ -13,6 +14,7 @@ export default function HomeRoute({isLoggedIn, setIsLoggedIn}) {
 
   const handleCardClick = (RecipeName, photo,) => {
     if (activeModal === null) {
+      console.log("chicken")
       setActiveModal(RecipeName);
     }
   };
@@ -23,12 +25,13 @@ export default function HomeRoute({isLoggedIn, setIsLoggedIn}) {
 
 
 
+
   return (
-    <div className="App"  style={{ backgroundImage: `url(/HomeRouteImg.png)`, backgroundSize: '100%', // or 'contain', or '100% 50%', etc.
+    <animated.div className="App"  style={{ backgroundImage: `url(/HomeRouteImg.png)`, backgroundSize: '100%', // or 'contain', or '100% 50%', etc.
     backgroundRepeat: 'no-repeat'}}>  
       <SearchContainer setRecipeData={setRecipeData} setImgSpin={setImgSpin} imgSpin={imgSpin}/>
       <RecipeItemGrid handleCardClick={handleCardClick} activeModal={activeModal} recipeData={recipeData}  imgSpin={imgSpin}/>
       {activeModal && <RecipeModal RecipeName={activeModal} onClose={handleCloseModal} recipeData={recipeData}/>}
-    </div>
+    </animated.div>
   );
 }

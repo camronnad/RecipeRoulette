@@ -1,0 +1,70 @@
+.carousel {
+  display: flex;
+  margin: 0 auto;
+  overflow: hidden;
+  justify-content: space-around;
+}
+
+.carousel-items-down {
+  display: flex;
+  animation: carousel-down 20s linear infinite;
+  flex-direction: column;
+  gap: 30px;
+  transform: translateY(-1000px);
+}
+
+.carousel-items-up {
+  display: flex;
+  animation: carousel-up 20s linear infinite;
+  flex-direction: column;
+  gap: 30px;
+  transform: translateY(-1000px);
+
+}
+
+
+.review {
+ display: block;
+ height: 200px;
+ width: 200px;
+ background-color: white;
+ border-radius: 30px;
+ overflow: hidden;
+ box-shadow: 0 10px 8px rgba(0, 0, 0, 0.1);
+ text-align: center;
+}
+.review img {
+  width: 100%; /* Image takes the full width of the card */
+  height: 80%; /* Image takes up 90% of the card's height */
+  object-fit: cover;
+ /* This will cover the div with the image, cropping it if necessary */
+}
+.stars {
+  color: black; /* This will make your stars green */
+  font-size: 22px; /* Adjust size as needed */
+}
+
+@keyframes carousel-down{
+  100%{
+    transform: translateY(-1000px);
+  }
+  50%{
+    transform: translateY(0px);
+  }
+  0%{
+    transform: translateY(-1000px);
+  }
+
+}
+
+@keyframes carousel-up{
+  100%{
+    transform: translateY(0px);
+  }
+  50%{
+    transform: translateY(-1000px);
+  }
+  0%{
+    transform: translateY(0px);
+  }
+}

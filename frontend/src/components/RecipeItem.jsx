@@ -37,11 +37,13 @@ export default function RecipeItem({
 
   const clickHandler = (event) => {
     event.stopPropagation();
-    if (activeModal === null) {
+    // if (activeModal === null) {
+      console.log("hello")
       handleCardClick(RecipeName);
       setModalOpen(true);
       setSelectedRecipe(recipe);
-    }
+      
+    // }
   };
 
   // const closeModal = () => {

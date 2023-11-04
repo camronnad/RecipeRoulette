@@ -22,7 +22,7 @@ import StarIcon from '@mui/icons-material/Star';
 // ];
 
 const LikedRecipe = (props) => {
-  const { openLikedModal, closeLikedModal, photo } = props;
+  const { openLikedModal, closeLikedModal, photo, recipe } = props;
 
 
   console.log("props:", props);
@@ -32,6 +32,9 @@ const LikedRecipe = (props) => {
   const [likedRecipeData, setLikedRecipeData] = useState([]);
 
   useEffect(() => {
+    console.log("document.body.style", document.body.style.overflow)
+    document.body.style["overflow"] = "scroll"
+  
     fetch(`/api/liked-recipes`)
       .then((response) => {
         if (!response.ok) {
@@ -42,6 +45,7 @@ const LikedRecipe = (props) => {
       .then((data) => {
         // Handle the JSON data from the response here
         setLikedRecipeData(data);
+        console.log("data object:",data)
       })
       .catch((error) => {
         // Handle and log the error
@@ -127,24 +131,57 @@ const LikedRecipe = (props) => {
       });
   };
 
+  const parentStyle = {
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center center',
+    minHeight: '100vh',
+    display: 'grid', // This creates columns that grow to fit the container., // This sets the gap between the grid items.
+    padding: '20px',
+  };
+  
+  const cardStyle = {
+    height: 200,
+    padding: 2, 
+    margin: 20, 
+    borderRadius: 10,  
+    backgroundColor: "rgba(255, 255, 255, 0.5)"
+  };
+  
+  const innerCardStyle = {
+    padding: 2, 
+    borderRadius: 9, 
+    boxShadow: 3, 
+    margin: "20px auto", 
+    width: "100%", 
+    height: "150px",
+  };
+  
+  const imageContainerStyle = {
+    height: "75px", 
+    overflow: "hidden"
+  };
+  
+  const imageStyle = {
+    width: "100%",
+    height: "100%",
+    objectFit: "contain", 
+    display: "block",
+  };
+
   return (
-    <div>
+    <div style={parentStyle}>
       {likedRecipeData.map((recipe) => (
-        <Card key={recipe.id} sx={{ width: "auto", padding: 3, margin: "0 auto", borderRadius: 9 }}>
-          <Grid container spacing={3} justifyContent="center" >
-            <Grid item xs={3}>
-              <Card sx={{ padding: 2, borderRadius: 9, boxShadow: 3, margin: "0 auto", width: "100%", height: "150px" }}>
+        <Card key={recipe.id} style={cardStyle}>
+          <Grid container spacing={0} justifyContent="center">
+            <Grid item xs={2}>
+              <Card style={innerCardStyle}>
                 <CardContent>
-                  <div onClick={openLikedModal} style={{ height: "75px", overflow: "hidden" }} >
-                    <img src={recipe.photo_url} alt={recipe.photo_url} style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "contain", // This ensures the image fills the container.
-                      display: "block",
-                    }} />
+                  <div onClick={openLikedModal} style={{ height: "75px", overflow: "hidden" }}>
+                    <img src={recipe.photo_url} alt={recipe.photo_url} style={imageStyle} />
                   </div>
                   <div>
-                    <button onClick={closeLikedModal} >Close</button>
+                    
                   </div>
                   <Typography variant="h6" component="div" sx={{ textAlign: "center" }}>
                     {recipe.title}
@@ -153,83 +190,71 @@ const LikedRecipe = (props) => {
               </Card>
             </Grid>
             <Grid item xs={6}>
-              <Card sx={{ padding: 2, borderRadius: 9, boxShadow: 3, margin: "0 auto", width: "80%", height: "150px" }}>
+              <Card style={innerCardStyle}>
                 <CardContent>
                   <Typography variant="h6" component="div" sx={{ textAlign: "center" }}>
                     Description
                   </Typography>
                   <Typography variant="body2" color="text.secondary" sx={{ textAlign: "center", maxHeight: "100px", overflowY: "auto" }}>
+                    {console.log("Summary:", recipe)}
                     {recipe.summary.replace(/<[^>]+>/g, '')}
                   </Typography>
                 </CardContent>
               </Card>
             </Grid>
             <Grid item xs={3}>
-              <Card sx={{
-                padding: 2,
-                borderRadius: 9,
-                boxShadow: 3,
-                margin: "0 auto",
-                width: "100%",
-                height: "150px"
-              }}>
-                <CardContent >
-                  <Typography variant="h6" component="div" sx={{ textAlign: "center" }}>
-                    Options
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary" sx={{ textAlign: "center" }}>
-                    Content goes here.
-                  </Typography>
-                  <Grid container spacing={2} justifyContent="center"> {/* Nest another Grid container */}
-                    <Grid item xs={4}>
-                      <div style={{ backgroundColor: "lightblue", height: "50px", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                        <span style={{ fontSize: "12px" }}>
-                          <button
-                            onClick={() => handleDeleteRecipe(recipe.id)} // Pass the recipe ID to the delete handler
-                            variant="contained"
-                            color="secondary" // Change to your preferred color
-                            size="small"
-                          >
-                            DELETE
-                          </button></span>
-                      </div>
-                    </Grid>
-                    <Grid item xs={4}>
-                      <div style={{ backgroundColor: "lightcoral", height: "50px", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                        <span style={{ fontSize: "12px" }}>RATE</span>
-                        <div style={{ display: "flex", flexDirection: "row" }}> {/* Add the display: "flex" here */}
-                          {[1, 2, 3, 4, 5].map((rating) => (
-                            <div key={rating} onClick={() => handleRateRecipe(recipe.id, rating)} style={{ cursor: "pointer" }}>
-                              <StarIcon style={{ color: recipe.rating >= rating ? "gold" : "gray" }} />
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    </Grid>
-                    <Grid item xs={4}>
-                      <div style={{ backgroundColor: "lightgreen", height: "50px", display: "flex", alignItems: "center", justifyContent: "space-evenly" }}>
-                        {/* <span style={{ fontSize: "12px" }}><a
-                          href="https://www.facebook.com/sharer/sharer.php?u=YOUR_URL_HERE"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          Share on Facebook
-                        </a></span> */}
+              <Card style={innerCardStyle}>
+                <CardContent>
+                  
+                 
+                <Grid container spacing={0} justifyContent="center" >
+  {/* ...other Grid items... */}
+  <Grid item xs={10} sx={{ mt: -5 }}>
+    <Card style={innerCardStyle}>
+      <CardContent>
+        <div style={{ display: 'flex', flexDirection: 'column'}}>
+          {/* Rating at the top */}
+          <div style={{ marginBottom: '10px' }}>
+            <Typography variant="h6" component="div" sx={{ textAlign: "center" }}>
+              Rating
+            </Typography>
+            <div style={{ display: "flex", justifyContent: "center", padding: '10px 0' }}>
+              {[1, 2, 3, 4, 5].map((rating) => (
+                <div key={rating} onClick={() => handleRateRecipe(recipe.id, rating)} style={{ cursor: "pointer" }}>
+                  <StarIcon style={{ color: recipe.rating >= rating ? "gold" : "gray" }} />
+                </div>
+              ))}
+            </div>
+          </div>
 
-                        <span><h3>Share </h3></span>
-                        <div>
-                          <FacebookShareButton url={recipe.recipe_link} quote={`check it out`}>
-                            <FacebookIcon />
-                          </FacebookShareButton>
-                          <TwitterShareButton url={recipe.recipe_link} title="Check out Twitter">
-                            <TwitterIcon />
-                            {/* need recipe id as well below const url! */}
-                          </TwitterShareButton>
+          {/* Delete and Share buttons side by side */}
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <button
+              onClick={() => handleDeleteRecipe(recipe.id)}
+              variant="contained"
+              color="secondary"
+              size="small"
+            >
+              DELETE
+            </button>
+            
+            {/* Sharing options */}
+            <div>
+              <FacebookShareButton url={recipe.recipe_link} quote={`check it out`}>
+                <FacebookIcon size={32} round />
+              </FacebookShareButton>
+              <TwitterShareButton url={recipe.recipe_link} title="Check out Twitter">
+                <TwitterIcon size={32} round />
+              </TwitterShareButton>
+            </div>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  </Grid>
+</Grid>
 
-                        </div>
-                      </div>
-                    </Grid>
-                  </Grid>
+                  
                 </CardContent>
               </Card>
             </Grid>
@@ -238,6 +263,6 @@ const LikedRecipe = (props) => {
       ))}
     </div>
   );
-};
-
-export default LikedRecipe;
+                          }
+  export default LikedRecipe;
+              
