@@ -23,6 +23,16 @@ const queryRatingLikedRecipes = async (rating, userId, id) => {
     throw error;
   }
 };
+const queryTopLikedRecipes = async () => {
+  const queryString = `  SELECT users.id AS user_id, users.name AS user_name, likedRecipes.id AS recipe_id, likedRecipes.title AS recipe_title
+  FROM users
+  INNER JOIN likedRecipes ON users.id = likedRecipes.user_id
+  WHERE likedRecipes.rating >= 4
+  LIMIT 5;`;
+  const result = await pool.query(queryString);
+  // console.log(result)
+  return result.rows;
+};
 
 
-module.exports = { queryRatingLikedRecipes };
+module.exports = { queryRatingLikedRecipes, queryTopLikedRecipes };

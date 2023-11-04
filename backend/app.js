@@ -8,6 +8,7 @@ const userRouter = require("./routes/users");
 const { searchRouter } = require("./routes/search");
 const likesRouter = require('./routes/likedRecipes');
 const { likedRecipeRouter } = require("./routes/liked-recipes");
+const { topLikedRecipes } = require("./routes/top-recipes");
 
 
 // Middleware for request logging
@@ -31,6 +32,8 @@ app.use("/api/v1/users", userRouter);
 app.use("/api/search", searchRouter());
 app.use("/api/saveLikeRecipe", likesRouter);
 app.use("/api/liked-recipes", likedRecipeRouter());
+app.use("/api/top-recipes", topLikedRecipes());
+
 
 
 const startApp = async () => {

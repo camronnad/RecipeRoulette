@@ -30,7 +30,7 @@ const likedRecipeRouter = (pool) => {
   //const deleteLikedRecipeRouter = (pool) => {
   router.put('/rate/:id', async (req, res) => {
     const recipeId = req.params.id; // gets the id like above
-    const userId = 1; // hardcoded user id
+    const userId = 4; // hardcoded user id
     const rating = req.body.rating; // gets the rating from the req body
     // should validate the above to make sure its a number between 1-5 eg
 
@@ -45,6 +45,8 @@ const likedRecipeRouter = (pool) => {
         res.status(500).json({ error: 'Internal Server Error' });
       });
   });
+
+
 
   router.delete('/:id', async (req, res) => {
     const recipeId = req.params.id;
