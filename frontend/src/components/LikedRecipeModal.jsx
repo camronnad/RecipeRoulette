@@ -4,7 +4,6 @@ import CardMedia from '@mui/material/CardMedia';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
-
 export default function LikedRecipeModal({ photo, RecipeName }) {
   return (
     <Card className="recipe-details-modal" sx={{ maxWidth: 1000, borderRadius: 5, position: 'relative', height: 1000 }}>
@@ -21,7 +20,6 @@ export default function LikedRecipeModal({ photo, RecipeName }) {
           {RecipeName}
         </Typography>
       </Box>
-
     </Card>
   );
 }

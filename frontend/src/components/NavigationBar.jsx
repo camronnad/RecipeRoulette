@@ -7,7 +7,6 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
-
 import RecipeRouLogo from './RecipeRouLogo'; 
 import UserProfile from './Profile'; 
 
@@ -39,7 +38,6 @@ const NavigationBar = ({ onLogout, isLoggedIn }) => {
               Preferences
             </Link>
           </Box>
-
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
