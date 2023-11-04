@@ -7,15 +7,41 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
+import { useLocation } from 'react-router-dom';
+
 import RecipeRouLogo from './RecipeRouLogo'; 
 import UserProfile from './Profile'; 
 
+
+
 const NavigationBar = ({ onLogout, isLoggedIn }) => {
+
+  const location = useLocation();
+  
+  let appBarStyle;
+
+if (location.pathname === "/likedrecipes") {
+    appBarStyle = {
+        backgroundImage: 'url("/SomeOtherImageForLikedRecipes.png")', // Replace with the path to your image specific for LikedRecipe page
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat'
+    };
+} else {
+    appBarStyle = {
+        backgroundImage: 'url("/HomeRouteImgcopy.png")',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat'
+    };
+}
+
+ 
   return (
-    <AppBar position="static" sx={{ backgroundColor: '#759e3b' }}>
+    <AppBar position="static" sx={{...appBarStyle}}>
       <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <RecipeRouLogo />
+      <Toolbar disableGutters sx={{ height: '100px' }}>
+      <div>
+        <img src="RecipeRouletteLogo.png" className="logo" alt="Recipe Roulette Logo"  style={{ height: '90px', marginLeft: "200px"}}/>
+        </div>
           <Typography
             variant="h6"
             noWrap
@@ -31,7 +57,7 @@ const NavigationBar = ({ onLogout, isLoggedIn }) => {
               textDecoration: 'none',
             }}
           >
-            RecipeRoulette
+         
           </Typography>
           <Box sx={{ marginRight: 2 }}>
             <Link to="/preferences" style={{ color: 'white', textDecoration: 'none' }}>

@@ -9,6 +9,11 @@ h1 {
   color: #759e3b;
   font-weight: bold;
 }
+.dish-icon {
+  font-size: 50px;
+  animation: spin 5s linear infinite;
+}
+
 
 @media (prefers-reduced-motion: no-preference) {
   .animate {
@@ -30,26 +35,59 @@ h1 {
 .wrapper {
   display: flex;
   justify-content: center;
-  /* align-items: center; */
-  /* max-width: 1024px; */
+  position: relative; 
   flex-direction: row;
   width: 100%;
-  gap: 100px;
+  gap: 10px;
+
 
 }
 
+@keyframes stir {
+  0% {
+    transform: rotate(0deg) translateX(0);
+  }
+  25% {
+    transform: rotate(10deg) translateX(-2px);
+  }
+  50% {
+    transform: rotate(0deg) translateX(0);
+  }
+  75% {
+    transform: rotate(-10deg) translateX(2px);
+  }
+  100% {
+    transform: rotate(0deg) translateX(0);
+  }
+}
+
+.cooking-pot .spoon, .cooking-pot .spoon-end {
+  transform-origin: 30px 26px;
+  animation: stir 2s infinite;
+}
+
+
+
+
+
 .btn-card {
-  width: fit-content;  /* this makes sure the div only takes up as much space as it needs */
-  padding: 10px; /* space around the button */
-  background-color: #ffffff;
-  border-radius: 35px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  display: inline-flex; /* keeps it inline with other elements and still lets you use flex properties */
+  margin-top: 200px;
+  display: flex;
+  position: absolute; 
+  bottom: 0%; 
+  left: 60%;
+  width: 500px;
+  font-size: 10px;  /* this makes sure the div only takes up as much space as it needs */
+   padding: 10px;
+  background-color: rgb(0, 0, 0);
+  border-radius: 3px;
+  box-shadow: 2px 10px 19px rgba(0, 0, 0, 0.2);
+  display: inline-flex;
   align-items: center;
   justify-content: end;
-  height: 300px;
+  height: 2px;
   flex-direction: column;
-  margin-bottom: 80px;
+  font-size: 20px; 
 }
 
 .spinBlurb {
@@ -58,17 +96,23 @@ h1 {
   flex-direction: column;
   height: 400px;
   width: 600px;
-  margin-top: 400px;
+  margin-top: 200px;
+
 
 
 }
 
 
+
+
 .bttn {
-  background: #759e3b;  /* Button background color */
-  border: none;
+  position: relative;
+  top: 100%;
+  right: 17%;
+  background: black;  /* Button background color */
+  border: solid 5px #f19066;
   border-radius: 30px;
-  color: #ffffff;  /* Text color */
+  color: white;  /* Text color */
   font-weight: bold;
   font-size: 4em;
   padding: 15px 40px;
@@ -77,7 +121,7 @@ h1 {
   cursor: pointer;
   box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
   transition: transform 0.2s ease;
-  position: relative;
+  margin-bottom: 450px;
 
   /* Smooth transition for the hover effect */
 }
@@ -94,6 +138,7 @@ h1 {
   align-items: center;
   width: 60%; 
   margin-top: 3em;
+  
 
   
 }
@@ -105,17 +150,22 @@ h1 {
   align-items: center;
   justify-content: center;
   width: 40%; 
+ 
 
 }
 
 
 
 .inputSize {
-  width: 500px;
+  position: relative;
+  bottom: 7%;
+  left: 1%;
+  width: 650px;
   height: 70px;
   border-radius: 40px;
-  border: 7px solid #759e3b;
+  border: 2px solid white;
   padding: 0 20px;
+  box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.2);
 }
 
 
@@ -123,4 +173,7 @@ h1 {
 
 .rouletteImg {
   width: 40%;
+  position: relative;
+  bottom: 7%;
+  
 }

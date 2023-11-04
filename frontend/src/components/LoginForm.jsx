@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useSpring, animated } from 'react-spring';
-import '../styles/LoginForm.scss';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSpring, animated } from "react-spring";
+import "../styles/LoginForm.scss";
+import LoginReviews from "./LoginReviews";
 
 const authenticateUser = async (email, password) => {
   try {
@@ -31,7 +32,7 @@ const LoginForm = () => {
   const fade = useSpring({
     from: { opacity: 0 },
     to: { opacity: 1 },
-    config: { duration: 2000 }
+    config: { duration: 2000 },
   });
 
   const handleLogin = async (e) => {
@@ -59,7 +60,13 @@ const LoginForm = () => {
   };
   return (
     <animated.div style={fade} className="login-form">
-      <div className="form-container">
+       <div className="reviews-container">
+        <LoginReviews />
+        </div>
+        <div>
+        <img src="RecipeRouletteLogo.png" className="logo" alt="Recipe Roulette Logo"/>
+        </div>
+     <div className="form-container">
         <h2>Login</h2>
         {errorMessage && <div className="error-message">{errorMessage}</div>}
         <form onSubmit={handleLogin}>

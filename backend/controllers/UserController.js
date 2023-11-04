@@ -63,6 +63,8 @@ async function updateUserPreferences(req, res) {
   }
 
   try {
+    console.log("preferences", preferences)
+    console.log("userId", userId)
     await pool.query('UPDATE users SET preferences = $1 WHERE id = $2', [preferences, userId]);
     res.json({ message: "Preferences updated successfully" });
   } catch (error) {

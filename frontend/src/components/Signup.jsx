@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSpring, animated } from 'react-spring';
 import '../styles/Signup.scss';  
+import LoginReviews from './LoginReviews';
+import '../styles/LoginReviews.scss';
 
 const SignupForm = () => {
   const navigate = useNavigate(); 
@@ -62,6 +64,12 @@ if (password !== confirmPassword){
 
   return (
     <animated.div style={fade} className="signup-form">
+      <div className="reviews-container">
+        <LoginReviews />
+        </div>
+        <div>
+        <img src="RecipeRouletteLogo.png" className="logo" alt="Recipe Roulette Logo"/>
+        </div>
 <div className="form-container">
       <h2>Sign Up</h2>
       <form  onSubmit={handleSubmit}>
