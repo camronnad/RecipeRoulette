@@ -6,7 +6,7 @@ import { Card, CardContent, Typography } from "@mui/material";
 import { FacebookShareButton, TwitterShareButton } from 'react-share';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
-import InstagramIcon from '@mui/icons-material/Instagram'; // Import Instagram icon
+import InstagramIcon from '@mui/icons-material/Instagram';
 import StarIcon from '@mui/icons-material/Star';
 import LikedRecipeModal from "./LikedRecipeModal";
 
@@ -45,37 +45,28 @@ const LikedRecipe = (props) => {
         return response.json();
       })
       .then((data) => {
-        // Handle the JSON data from the response here
         setLikedRecipeData(data);
       })
       .catch((error) => {
-        // Handle and log the error
         console.error('Fetch error:', error);
       });
-  }, []); // The empty dependency array ensures this effect runs only once, similar to componentDidMount
-  //This way, the network request will be triggered when the component mounts (similar to componentDidMount in class components) and will not cause issues with component rendering. Wrapping it in a useEffect is the recommended approach for making asynchronous requests in functional components.
-
+  }, []);
 
   const handleInstagramShare = () => {
-    // Construct the Instagram share URL
-    const instagramUrl = 'https://www.instagram.com'; // Replace with your Instagram URL
-
-    // Open a new window with the Instagram share URL
+    const instagramUrl = 'https://www.instagram.com';
     window.open(instagramUrl, '_blank');
   };
-
 
   const shareUrls = {
     facebook: 'https://www.facebook.com',
     twitter: 'https://www.twitter.com',
     instagram: 'https://www.instagram.com'
   };
-  // handle delete function 
-  // dont forget to prevent sql injection!
+
   const handleDeleteRecipe = (recipeId) => {
     const deleteURL = `http://localhost:3000/api/liked-recipes/${recipeId}`;
     console.log(`Sending DELETE request to: ${deleteURL}`);
-    console.log("Deleting recipe with ID:", recipeId); // Add this line for debugging
+    console.log("Deleting recipe with ID:", recipeId);
 
     fetch(`/api/liked-recipes/${recipeId}`, {
       method: 'DELETE',
@@ -93,19 +84,14 @@ const LikedRecipe = (props) => {
       .catch(error => {
         console.error('Fetch error:', error);
       });
-
-    // Filter out the recipe with the given ID from the likedRecipeData
     const updatedLikedRecipeData = likedRecipeData.filter(recipe => recipe.id !== recipeId);
     setLikedRecipeData(updatedLikedRecipeData);
   };
 
   const handleRateRecipe = (recipeId, rating) => {
-    // Create a PUT request to update the rating
     const putURL = `http://localhost:3000/api/liked-recipes/rate/${recipeId}`;
     console.log(`Sending PUT request to: ${recipeId}`);
     console.log("Updating rating for recipe ID:", recipeId, "with rating:", rating);
-
-
     fetch(`/api/liked-recipes/rate/${recipeId}`, {
       method: 'PUT',
       headers: {
@@ -115,14 +101,12 @@ const LikedRecipe = (props) => {
     })
       .then((response) => {
         if (response.status === 200) {
-          // If the update was successful, update the state with the new rating
           const updatedLikedRecipeData = likedRecipeData.map(recipe => {
             if (recipe.id === recipeId) {
               return { ...recipe, rating };
             }
             return recipe;
           });
-
           setLikedRecipeData(updatedLikedRecipeData);
         } else {
           console.error('Failed to update rating');

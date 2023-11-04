@@ -8,7 +8,6 @@ import FavIcon from "./FavIcon";
 
 
 const RecipeItemGrid = ({ handleCardClick, activeModal, recipeData, imgSpin }) => {
-  // Get random recipes
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedRecipe, setSelectedRecipe] = useState({});
   const [modalFav, setModalFav] = useState(false);
@@ -46,7 +45,9 @@ const RecipeItemGrid = ({ handleCardClick, activeModal, recipeData, imgSpin }) =
   const handleFavClick = (isLiked, recipe) => {
     console.log("selected recipe.id", recipe.id);
     console.log(isLiked);
+    console.log("selected recipe.id before", selectedRecipe.id);
     if (isLiked) {
+      console.log("selected recipe.id", selectedRecipe.id);
       axios.post('/api/saveLikeRecipe', {
         title: recipe.title,
         photo: recipe.image,

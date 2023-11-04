@@ -1,9 +1,5 @@
 import React from 'react';
-
-
 function SearchButton(props) {
-
-
   return (
     <div className="btn-card">
       <h2>Welcome to Recipe Roulette!</h2>

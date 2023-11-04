@@ -6,6 +6,7 @@ CREATE TABLE users (
   name VARCHAR(255) NOT NULL,
   email VARCHAR(255) NOT NULL,
   password VARCHAR(255) NOT NULL,
+   preferences JSONB,
   created_at TIMESTAMP
 );
 
@@ -13,7 +14,7 @@ CREATE TABLE likedRecipes (
   id SERIAL PRIMARY KEY NOT NULL,
   title VARCHAR(255) NOT NULL,
   description VARCHAR(255),
-  recipe_link VARCHAR(255) NOT NULL,
+  recipe_link VARCHAR(3000) NOT NULL,
   summary VARCHAR(5000),
   recipe_id INT NOT NULL,
   photo_url VARCHAR(255) NOT NULL,

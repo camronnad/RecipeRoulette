@@ -1,12 +1,12 @@
 import React from 'react';
 import { AppBar } from '@mui/material';
+import { Link } from 'react-router-dom'; 
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
-
 import RecipeRouLogo from './RecipeRouLogo'; 
 import UserProfile from './Profile'; 
 
@@ -33,6 +33,11 @@ const NavigationBar = ({ onLogout, isLoggedIn }) => {
           >
             RecipeRoulette
           </Typography>
+          <Box sx={{ marginRight: 2 }}>
+            <Link to="/preferences" style={{ color: 'white', textDecoration: 'none' }}>
+              Preferences
+            </Link>
+          </Box>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"

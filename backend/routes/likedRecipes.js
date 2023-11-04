@@ -3,16 +3,6 @@ const router = express.Router();
 const { pool } = require("../db/connect");
 require('dotenv').config();
 
-
-// const pool = new Pool({
-//   user: process.env.DB_USER,
-//   host: process.env.DB_HOST,
-//   database: process.env.DB_NAME,
-//   password: process.env.DB_PASSWORD,
-//   port: process.env.DB_PORT,
-
-// });
-
 router.post('/', async (req, res) => {
   const { title, recipe_link, summary, photo, instructions, readyInMinutes, recipeId } = req.body;
   console.log("recipe id ", recipeId);

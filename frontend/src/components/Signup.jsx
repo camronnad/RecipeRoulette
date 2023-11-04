@@ -21,13 +21,11 @@ const SignupForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log("Signup form submitted!");
-
 if (password !== confirmPassword){
   alert("Passwords do not match");
   return;
 }
 
- // Send a POST request to the server
  try {
   const response = await fetch('/api/v1/users/signup', {
     method: 'POST',
@@ -45,15 +43,13 @@ if (password !== confirmPassword){
 
   if (data.userId) {
     console.log("Signup successful! User ID:", data.userId);
-    navigate('/LoginForm'); // Navigate to login form after successful signup
+    navigate('/LoginForm');
   } else {
     console.error("Error signing up:", data.error);
   }
 } catch (error) {
   console.error("There was an error:", error);
 }
-
-    // Reset the input values after submission
     setFullName("");
     setEmail("");
     setPassword("");

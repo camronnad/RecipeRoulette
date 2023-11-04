@@ -3,7 +3,6 @@ import { animated, useSpring } from '@react-spring/web';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 
-
 function RecipeModal({ isOpen, children, onClose }) {
   const modalRef = useRef(null);
   const springStyles = useSpring({
@@ -33,7 +32,6 @@ function RecipeModal({ isOpen, children, onClose }) {
       position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, 
       background: 'rgba(0,0,0,0.7)', display: 'flex', 
       alignItems: 'center', justifyContent: 'center' }}>
-      {/* <animated.div style={springStyles}> */}
       <animated.div style={{ ...springStyles, 
         maxHeight: '80vh', overflowY: 'auto', width: '80%', 
         boxSizing: 'border-box', padding: '20px', 

@@ -6,6 +6,7 @@ const searchRouter = (pool) => {
 
 
   router.get('/', async (req, res) => {
+    console.log(req.query);
     try {
       const query = req.query.query;
       const apiKey = process.env.APIKEY;

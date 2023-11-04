@@ -3,10 +3,30 @@ import { useNavigate } from 'react-router-dom';
 import { useSpring, animated } from 'react-spring';
 import '../styles/LoginForm.scss';
 
-const LoginForm = ({ onAuthenticate }) => {  // onAuthenticate is received from props
-  let navigate = useNavigate(); // hook for navigation
+const authenticateUser = async (email, password) => {
+  try {
+    const response = await fetch('/api/v1/users/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, password }),
+    });
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error);
+    }
+    return await response.json();
+  } catch (error) {
+    throw error;
+  }
+};
+
+const LoginForm = () => { 
+  let navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const fade = useSpring({
     from: { opacity: 0 },
@@ -14,49 +34,58 @@ const LoginForm = ({ onAuthenticate }) => {  // onAuthenticate is received from 
     config: { duration: 2000 }
   });
 
-  const handleLogin = (e) => {
-    e.preventDefault(); 
- 
-    if (typeof onAuthenticate === 'function') {
-      onAuthenticate(email, password);
-    } else {
-      console.error("onAuthenticate is not provided or not a function");
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setErrorMessage(''); 
+    if (!email || !password) {
+      setErrorMessage('Please enter both email and password.');
+      return;
+    }
+
+    try {
+      const result = await authenticateUser(email, password); 
+      if (result.message === 'Login successful') {
+        navigate('/'); 
+      } else {
+        setErrorMessage('Invalid email or password.');
+      }
+    } catch (error) {
+      setErrorMessage('Login failed: ' + error.message);
     }
   };
 
   const goToSignup = () => {
-    navigate('/Signup'); // navigate to Signup page
+    navigate('/signup');
   };
-
   return (
-    
     <animated.div style={fade} className="login-form">
       <div className="form-container">
-      <h2>Login</h2>
-      <form onSubmit={handleLogin}>  {/* handleLogin is called when the form is submitted */}
-        <div className="input-group">
-          <label htmlFor="emailInput">Email:</label>
-          <input 
-            type="email" 
-            id="emailInput" 
-            placeholder="Email" 
-            value={email} 
-            onChange={(e) => setEmail(e.target.value)}  // store current value in the email state
-          />
-        </div>
-        <div className="input-group">
-          <label htmlFor="passwordInput">Password:</label>
-          <input 
-            type="password" 
-            id="passwordInput" 
-            placeholder="Password" 
-            value={password} 
-            onChange={(e) => setPassword(e.target.value)}  // store current value in the password state
-          />
-        </div>
-        <button type="submit" className="form-button">Login</button>
-      </form>
-      <button onClick={goToSignup} className="switch-form-button">Create new account</button>
+        <h2>Login</h2>
+        {errorMessage && <div className="error-message">{errorMessage}</div>}
+        <form onSubmit={handleLogin}>
+          <div className="input-group">
+            <label htmlFor="emailInput">Email:</label>
+            <input
+              type="email"
+              id="emailInput"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          <div className="input-group">
+            <label htmlFor="passwordInput">Password:</label>
+            <input
+              type="password"
+              id="passwordInput"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+          <button type="submit" className="form-button">Login</button>
+        </form>
+        <button onClick={goToSignup} className="switch-form-button">Create new account</button>
       </div>
     </animated.div>
   );
