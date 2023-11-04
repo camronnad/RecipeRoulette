@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { useSpring, animated } from 'react-spring';
 import '../styles/LoginForm.scss';
 
-// This function will be used directly in the LoginForm component now
 const authenticateUser = async (email, password) => {
   try {
     const response = await fetch('/api/v1/users/login', {
@@ -13,19 +12,17 @@ const authenticateUser = async (email, password) => {
       },
       body: JSON.stringify({ email, password }),
     });
-
     if (!response.ok) {
       const errorData = await response.json();
       throw new Error(errorData.error);
     }
-
     return await response.json();
   } catch (error) {
     throw error;
   }
 };
 
-const LoginForm = () => { // Removed the onAuthenticate prop
+const LoginForm = () => { 
   let navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -39,19 +36,16 @@ const LoginForm = () => { // Removed the onAuthenticate prop
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
     setErrorMessage(''); 
-
     if (!email || !password) {
       setErrorMessage('Please enter both email and password.');
       return;
     }
 
     try {
-      const result = await authenticateUser(email, password); // Using authenticateUser function here
-
+      const result = await authenticateUser(email, password); 
       if (result.message === 'Login successful') {
-        navigate('/'); // Navigate to the dashboard upon successful login
+        navigate('/'); 
       } else {
         setErrorMessage('Invalid email or password.');
       }
@@ -63,7 +57,6 @@ const LoginForm = () => { // Removed the onAuthenticate prop
   const goToSignup = () => {
     navigate('/signup');
   };
-
   return (
     <animated.div style={fade} className="login-form">
       <div className="form-container">

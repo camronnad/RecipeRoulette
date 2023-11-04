@@ -4,7 +4,6 @@ import SearchContainer from '../components/search/SearchContainer';
 import NavigationBar from '../components/NavigationBar';
 import RecipeItemGrid from '../components/RecipeItemGrid';
 
-
 export default function HomeRoute({isLoggedIn, setIsLoggedIn}) {
 
   const [activeModal, setActiveModal] = useState(null);
@@ -16,13 +15,9 @@ export default function HomeRoute({isLoggedIn, setIsLoggedIn}) {
       setActiveModal(RecipeName);
     }
   };
-
   const handleCloseModal = () => {
     setActiveModal(null);
   };
-
-
-
   return (
     <div className="App"  style={{ backgroundImage: `url(/HomeRouteImg.png)`, backgroundSize: '100%', // or 'contain', or '100% 50%', etc.
     backgroundRepeat: 'no-repeat'}}>  

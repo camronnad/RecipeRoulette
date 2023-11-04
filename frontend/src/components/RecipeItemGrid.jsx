@@ -8,7 +8,6 @@ import FavIcon from "./FavIcon";
 
 
 const RecipeItemGrid = ({ handleCardClick, activeModal, recipeData, imgSpin }) => {
-  // Get random recipes
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedRecipe, setSelectedRecipe] = useState({});
 
@@ -18,12 +17,14 @@ const RecipeItemGrid = ({ handleCardClick, activeModal, recipeData, imgSpin }) =
 
   const handleFavClick = (isLiked) => {
     console.log(isLiked);
+    console.log("selected recipe.id before", selectedRecipe.id);
     if (isLiked) {
+      console.log("selected recipe.id", selectedRecipe.id);
       axios.post('/api/saveLikeRecipe', {
         title: selectedRecipe.title,
-        photo: selectedRecipe.photo,
-        recipeId: selectedRecipe.recipeId,
-        recipe_link: selectedRecipe.recipe_link,
+        photo: selectedRecipe.image,
+        recipeId: selectedRecipe.id,
+        recipe_link: selectedRecipe.spoonacularSourceUrl,
         summary: selectedRecipe.summary
       })
         .then(response => {
@@ -39,7 +40,7 @@ const RecipeItemGrid = ({ handleCardClick, activeModal, recipeData, imgSpin }) =
         });
 
     } else {
-      axios.delete(`http://localhost:8080/api/saveLikeRecipe/${selectedRecipe.recipeId}`)
+      axios.delete(`http://localhost:8080/api/saveLikeRecipe/${selectedRecipe.id}`)
         .then(() => {
           console.log("Recipe removed from favorites!");
 
@@ -50,8 +51,6 @@ const RecipeItemGrid = ({ handleCardClick, activeModal, recipeData, imgSpin }) =
     }
 
   };
-
-  // console.log("recipe data:", recipeData);
   return (
     <>
       <Card

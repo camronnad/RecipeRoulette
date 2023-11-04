@@ -13,38 +13,26 @@ function SearchBar(props) {
   };
 
   const searchHandler = () => {
-    props.setImgSpin(true); // Start spinning at the beginning of the search
+    props.setImgSpin(true); 
     console.log("togglespin called:", props.imgSpin);
-    //can use search query here for futher processing with sending data to server
     console.log("search query:", search);
     let searchData;
     const searchQuery = search;
-    // useEffect(() => {
-    // fetch(`/api/search?${searchQuery}`)
-
+   
     fetch(`/api/search?query=${searchQuery}`)
       .then((response) => response.json())
       .then((data) => {
-        // Handle the JSON data from the response here
         console.log("togglespin called right after dataa:", props.imgSpin);
         setTimeout(() => {
           props.setRecipeData(data);
           console.log("setRecipeData called with data:", data);
-          // Delay the stopping of the spinning animation
-
-          props.setImgSpin(false); // Stop spinning after a delay
+          props.setImgSpin(false); 
         }, 6000);
       })
       .catch((error) => {
-        // Handle the error, possibly by logging or displaying an error message.
         console.error("Fetch error:", error);
         toggleSpin();
       });
-    // 6000 milliseconds (6 seconds) to match your CSS transition duration
-
-    //console.log("searchData", searchData);
-   // }, []);
-    // searchHandler should be a hook and within use useEffect eg useSearchHandler
   };
 
   return (
@@ -78,5 +66,4 @@ function SearchBar(props) {
     </>
   );
 }
-
 export default SearchBar;
