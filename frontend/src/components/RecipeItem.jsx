@@ -11,34 +11,72 @@ import RecipeModal from "./RecipeModal";
 export default function RecipeItem({
   photo,
   RecipeName,
-  handleCardClick,
-  activeModal,
+  // handleCardClick,
+  // activeModal,
+  // recipeId,
+  // instructions,
+  // readyInMinutes,
+  likedItems,
+  handleFavIconClick,
+  selectedColor,
   recipeId,
   recipe_link,
   summary,
+  onFavClick,
   setModalOpen,
   handleFavClick,
   setSelectedRecipe,
-  recipe
+  recipe,
+  toggleLiked
 }) {
 
-  function FavIconEnhanced({ onFavCLick, onClick }) {
-    return (
-      <div onClick={onClick}>
-        <FavIconEnhanced onFavCLick={handleFavClick}
-          onClick={e => e.stopPropagation()} />
-      </div>
-    );
-  }
+  // const [selectedColor, setSelectedColor] = useState(true);
 
+
+
+
+
+
+  // console.log("recipe passed down to recipeitem", recipe);
+  // console.log("recipe passed downn with id", recipe.id);
+
+
+  // function FavIconEnhanced({ onFavClick, onClick }) {
+  //   return (
+  //     <div onClick={onClick}>
+  //       <FavIconEnhanced onFavClick={handleFavClick}
+  //         onClick={e => e.stopPropagation()} />
+  //     </div>
+  //   );
+  // }
+
+  // const [isModalOpen, setModalOpen] = useState(false);
+  // const handleFavIconClick = () => {
+  //   handleFavClick(!selectedColor);
+  //   setSelectedColor(!selectedColor);
+  // };
+  // const clickHandler = (event) => {
+  //   console.log("event target", event.target);
+  //   setSelectedRecipe(recipe);
+  //   if (event.target.tagName === "path") {
+  //     handleFavClick(!selectedColor);
+  //     setSelectedColor(!selectedColor);
+  //     return;
+  //   }
+  //   setModalOpen(true);
+  // };
   const clickHandler = (event) => {
-    event.stopPropagation();
-    if (activeModal === null) {
-      handleCardClick(RecipeName);
+    console.log("event target", event.target);
+    setSelectedRecipe(recipe);
+    console.log("selected recipe inside handler", recipe);
+    if (event.target.tagName === "path") {
+      toggleLiked(recipe);
+      return;
+    } else {
       setModalOpen(true);
-      setSelectedRecipe(recipe);
     }
   };
+
 
   return (
     <>
@@ -48,7 +86,7 @@ export default function RecipeItem({
         onClick={clickHandler}
       >
         <Box sx={{ position: "absolute", right: -2, bottom: 170, p: 1 }}>
-          <FavIcon onFavCLick={handleFavClick} />
+          <FavIcon selected={likedItems.includes(recipeId)} />
         </Box>
         <CardMedia component="img" height="194" src={photo} alt="Recipe Image" />
         <Box

@@ -10,6 +10,8 @@ const { searchRouter } = require("./routes/search");
 const likesRouter = require('./routes/likedRecipes');
 const { likedRecipeRouter } = require("./routes/liked-recipes");
 const bcrypt = require('bcrypt');
+const { topLikedRecipes } = require("./routes/top-recipes");
+
 
 app.use(morgan('combined'));
 app.use(express.json());
@@ -19,23 +21,23 @@ app.use(express.urlencoded({ extended: true }));
 const userRoutes = require('./routes/users');
 app.use('/api/users', userRoutes);
 
-app.post('/api/v1/users/signup', async(req, res) => {
-  const {fullName, email, password} =req.body;
-  try{
+app.post('/api/v1/users/signup', async (req, res) => {
+  const { fullName, email, password } = req.body;
+  try {
     const hashedPasword = await bcrypt.hash(password, 10);
-    const result =await pool.query(
+    const result = await pool.query(
       'INSERT INTO users (name, email, password, created_at) VALUES ($1, $2, $3, NOW()) RETURNING id',
-    [fullName, email, hashedPasword]
-      );
-      res.json({userId: result.rows[0].id })
-  } catch(error){
-    res.status(500).json({ error:error.message });
+      [fullName, email, hashedPasword]
+    );
+    res.json({ userId: result.rows[0].id });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 });
 
 app.post('/api/v1/users/login', async (req, res) => {
   const { email, password } = req.body;
-  console.log('Login attempt:', email); 
+  console.log('Login attempt:', email);
   console.log('Password received:', password);
   try {
     const user = await authenticate(email, password);
@@ -55,7 +57,7 @@ app.use((err, req, res, next) => {
 });
 app.use("/api/saveLikeRecipe", likesRouter);
 app.use("/api/liked-recipes", likedRecipeRouter());
-
+app.use("/api/top-recipes", topLikedRecipes());
 
 
 
