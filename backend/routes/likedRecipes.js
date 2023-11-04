@@ -3,19 +3,10 @@ const router = express.Router();
 const { pool } = require("../db/connect");
 require('dotenv').config();
 
-
-// const pool = new Pool({
-//   user: process.env.DB_USER,
-//   host: process.env.DB_HOST,
-//   database: process.env.DB_NAME,
-//   password: process.env.DB_PASSWORD,
-//   port: process.env.DB_PORT,
-
-// });
-
 router.post('/', async (req, res) => {
   const { title, recipe_link, summary, photo, recipeId } = req.body;
-
+  console.log("req body", req.body);
+  console.log("recipe id ", recipeId);
   if (!title || !recipe_link || !summary || !photo) {
     return res.status(400).json({ error: 'Missing required parameters.' });
   }

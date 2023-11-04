@@ -3,7 +3,6 @@ import SearchBar from "./SearchBar";
 import "../../styles/Search.css";
 
 function SearchContainer(props) {
-
   return (
     <div className="wrapper">
 

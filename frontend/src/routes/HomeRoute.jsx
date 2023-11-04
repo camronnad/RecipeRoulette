@@ -18,14 +18,9 @@ export default function HomeRoute({isLoggedIn, setIsLoggedIn}) {
       setActiveModal(RecipeName);
     }
   };
-
   const handleCloseModal = () => {
     setActiveModal(null);
   };
-
-
-
-
   return (
     <animated.div className="App"  style={{ backgroundImage: `url(/HomeRouteImg.png)`, backgroundSize: '100%', // or 'contain', or '100% 50%', etc.
     backgroundRepeat: 'no-repeat'}}>  

@@ -1,3 +1,4 @@
+const bcrypt = require('bcrypt');
 const { pool } = require("../db/connect");
 
 const queryAllUsers = async () => {
@@ -18,7 +19,47 @@ const getUserByEmail = async (email) => {
   }
 };
 
+const getUserPreferences = async (userId) => {
+  const { rows } = await pool.query('SELECT preferences FROM users WHERE id = $1', [userId]);
+  return rows[0].preferences; 
+};
+
+const setUserPreferences = async (userId, preferences) => {
+  
+  await pool.query('UPDATE users SET preferences = $1 WHERE id = $2', [preferences, userId]);
+};
+
+async function authenticate(email, password) {
+  try {
+    const userResult = await pool.query(
+      'SELECT * FROM users WHERE email = $1',
+      [email]
+    );
+
+    if (userResult.rows.length > 0) {
+      const user = userResult.rows[0];
+      console.log(bcrypt);
+      // Compare the provided password with the hashed password in the database
+      console.log(password)
+      console.log(user.password)
+      const isValid = await bcrypt.compare(password, user.password);
+
+      if (isValid) {
+        return user; // Passwords match, return the user
+      } else {
+        throw new Error('Invalid password');
+      }
+    } else {
+      throw new Error('User not found, please sign up');
+    }
+  } catch (error) {
+    throw error; // Or handle the error as you see fit
+  }
+}
 module.exports = {
   queryAllUsers,
-  getUserByEmail
-};
+  getUserByEmail,
+  authenticate ,
+  getUserPreferences,
+  setUserPreferences,
+};  

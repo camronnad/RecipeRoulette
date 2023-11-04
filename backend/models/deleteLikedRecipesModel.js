@@ -1,22 +1,6 @@
 const { pool } = require("../db/connect");
 
-// const queryDeleteLikedRecipes = async (resourceId) => {
-//   // const queryString = `DELETE FROM likedrecipes WHERE id = ${resourceId};`;
-//   const queryString = "DELETE FROM likedrecipes WHERE id = $1";
-//   const values = [resourceId];
-//   //const result = await pool.query(queryString);
-//   try {
 
-//     const result = await pool.query(queryString, values);
-//     // console.log(result)
-//     //   return result.rows;
-//     // };
-//     return result.rowCount > 0; // Returns true if a row was deleted
-//   } catch (error) {
-//     console.error("Error deleting recipe:", error);
-//     throw error;
-//   }
-// };
 const queryDeleteLikedRecipes = async (resourceId) => {
   console.log('queryDeleteLikedRecipes function called');
   console.log("Received recipe ID for deletion:", resourceId);
