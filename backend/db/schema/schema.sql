@@ -17,6 +17,8 @@ CREATE TABLE likedRecipes (
   summary VARCHAR(5000),
   recipe_id INT NOT NULL,
   photo_url VARCHAR(255) NOT NULL,
+  instructions VARCHAR(5000),
+  readyInMinutes integer,
   user_id INT REFERENCES users(id) ON DELETE CASCADE,
   rating integer DEFAULT 0
 );

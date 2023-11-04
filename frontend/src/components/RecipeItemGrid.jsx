@@ -51,7 +51,9 @@ const RecipeItemGrid = ({ handleCardClick, activeModal, recipeData, imgSpin }) =
         photo: recipe.image,
         recipeId: recipe.id,
         recipe_link: recipe.spoonacularSourceUrl,
-        summary: recipe.summary
+        summary: recipe.summary,
+        instructions: recipe.instructions,
+        readyInMinutes: recipe.readyInMinutes
       })
         .then(response => {
           setLikedItems(prev => ([...prev, recipe.id]));
