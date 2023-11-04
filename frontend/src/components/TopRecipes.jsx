@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
-import RecipeItem from "./RecipeItem";
-import RecipeCardList from "./RecipeCardList";
-import { Card, CardContent, Typography } from "@mui/material";
+import { Card, CardContent, CardActions, CardMedia, Button, Typography } from "@mui/material";
 import { FacebookShareButton, TwitterShareButton } from 'react-share';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
@@ -37,7 +35,7 @@ const TopRecipes = (props) => {
   // //const [likedModal, setLikedModal] = useState();
 
   useEffect(() => {
-    fetch(`/api/liked-recipes`)
+    fetch(`/api/top-recipes`)
       .then((response) => {
         if (!response.ok) {
           throw new Error(`Request failed with status ${response.status}`);
@@ -70,68 +68,9 @@ const TopRecipes = (props) => {
     twitter: 'https://www.twitter.com',
     instagram: 'https://www.instagram.com'
   };
-  // handle delete function 
-  // dont forget to prevent sql injection!
-  const handleDeleteRecipe = (recipeId) => {
-    const deleteURL = `http://localhost:3000/api/liked-recipes/${recipeId}`;
-    console.log(`Sending DELETE request to: ${deleteURL}`);
-    console.log("Deleting recipe with ID:", recipeId); // Add this line for debugging
-
-    fetch(`/api/liked-recipes/${recipeId}`, {
-      method: 'DELETE',
-    })
-      .then((response) => {
-        if (response.status === 204) {
-          console.log("this is response data", response);
-          // If the deletion was successful, update the state to remove the recipe
-          const updatedLikedRecipeData = likedRecipeData.filter(recipe => recipe.id !== recipeId);
-          setLikedRecipeData(updatedLikedRecipeData);
-        } else {
-          console.error('Failed to delete recipe');
-        }
-      })
-      .catch(error => {
-        console.error('Fetch error:', error);
-      });
-
-    // Filter out the recipe with the given ID from the likedRecipeData
-    const updatedLikedRecipeData = likedRecipeData.filter(recipe => recipe.id !== recipeId);
-    setLikedRecipeData(updatedLikedRecipeData);
-  };
-
-  const handleRateRecipe = (recipeId, rating) => {
-    // Create a PUT request to update the rating
-    const putURL = `http://localhost:3000/api/liked-recipes/rate/${recipeId}`;
-    console.log(`Sending PUT request to: ${recipeId}`);
-    console.log("Updating rating for recipe ID:", recipeId, "with rating:", rating);
 
 
-    fetch(`/api/liked-recipes/rate/${recipeId}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ rating }),
-    })
-      .then((response) => {
-        if (response.status === 200) {
-          // If the update was successful, update the state with the new rating
-          const updatedLikedRecipeData = likedRecipeData.map(recipe => {
-            if (recipe.id === recipeId) {
-              return { ...recipe, rating };
-            }
-            return recipe;
-          });
 
-          setLikedRecipeData(updatedLikedRecipeData);
-        } else {
-          console.error('Failed to update rating');
-        }
-      })
-      .catch(error => {
-        console.error('Fetch error:', error);
-      });
-  };
   const clickHandler = (recipe) => {
     console.log("handler clicked");
 
@@ -144,9 +83,10 @@ const TopRecipes = (props) => {
   return (
     <>
       <div>
+        {console.log("likedRecipedata before map", likedRecipeData)}
         {likedRecipeData.map((recipe) => (
           <Card key={recipe.id} sx={{ width: "auto", padding: 3, margin: "0 auto", borderRadius: 9 }}>
-            {console.log("recipe", recipe)}
+            {console.log("recipe inside of mapping", recipe)}
 
             <Grid container spacing={3} justifyContent="center" >
               <Grid item xs={3}>
@@ -154,7 +94,7 @@ const TopRecipes = (props) => {
                   <CardContent>
                     <div onClick={() => clickHandler(recipe)}>
                       <div style={{ height: "75px", overflow: "hidden" }} >
-                        <img src={recipe.photo_url} alt={recipe.photo_url} style={{
+                        <img src={recipe.recipe_photo_url} alt={recipe.recipe_photo_url} style={{
                           width: "100%",
                           height: "100%",
                           objectFit: "contain", // This ensures the image fills the container.
@@ -163,7 +103,7 @@ const TopRecipes = (props) => {
                       </div>
                     </div>
                     <Typography variant="h6" component="div" sx={{ textAlign: "center" }}>
-                      {recipe.title}
+                      {recipe.recipe_title}
                     </Typography>
                   </CardContent>
                 </Card>
@@ -175,7 +115,7 @@ const TopRecipes = (props) => {
                       Description
                     </Typography>
                     <Typography variant="body2" color="text.secondary" sx={{ textAlign: "center", maxHeight: "100px", overflowY: "auto" }}>
-                      {recipe.summary.replace(/<[^>]+>/g, '')}
+                      {recipe.recipe_summary}
                     </Typography>
                   </CardContent>
                 </Card>
@@ -197,28 +137,17 @@ const TopRecipes = (props) => {
                       Content goes here.
                     </Typography>
                     <Grid container spacing={2} justifyContent="center"> {/* Nest another Grid container */}
-                      <Grid item xs={4}>
-                        <div style={{ backgroundColor: "lightblue", height: "50px", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                          <span style={{ fontSize: "12px" }}>
-                            <button
-                              onClick={() => handleDeleteRecipe(recipe.id)} // Pass the recipe ID to the delete handler
-                              variant="contained"
-                              color="secondary" // Change to your preferred color
-                              size="small"
-                            >
-                              DELETE
-                            </button></span>
-                        </div>
-                      </Grid>
+
                       <Grid item xs={4}>
                         <div style={{ backgroundColor: "lightcoral", height: "50px", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                          <span style={{ fontSize: "12px" }}>RATE</span>
-                          <div style={{ display: "flex", flexDirection: "row" }}> {/* Add the display: "flex" here */}
-                            {[1, 2, 3, 4, 5].map((rating) => (
-                              <div key={rating} onClick={() => handleRateRecipe(recipe.id, rating)} style={{ cursor: "pointer" }}>
-                                <StarIcon style={{ color: recipe.rating >= rating ? "gold" : "gray" }} />
-                              </div>
-                            ))}
+                          <span style={{ fontSize: "12px" }}>RATING</span>
+                          <div style={{ display: "flex", flexDirection: "row" }}>
+
+                            <div key={recipe.recipe_id}>
+                              {[1, 2, 3, 4, 5].map((rating) => (
+                                <StarIcon key={rating} style={{ color: recipe.recipe_rating >= rating ? "gold" : "gray" }} />
+                              ))}
+                            </div>
                           </div>
                         </div>
                       </Grid>
@@ -234,10 +163,10 @@ const TopRecipes = (props) => {
 
                           <span><h3>Share </h3></span>
                           <div>
-                            <FacebookShareButton url={recipe.recipe_link} quote={`check it out`}>
+                            <FacebookShareButton url={recipe.recipe_recipe_link} quote={`check it out`}>
                               <FacebookIcon />
                             </FacebookShareButton>
-                            <TwitterShareButton url={recipe.recipe_link} title="Check out Twitter">
+                            <TwitterShareButton url={recipe.recipe_recipe_link} title="Check out Twitter">
                               <TwitterIcon />
                               {/* need recipe id as well below const url! */}
                             </TwitterShareButton>
@@ -258,11 +187,11 @@ const TopRecipes = (props) => {
         {selectedLikedRecipe.map((modalRecipeData) => (
           <div className="modal-container" key={modalRecipeData.id}>
             <button className="modal-close-btn" onClick={closeModal}>×</button>
-            <h2 className="modal-title">Recipe Name: {modalRecipeData.title}</h2>
-            <img className="modal-img" src={modalRecipeData.photo_url} alt="Recipe Image" />
+            <h2 className="modal-title">Recipe Name: {modalRecipeData.recipe_title}</h2>
+            <img className="modal-img" src={modalRecipeData.recipe_photo_url} alt="Recipe Image" />
             <p className="modal-description">Here, you can provide a detailed description of your recipe or any other relevant info you want to share.</p>
-            <p>Ready In Minutes: {modalRecipeData.readyinminutes}</p>
-            <>Instructions: <br /> {modalRecipeData.instructions.replace(/<[^>]+>/g, '')}</>
+            <p>Ready In Minutes: {modalRecipeData.recipe_readyinminutes}</p>
+            <>Instructions: <br /> {modalRecipeData.recipe_instructions}</>
           </div>
         ))}
       </LikedRecipeModal>

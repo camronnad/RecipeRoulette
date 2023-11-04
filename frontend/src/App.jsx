@@ -14,6 +14,7 @@ import NavigationBar from "./components/NavigationBar";
 import LoginForm from "./components/LoginForm";
 import Signup from "./components/Signup";
 import './App.css';
+import TopRecipes from "./components/TopRecipes";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -28,8 +29,8 @@ function App() {
 
   return (
     <div className="App">
-      
-      <BrowserRouter>
+
+      {/* <BrowserRouter>
 
         <Routes>
           <Route
@@ -56,8 +57,8 @@ function App() {
             }
           />
         </Routes>
-      </BrowserRouter>
-      
+      </BrowserRouter> */}
+      <TopRecipes />
     </div>
   );
 }
