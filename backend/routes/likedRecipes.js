@@ -24,7 +24,7 @@ router.post('/', async (req, res) => {
   try {
     await pool.query(
       `INSERT INTO likedRecipes (title, recipe_link, summary, photo_url, recipe_id, instructions, readyInMinutes, user_id ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
-      [title, recipe_link, summary, photo, recipeId, instructions, readyInMinutes, 4]
+      [title, recipe_link, summary, photo, recipeId, instructions, readyInMinutes, 5]
     );
 
     res.status(200).json({ message: 'Successfully added to liked recipes.' });

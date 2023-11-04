@@ -30,7 +30,7 @@ const likedRecipeRouter = (pool) => {
   //const deleteLikedRecipeRouter = (pool) => {
   router.put('/rate/:id', async (req, res) => {
     const recipeId = req.params.id; // gets the id like above
-    const userId = 4; // hardcoded user id
+    const userId = 5; // hardcoded user id
     const rating = req.body.rating; // gets the rating from the req body
     // should validate the above to make sure its a number between 1-5 eg
 

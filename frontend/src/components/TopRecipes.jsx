@@ -86,28 +86,57 @@ const TopRecipes = (props) => {
 
 
         {console.log("likedRecipedata before map", likedRecipeData)}
-        <Grid container spacing={2} justifyContent="center">
+        {/* <Grid container spacing={2} justifyContent="center"> */}
+        <Grid container spacing={2} >
 
           {likedRecipeData.map((recipe) => (
-            <Grid item xs={12} sm={6} md={4} lg={3} key={recipe.id}>
+            <Grid item lg={4} key={recipe.id}>
+              {/* // <Grid item xs={6} sm={4} md={3} lg={2} key={recipe.id}>
+            // <Grid item xs={12} sm={6} md={4} lg={3} key={recipe.id}>
+            // <Grid item xs={12} sm={6} md={4} lg={2} key={recipe.id}> */}
 
-
-              <Card sx={{ maxWidth: 345 }} key={recipe.id}>
+              <Card sx={{
+                maxWidth: 345,
+                border: '1px solid black',
+                width: "100%", // Set the width to 100% to make all cards the same width
+                height: "100%" // Set the height to 100% to make all cards the same height
+              }}
+                key={recipe.id}>
                 <CardMedia
                   sx={{ height: 300 }}
                   image={recipe.recipe_photo_url}
                   title={recipe.recipe_title}
                 />
                 <CardContent sx={{
-                  height: "100%", // Set the same height for the CardContent
-                  overflow: "auto", // Enable scrolling if content exceeds the height
+                  height: "100%",
+                  overflow: "auto",
+                  padding: 0, // Remove padding
+                  margin: 0, // Remove margin
                 }}>
-                  <Typography gutterBottom variant="h5" component="div">
+                  <Typography gutterBottom variant="h5" component="div" sx={{
+                    marginBottom: '10px',
+                    whiteSpace: 'nowrap', // Prevent text from wrapping to the next line
+                    overflow: 'hidden',  // Hide overflowing text
+                    textOverflow: 'ellipsis', // Show ellipsis (...) for overflow
+                  }}
+                  >
                     {recipe.recipe_title}
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    <div style={{ backgroundColor: "lightcoral", height: "50px", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                      <span style={{ fontSize: "12px" }}>RATING</span>
+                  <Button sx={{ marginBottom: '20px' }} size="small" onClick={() => clickHandler(recipe)}>
+                    <span style={{ fontSize: "16px" }}>Learn More</span>
+                  </Button>
+
+                  <Typography variant="body2" color="text.secondary" sx={{ marginBottom: '10px' }}>
+                    <div style={{ backgroundColor: "lightcoral", height: "50px", width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                      <span>
+                        <InstagramIcon fontSize="large" />
+                        <FacebookShareButton url={recipe.recipe_recipe_link} quote={`check it out`}>
+                          <FacebookIcon fontSize="large" />
+                        </FacebookShareButton >
+                        <TwitterShareButton url={recipe.recipe_recipe_link} title="Check out Twitter">
+                          <TwitterIcon fontSize="large" />
+                        </TwitterShareButton>
+                      </span>
                       <div style={{ display: "flex", flexDirection: "row" }}>
 
                         <div key={recipe.recipe_id}>
@@ -118,29 +147,16 @@ const TopRecipes = (props) => {
                       </div>
                     </div>
                   </Typography>
-                  <Typography gutterBottom variant="h5" component="div">
+                  <Typography gutterBottom variant="h5" component="div" fontSize={14} marginBottom={-2}>
                     Rated By: {recipe.user_name}
                   </Typography>
                 </CardContent>
-                <CardActions>
-                  <div>
-                    <FacebookShareButton url={recipe.recipe_recipe_link} quote={`check it out`}>
-                      <FacebookIcon />
-                    </FacebookShareButton>
-                    <TwitterShareButton url={recipe.recipe_recipe_link} title="Check out Twitter">
-                      <TwitterIcon />
-                      {/* need recipe id as well below const url! */}
-                    </TwitterShareButton>
-
-                  </div>
-                  <Button size="small" onClick={() => clickHandler(recipe)}>Learn More</Button>
-                </CardActions>
               </Card>
             </Grid>
           ))}
 
         </Grid>
-      </div>
+      </div >
 
       <LikedRecipeModal likedModalOpen={likedModalOpen} selectedLikedRecipe={selectedLikedRecipe} >
         {console.log("liked recipe data inside modal", selectedLikedRecipe)}

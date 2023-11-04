@@ -14,8 +14,7 @@ import NavigationBar from "./components/NavigationBar";
 import LoginForm from "./components/LoginForm";
 import Signup from "./components/Signup";
 import './App.css';
-import TopRecipes from "./components/TopRecipes";
-
+// import TopRecipes from "./components/TopRecipes";
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -28,19 +27,22 @@ function App() {
   };
 
   return (
+
+
+
     <div className="App">
 
-      {/* <BrowserRouter>
+      <BrowserRouter>
 
         <Routes>
           <Route
             path="/"
-            element={isLoggedIn ?<> <NavigationBar   onLogout={handleLogout}
-            isLoggedIn={isLoggedIn} /> <HomeRoute /> </>: <Navigate to="/LoginForm" />}
+            element={isLoggedIn ? <> <NavigationBar onLogout={handleLogout}
+              isLoggedIn={isLoggedIn} /> <HomeRoute /> </> : <Navigate to="/LoginForm" />}
           />
-         
-          <Route path="/Liked-Recipe" element={<><NavigationBar  onLogout={handleLogout}
-                  isLoggedIn={isLoggedIn} /> <LikedRecipe /> </>} />
+
+          <Route path="/Liked-Recipe" element={<><NavigationBar onLogout={handleLogout}
+            isLoggedIn={isLoggedIn} /> <LikedRecipe /> </>} />
           <Route path="/LoginForm" element={isLoggedIn ? <Navigate to="/" /> : <LoginForm onAuthenticate={handleLogin} />} />
           <Route path="/Signup" element={<Signup />} />
           <Route
@@ -53,13 +55,13 @@ function App() {
                 />
                 <HomeRoute />
               </>
-              
+
             }
           />
         </Routes>
-      </BrowserRouter> */}
-      <TopRecipes />
+      </BrowserRouter>
     </div>
+
   );
 }
 
