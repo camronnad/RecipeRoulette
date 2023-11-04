@@ -68,6 +68,7 @@ export default function RecipeItem({
   const clickHandler = (event) => {
     console.log("event target", event.target);
     setSelectedRecipe(recipe);
+    console.log("selected recipe inside handler", recipe);
     if (event.target.tagName === "path") {
       toggleLiked(recipe);
       return;

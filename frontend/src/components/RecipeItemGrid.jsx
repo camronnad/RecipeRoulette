@@ -13,6 +13,7 @@ const RecipeItemGrid = ({ handleCardClick, activeModal, recipeData, imgSpin }) =
   const [selectedRecipe, setSelectedRecipe] = useState({});
   const [modalFav, setModalFav] = useState(false);
   const [selectedColor, setSelectedColor] = useState(true);
+  const [extendedIngredients, setExtendedIngredients] = useState([]);
 
   // const [activeModal, setActiveModal] = useState(null);
 
@@ -139,7 +140,31 @@ const RecipeItemGrid = ({ handleCardClick, activeModal, recipeData, imgSpin }) =
           <div onClick={() => toggleLiked(selectedRecipe)}> <FavIcon selected={likedItems.includes(selectedRecipe.id)} /></div>
           <p className="modal-description">Here, you can provide a detailed description of your recipe or any other relevant info you want to share.</p>
           <p>Ready In Minutes: {selectedRecipe.readyInMinutes}</p>
-          <>Instructions: <br /> {selectedRecipe.instructions}</>
+          <p> INGREDIENTS:  {selectedRecipe.extendedIngredients && selectedRecipe.extendedIngredients.map(ingredient => {
+
+            return <div>
+              {/* <img src="https://spoonacular.com/cdn/ingredients_100x100/{ingredient.image}" /> */}
+              <img src={`https://spoonacular.com/cdn/ingredients_100x100/${ingredient.image}`}></img>
+              <p>{ingredient.original}</p>
+            </div>;
+          })} </p>
+          <br />
+          <h3>INSTRUCTIONS</h3>
+          <p>{selectedRecipe.analyzedInstructions && selectedRecipe.analyzedInstructions.map(instruction => {
+            { console.log("instruction loop", instruction); }
+            return (
+              <div>
+                {instruction.steps.map((step, index) => (
+                  <div key={step.number}>
+                    <li>{step.step}</li>
+                    {index < instruction.steps.length - 1 && <br />}
+                  </div>
+                ))}
+              </div>
+            );
+          })}
+          </p>
+          {/* <>Instructions: <br /> {selectedRecipe.instructions}</> */}
         </div>
       </RecipeModal>
     </>
