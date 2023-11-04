@@ -1,7 +1,6 @@
 const bcrypt = require('bcrypt');
 const { pool } = require("../db/connect");
 
-
 const queryAllUsers = async () => {
   try {
     const result = await pool.query('SELECT * FROM users');
@@ -18,6 +17,16 @@ const getUserByEmail = async (email) => {
   } catch (error) {
     throw new Error(error);
   }
+};
+
+const getUserPreferences = async (userId) => {
+  const { rows } = await pool.query('SELECT preferences FROM users WHERE id = $1', [userId]);
+  return rows[0].preferences; 
+};
+
+const setUserPreferences = async (userId, preferences) => {
+  
+  await pool.query('UPDATE users SET preferences = $1 WHERE id = $2', [preferences, userId]);
 };
 
 async function authenticate(email, password) {
@@ -50,5 +59,7 @@ async function authenticate(email, password) {
 module.exports = {
   queryAllUsers,
   getUserByEmail,
-  authenticate 
+  authenticate ,
+  getUserPreferences,
+  setUserPreferences,
 };  
