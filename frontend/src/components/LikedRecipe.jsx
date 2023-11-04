@@ -6,14 +6,35 @@ import { Card, CardContent, Typography } from "@mui/material";
 import { FacebookShareButton, TwitterShareButton } from 'react-share';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
-import InstagramIcon from '@mui/icons-material/Instagram'; 
+import InstagramIcon from '@mui/icons-material/Instagram';
 import StarIcon from '@mui/icons-material/Star';
+import LikedRecipeModal from "./LikedRecipeModal";
 
+
+// const mockData = [
+//   {
+//     id: 1,
+//     imgSrc: "mushroomPasta.png",
+//     name: "Mushroom Pasta",
+//     description: "Delicious mushroom pasta with creamy sauce.",
+//   }
+//   // Add more recipe objects as needed
+// ];
 
 const LikedRecipe = (props) => {
   const { openLikedModal, closeLikedModal, photo } = props;
-  console.log("props:", props);
+  const [likedModalOpen, setLikedModalOpen] = useState(false);
   const [likedRecipeData, setLikedRecipeData] = useState([]);
+  const [selectedLikedRecipe, setSelectedLikedRecipe] = useState([]);
+
+  const closeModal = () => {
+    setLikedModalOpen(false);
+  };
+
+  console.log("props:", props);
+  //const { title, description, apiData } = props;
+  // console.log("Received props:", props);
+  // //const [likedModal, setLikedModal] = useState();
 
   useEffect(() => {
     console.log("document.body.style", document.body.style.overflow)
@@ -33,7 +54,7 @@ const LikedRecipe = (props) => {
       .catch((error) => {
         console.error('Fetch error:', error);
       });
-  }, []); 
+  }, []);
 
   const handleInstagramShare = () => {
     const instagramUrl = 'https://www.instagram.com';
@@ -45,17 +66,19 @@ const LikedRecipe = (props) => {
     twitter: 'https://www.twitter.com',
     instagram: 'https://www.instagram.com'
   };
- 
+
   const handleDeleteRecipe = (recipeId) => {
     const deleteURL = `http://localhost:3000/api/liked-recipes/${recipeId}`;
     console.log(`Sending DELETE request to: ${deleteURL}`);
-    console.log("Deleting recipe with ID:", recipeId); 
+    console.log("Deleting recipe with ID:", recipeId);
 
     fetch(`/api/liked-recipes/${recipeId}`, {
       method: 'DELETE',
     })
       .then((response) => {
         if (response.status === 204) {
+          console.log("this is response data", response);
+          // If the deletion was successful, update the state to remove the recipe
           const updatedLikedRecipeData = likedRecipeData.filter(recipe => recipe.id !== recipeId);
           setLikedRecipeData(updatedLikedRecipeData);
         } else {
@@ -97,6 +120,17 @@ const LikedRecipe = (props) => {
         console.error('Fetch error:', error);
       });
   };
+  const clickHandler = (recipe) => {
+    console.log("handler clicked");
+
+    console.log("recipe data outside handler", recipe);
+
+
+    setSelectedLikedRecipe([recipe]);
+    console.log("recipe data inside handler", recipe);
+    setLikedModalOpen(true);
+  };
+
 
   const parentStyle = {
     backgroundSize: 'cover',
@@ -135,8 +169,8 @@ const LikedRecipe = (props) => {
     objectFit: "contain", 
     display: "block",
   };
-
   return (
+    <>
     <div style={parentStyle}>
       {likedRecipeData.map((recipe) => (
         <Card key={recipe.id} style={cardStyle}>
@@ -144,7 +178,7 @@ const LikedRecipe = (props) => {
             <Grid item xs={2}>
               <Card style={innerCardStyle}>
                 <CardContent>
-                  <div onClick={openLikedModal} style={{ height: "75px", overflow: "hidden" }}>
+                <div onClick={() => clickHandler(recipe)} style={{ height: "75px", overflow: "hidden" }}>
                     <img src={recipe.photo_url} alt={recipe.photo_url} style={imageStyle} />
                   </div>
                   <div>
@@ -229,7 +263,21 @@ const LikedRecipe = (props) => {
         </Card>
       ))}
     </div>
+     <LikedRecipeModal likedModalOpen={likedModalOpen} selectedLikedRecipe={selectedLikedRecipe} >
+     {console.log("liked recipe data inside modal", selectedLikedRecipe)}
+     {selectedLikedRecipe.map((modalRecipeData) => (
+       <div className="modal-container" key={modalRecipeData.id}>
+         <button className="modal-close-btn" onClick={closeModal}>×</button>
+         <h2 className="modal-title">Recipe Name: {modalRecipeData.title}</h2>
+         <img className="modal-img" src={modalRecipeData.photo_url} alt="Recipe Image" />
+         <p className="modal-description">Here, you can provide a detailed description of your recipe or any other relevant info you want to share.</p>
+         <p>Ready In Minutes: {modalRecipeData.readyinminutes}</p>
+         <>Instructions: <br /> {modalRecipeData.instructions.replace(/<[^>]+>/g, '')}</>
+       </div>
+     ))}
+   </LikedRecipeModal>
+    </>
   );
-                          }
+             }
   export default LikedRecipe;
               

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import RecipeItem from "./RecipeItem";
 import { Card } from "@mui/material";
@@ -10,25 +10,56 @@ import FavIcon from "./FavIcon";
 const RecipeItemGrid = ({ handleCardClick, activeModal, recipeData, imgSpin }) => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedRecipe, setSelectedRecipe] = useState({});
+  const [modalFav, setModalFav] = useState(false);
+  const [selectedColor, setSelectedColor] = useState(true);
+  const [extendedIngredients, setExtendedIngredients] = useState([]);
+
+  // const [activeModal, setActiveModal] = useState(null);
 
   const closeModal = () => {
     setModalOpen(false);
   };
 
-  const handleFavClick = (isLiked) => {
+  const [likedItems, setLikedItems] = useState([]);
+  // const handleCardClick = (RecipeName, photo,) => {
+  //   if (activeModal === null) {
+  //     setActiveModal(RecipeName);
+  //   }
+  // };
+
+  useEffect(() => {
+    axios.get("/api/liked-recipes")
+      .then(res => {
+        console.log({ res });
+        setLikedItems(
+          res.data.map
+            (item =>
+              item.recipe_id
+            ));
+      })
+      .catch(err => {
+        console.log({ err });
+      });
+  }, []);
+
+  const handleFavClick = (isLiked, recipe) => {
+    console.log("selected recipe.id", recipe.id);
     console.log(isLiked);
     console.log("selected recipe.id before", selectedRecipe.id);
     if (isLiked) {
       console.log("selected recipe.id", selectedRecipe.id);
       axios.post('/api/saveLikeRecipe', {
-        title: selectedRecipe.title,
-        photo: selectedRecipe.image,
-        recipeId: selectedRecipe.id,
-        recipe_link: selectedRecipe.spoonacularSourceUrl,
-        summary: selectedRecipe.summary
+        title: recipe.title,
+        photo: recipe.image,
+        recipeId: recipe.id,
+        recipe_link: recipe.spoonacularSourceUrl,
+        summary: recipe.summary,
+        instructions: recipe.instructions,
+        readyInMinutes: recipe.readyInMinutes
       })
         .then(response => {
-
+          setLikedItems(prev => ([...prev, recipe.id]));
+          console.log("response for isliked", response);
           if (response.data.message) {
             console.log("Recipe saved to liked recipes!");
           } else {
@@ -40,9 +71,10 @@ const RecipeItemGrid = ({ handleCardClick, activeModal, recipeData, imgSpin }) =
         });
 
     } else {
-      axios.delete(`http://localhost:8080/api/saveLikeRecipe/${selectedRecipe.id}`)
+      axios.delete(`http://localhost:8080/api/saveLikeRecipe/${recipe.id}`)
         .then(() => {
           console.log("Recipe removed from favorites!");
+          setLikedItems(likedItems.filter(id => id !== recipe.id));
 
         })
         .catch(error => {
@@ -51,6 +83,23 @@ const RecipeItemGrid = ({ handleCardClick, activeModal, recipeData, imgSpin }) =
     }
 
   };
+  // const handleModalFav = () => {
+  //   setModalFav(!modalFav);
+  //   handleFavClick(modalFav, selectedRecipe);
+  // };
+  const toggleLiked = (recipe) => {
+    setLikedItems(prev => {
+      if (prev.includes(recipe.id)) {
+        handleFavClick(false, recipe);
+        return prev.filter(id => id !== recipe.id);
+      } else {
+        handleFavClick(true, recipe);
+        return [...prev, recipe.id];
+      }
+    });
+  };
+
+  // console.log("recipe data:", recipeData);
   return (
     <>
       <Card
@@ -63,7 +112,9 @@ const RecipeItemGrid = ({ handleCardClick, activeModal, recipeData, imgSpin }) =
             {recipeData.map((recipe, index) => (
               <Grid key={index} item xs={4}>
                 <RecipeItem
-                  handleFavClick={handleFavClick}
+                  likedItems={likedItems}
+                  handleFavClick={(isLiked) => { handleFavClick(isLiked, recipe); }}
+                  selectedColor={selectedColor}
                   selectedRecipe={selectedRecipe}
                   setSelectedRecipe={setSelectedRecipe}
                   setModalOpen={setModalOpen}
@@ -75,6 +126,7 @@ const RecipeItemGrid = ({ handleCardClick, activeModal, recipeData, imgSpin }) =
                   recipe={recipe}
                   recipe_link={recipe.spoonacularSourceUrl}
                   summary={recipe.summary}
+                  toggleLiked={toggleLiked}
                 />
               </Grid>
             ))}
@@ -87,10 +139,34 @@ const RecipeItemGrid = ({ handleCardClick, activeModal, recipeData, imgSpin }) =
           <button className="modal-close-btn" onClick={closeModal}>×</button>
           <h2 className="modal-title">Recipe Name: {selectedRecipe.title}</h2>
           <img className="modal-img" src={selectedRecipe.image} alt="Recipe Image" />
-          <FavIcon onFavCLick={handleFavClick} />
+          <div onClick={() => toggleLiked(selectedRecipe)}> <FavIcon selected={likedItems.includes(selectedRecipe.id)} /></div>
           <p className="modal-description">Here, you can provide a detailed description of your recipe or any other relevant info you want to share.</p>
           <p>Ready In Minutes: {selectedRecipe.readyInMinutes}</p>
-          <>Instructions: <br /> {selectedRecipe.instructions}</>
+          <p> INGREDIENTS:  {selectedRecipe.extendedIngredients && selectedRecipe.extendedIngredients.map(ingredient => {
+
+            return <div>
+              {/* <img src="https://spoonacular.com/cdn/ingredients_100x100/{ingredient.image}" /> */}
+              <img src={`https://spoonacular.com/cdn/ingredients_100x100/${ingredient.image}`}></img>
+              <p>{ingredient.original}</p>
+            </div>;
+          })} </p>
+          <br />
+          <h3>INSTRUCTIONS</h3>
+          <p>{selectedRecipe.analyzedInstructions && selectedRecipe.analyzedInstructions.map(instruction => {
+            { console.log("instruction loop", instruction); }
+            return (
+              <div>
+                {instruction.steps.map((step, index) => (
+                  <div key={step.number}>
+                    <li>{step.step}</li>
+                    {index < instruction.steps.length - 1 && <br />}
+                  </div>
+                ))}
+              </div>
+            );
+          })}
+          </p>
+          {/* <>Instructions: <br /> {selectedRecipe.instructions}</> */}
         </div>
       </RecipeModal>
     </>

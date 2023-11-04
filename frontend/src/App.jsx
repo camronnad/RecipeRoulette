@@ -16,7 +16,7 @@ import Signup from "./components/Signup";
 import Authentication from "./components/Authentication";
 import PreferencesPage from "./components/PreferencePage";
 import './App.css';
-
+// import TopRecipes from "./components/TopRecipes";
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -29,18 +29,29 @@ function App() {
   };
 
   return (
+
+
+
     <div className="App">
-      
+
       <BrowserRouter>
 
         <Routes>
+          <Route
+            path="/"
+            element={isLoggedIn ? <> <NavigationBar onLogout={handleLogout}
+              isLoggedIn={isLoggedIn} /> <HomeRoute /> </> : <Navigate to="/LoginForm" />}
+          />
+
+          <Route path="/Liked-Recipe" element={<><NavigationBar onLogout={handleLogout}
+            isLoggedIn={isLoggedIn} /> <LikedRecipe /> </>} />
           {/* <Route path="/" */}
-            {/* element={isLoggedIn ?<> <NavigationBar   onLogout={handleLogout} */}
-            {/* isLoggedIn={isLoggedIn} /> <HomeRoute /> </>: <Navigate to="/LoginForm" />} */}
+          {/* element={isLoggedIn ?<> <NavigationBar   onLogout={handleLogout} */}
+          {/* isLoggedIn={isLoggedIn} /> <HomeRoute /> </>: <Navigate to="/LoginForm" />} */}
           {/* /> */}
-            <Route path="/login" element={<Authentication onLogin={handleLogin} />} />
-          <Route path="/Liked-Recipe" element={<><NavigationBar  onLogout={handleLogout}
-                  isLoggedIn={isLoggedIn} /> <LikedRecipe /> </>} />
+          <Route path="/login" element={<Authentication onLogin={handleLogin} />} />
+          <Route path="/Liked-Recipe" element={<><NavigationBar onLogout={handleLogout}
+            isLoggedIn={isLoggedIn} /> <LikedRecipe /> </>} />
           <Route path="/LoginForm" element={isLoggedIn ? <Navigate to="/" /> : <LoginForm onAuthenticate={handleLogin} />} />
           <Route path="/Signup" element={<Signup />} />
           <Route path="/preferences" element={<PreferencesPage />} />
@@ -54,13 +65,13 @@ function App() {
                 />
                 <HomeRoute />
               </>
-              
+
             }
           />
         </Routes>
       </BrowserRouter>
-      
     </div>
+
   );
 }
 

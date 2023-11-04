@@ -23,6 +23,28 @@ const queryRatingLikedRecipes = async (rating, userId, id) => {
     throw error;
   }
 };
+const queryTopLikedRecipes = async () => {
+  const queryString = ` SELECT
+  users.id AS user_id,
+  users.name AS user_name,
+  likedRecipes.id AS recipe_id,
+  likedRecipes.title AS recipe_title,
+  likedRecipes.description AS recipe_description,
+  likedRecipes.recipe_link AS recipe_link,
+  likedRecipes.summary AS recipe_summary,
+  likedRecipes.photo_url AS recipe_photo_url,
+  likedRecipes.instructions AS recipe_instructions,
+  likedRecipes.readyInMinutes AS recipe_readyInMinutes,
+  likedRecipes.rating AS recipe_rating
+
+FROM users
+INNER JOIN likedRecipes ON users.id = likedRecipes.user_id
+WHERE likedRecipes.rating >= 4
+LIMIT 9;`;
+  const result = await pool.query(queryString);
+  // console.log(result)
+  return result.rows;
+};
 
 
-module.exports = { queryRatingLikedRecipes };
+module.exports = { queryRatingLikedRecipes, queryTopLikedRecipes };
