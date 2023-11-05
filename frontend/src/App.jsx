@@ -37,11 +37,11 @@ function App() {
       <BrowserRouter>
 
         <Routes>
-          <Route
+          {/* <Route
             path="/"
             element={isLoggedIn ? <> <NavigationBar onLogout={handleLogout}
               isLoggedIn={isLoggedIn} /> <HomeRoute /> </> : <Navigate to="/LoginForm" />}
-          />
+          /> */}
 
           <Route path="/Liked-Recipe" element={<><NavigationBar onLogout={handleLogout}
             isLoggedIn={isLoggedIn} /> <LikedRecipe /> </>} />
