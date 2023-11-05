@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import CheckboxGroup from './checkbox';
+import NavigationBar from './NavigationBar';
 
 const initialPreferences = {
   dietary: [],
@@ -104,11 +105,14 @@ const PreferencesPage = () => {
   };
 
   return (
+    <>
+    <NavigationBar />
     <form onSubmit={handleSubmit}>
       {Object.entries(allOptions).map(([category, options]) => {
         const selectedOptions = preferences[category];
         // Ensure selectedOptions is an array before rendering CheckboxGroup
         return (
+          
           <fieldset key={category}>
             <legend>{category}</legend>
             {Array.isArray(selectedOptions) ? (
@@ -126,6 +130,7 @@ const PreferencesPage = () => {
       })}
       <button type="submit">Save Preferences</button>
     </form>
+    </>
   );
 };
 

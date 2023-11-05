@@ -28,3 +28,4 @@ const FavIcon = ({ color, selected }) => {
 };
 
 export default FavIcon;
+

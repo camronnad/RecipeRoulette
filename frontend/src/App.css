@@ -1,13 +1,5 @@
 .App {
   /* background-image: url("/HomeRouteImg.png"); */
-  height: 100vw;
- 
-}
-
-body {
-  overflow: hidden;
-  width: 100vw;
-  height: 100vw;
-  background-color: #f0ead6;
-
+  height: 100vh;
+ background-color: transparent; 
 }

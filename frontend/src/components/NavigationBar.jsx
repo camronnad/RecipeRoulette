@@ -36,7 +36,7 @@ if (location.pathname === "/likedrecipes") {
 
  
   return (
-    <AppBar position="static" sx={{...appBarStyle}}>
+    <AppBar position="static" sx={{...appBarStyle, backgroundColor: "transparent"}}>
       <Container maxWidth="xl">
       <Toolbar disableGutters sx={{ height: '100px' }}>
       <div>
@@ -60,7 +60,7 @@ if (location.pathname === "/likedrecipes") {
          
           </Typography>
           <Box sx={{ marginRight: 2 }}>
-            <Link to="/preferences" style={{ color: 'white', textDecoration: 'none' }}>
+            <Link to="/preferences" style={{ color: 'black', textDecoration: 'none' }}>
               Preferences
             </Link>
           </Box>
@@ -75,6 +75,7 @@ if (location.pathname === "/likedrecipes") {
               <MenuIcon />
             </IconButton>
           </Box>
+          <Box sx={{ flexGrow: 1 }}></Box>
           <UserProfile onLogout={onLogout} isLoggedIn={isLoggedIn} />
          
         </Toolbar>
