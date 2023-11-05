@@ -9,6 +9,7 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import StarIcon from '@mui/icons-material/Star';
 import LikedRecipeModal from "./LikedRecipeModal";
+import TextField from "@mui/material/TextField";
 
 
 // const mockData = [
@@ -26,6 +27,7 @@ const LikedRecipe = (props) => {
   const [likedModalOpen, setLikedModalOpen] = useState(false);
   const [likedRecipeData, setLikedRecipeData] = useState([]);
   const [selectedLikedRecipe, setSelectedLikedRecipe] = useState([]);
+  const [searchKeyword, setSearchKeyword] = useState("");
 
   const closeModal = () => {
     setLikedModalOpen(false);
@@ -37,9 +39,9 @@ const LikedRecipe = (props) => {
   // //const [likedModal, setLikedModal] = useState();
 
   useEffect(() => {
-    console.log("document.body.style", document.body.style.overflow)
-    document.body.style["overflow"] = "scroll"
-  
+    console.log("document.body.style", document.body.style.overflow);
+    document.body.style["overflow"] = "scroll";
+
     fetch(`/api/liked-recipes`)
       .then((response) => {
         if (!response.ok) {
@@ -49,7 +51,7 @@ const LikedRecipe = (props) => {
       })
       .then((data) => {
         setLikedRecipeData(data);
-        console.log("data object:",data)
+        console.log("data object:", data);
       })
       .catch((error) => {
         console.error('Fetch error:', error);
@@ -140,144 +142,157 @@ const LikedRecipe = (props) => {
     display: 'grid', // This creates columns that grow to fit the container., // This sets the gap between the grid items.
     padding: '20px',
   };
-  
+
   const cardStyle = {
     height: 200,
-    padding: 2, 
-    margin: 20, 
-    borderRadius: 10,  
+    padding: 2,
+    margin: 20,
+    borderRadius: 10,
     backgroundColor: "rgba(255, 255, 255, 0.5)"
   };
-  
+
   const innerCardStyle = {
-    padding: 2, 
-    borderRadius: 9, 
-    boxShadow: 3, 
-    margin: "20px auto", 
-    width: "100%", 
+    padding: 2,
+    borderRadius: 9,
+    boxShadow: 3,
+    margin: "20px auto",
+    width: "100%",
     height: "150px",
   };
-  
+
   const imageContainerStyle = {
-    height: "75px", 
+    height: "75px",
     overflow: "hidden"
   };
-  
+
   const imageStyle = {
     width: "100%",
     height: "100%",
-    objectFit: "contain", 
+    objectFit: "contain",
     display: "block",
   };
+  const filteredLikedRecipeData = likedRecipeData.filter((recipe) =>
+    recipe.title.toLowerCase().includes(searchKeyword.toLowerCase())
+  );
+
+
+
+
   return (
     <>
-    <div style={parentStyle}>
-      {likedRecipeData.map((recipe) => (
-        <Card key={recipe.id} style={cardStyle}>
-          <Grid container spacing={0} justifyContent="center">
-            <Grid item xs={2}>
-              <Card style={innerCardStyle}>
-                <CardContent>
-                <div onClick={() => clickHandler(recipe)} style={{ height: "75px", overflow: "hidden" }}>
-                    <img src={recipe.photo_url} alt={recipe.photo_url} style={imageStyle} />
-                  </div>
-                  <div>
-                    
-                  </div>
-                  <Typography variant="h6" component="div" sx={{ textAlign: "center" }}>
-                    {recipe.title}
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-            <Grid item xs={6}>
-              <Card style={innerCardStyle}>
-                <CardContent>
-                  <Typography variant="h6" component="div" sx={{ textAlign: "center" }}>
-                    Description
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary" sx={{ textAlign: "center", maxHeight: "100px", overflowY: "auto" }}>
-                    {console.log("Summary:", recipe)}
-                    {recipe.summary.replace(/<[^>]+>/g, '')}
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-            <Grid item xs={3}>
-              <Card style={innerCardStyle}>
-                <CardContent>
-                  
-                 
-                <Grid container spacing={0} justifyContent="center" >
-  {/* ...other Grid items... */}
-  <Grid item xs={10} sx={{ mt: -5 }}>
-    <Card style={innerCardStyle}>
-      <CardContent>
-        <div style={{ display: 'flex', flexDirection: 'column'}}>
-          {/* Rating at the top */}
-          <div style={{ marginBottom: '10px' }}>
-            <Typography variant="h6" component="div" sx={{ textAlign: "center" }}>
-              Rating
-            </Typography>
-            <div style={{ display: "flex", justifyContent: "center", padding: '10px 0' }}>
-              {[1, 2, 3, 4, 5].map((rating) => (
-                <div key={rating} onClick={() => handleRateRecipe(recipe.id, rating)} style={{ cursor: "pointer" }}>
-                  <StarIcon style={{ color: recipe.rating >= rating ? "gold" : "gray" }} />
-                </div>
-              ))}
-            </div>
-          </div>
+      <div>
+        <TextField
+          label="Search Recipes"
+          variant="outlined"
+          value={searchKeyword}
+          onChange={(e) => setSearchKeyword(e.target.value)}
+        />
 
-          {/* Delete and Share buttons side by side */}
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <button
-              onClick={() => handleDeleteRecipe(recipe.id)}
-              variant="contained"
-              color="secondary"
-              size="small"
-            >
-              DELETE
-            </button>
-            
-            {/* Sharing options */}
-            <div>
-              <FacebookShareButton url={recipe.recipe_link} quote={`check it out`}>
-                <FacebookIcon size={32} round />
-              </FacebookShareButton>
-              <TwitterShareButton url={recipe.recipe_link} title="Check out Twitter">
-                <TwitterIcon size={32} round />
-              </TwitterShareButton>
-            </div>
-          </div>
-        </div>
-      </CardContent>
-    </Card>
-  </Grid>
-</Grid>
+        {/* {likedRecipeData.map((recipe) => ( */}
+        {filteredLikedRecipeData.map((recipe) => (
+          <Card key={recipe.id} style={cardStyle}>
+            <Grid container spacing={0} justifyContent="center">
+              <Grid item xs={2}>
+                <Card style={innerCardStyle}>
+                  <CardContent>
+                    <div onClick={() => clickHandler(recipe)} style={{ height: "75px", overflow: "hidden" }}>
+                      <img src={recipe.photo_url} alt={recipe.photo_url} style={imageStyle} />
+                    </div>
 
-                  
-                </CardContent>
-              </Card>
+                    <Typography variant="h6" component="div" sx={{ textAlign: "center" }}>
+                      {recipe.title}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+              <Grid item xs={6}>
+                <Card style={innerCardStyle}>
+                  <CardContent>
+                    <Typography variant="h6" component="div" sx={{ textAlign: "center" }}>
+                      Description
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary" sx={{ textAlign: "center", maxHeight: "100px", overflowY: "auto" }}>
+                      {console.log("Summary:", recipe)}
+                      {recipe.summary.replace(/<[^>]+>/g, '')}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+              <Grid item xs={3}>
+                <Card style={innerCardStyle}>
+                  <CardContent>
+
+
+                    <Grid container spacing={0} justifyContent="center" >
+                      {/* ...other Grid items... */}
+                      <Grid item xs={10} sx={{ mt: -5 }}>
+                        <Card style={innerCardStyle}>
+                          <CardContent>
+                            <div style={{ display: 'flex', flexDirection: 'column' }}>
+                              {/* Rating at the top */}
+                              <div style={{ marginBottom: '10px' }}>
+                                <Typography variant="h6" component="div" sx={{ textAlign: "center" }}>
+                                  Rating
+                                </Typography>
+                                <div style={{ display: "flex", justifyContent: "center", padding: '10px 0' }}>
+                                  {[1, 2, 3, 4, 5].map((rating) => (
+                                    <div key={rating} onClick={() => handleRateRecipe(recipe.id, rating)} style={{ cursor: "pointer" }}>
+                                      <StarIcon style={{ color: recipe.rating >= rating ? "gold" : "gray" }} />
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+
+                              {/* Delete and Share buttons side by side */}
+                              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                <button
+                                  onClick={() => handleDeleteRecipe(recipe.id)}
+                                  variant="contained"
+                                  color="secondary"
+                                  size="small"
+                                >
+                                  DELETE
+                                </button>
+
+                                {/* Sharing options */}
+                                <div>
+                                  <FacebookShareButton url={recipe.recipe_link} quote={`check it out`}>
+                                    <FacebookIcon size={32} round />
+                                  </FacebookShareButton>
+                                  <TwitterShareButton url={recipe.recipe_link} title="Check out Twitter">
+                                    <TwitterIcon size={32} round />
+                                  </TwitterShareButton>
+                                </div>
+                              </div>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      </Grid>
+                    </Grid>
+
+
+                  </CardContent>
+                </Card>
+              </Grid>
             </Grid>
-          </Grid>
-        </Card>
-      ))}
-    </div>
-     <LikedRecipeModal likedModalOpen={likedModalOpen} selectedLikedRecipe={selectedLikedRecipe} >
-     {console.log("liked recipe data inside modal", selectedLikedRecipe)}
-     {selectedLikedRecipe.map((modalRecipeData) => (
-       <div className="modal-container" key={modalRecipeData.id}>
-         <button className="modal-close-btn" onClick={closeModal}>×</button>
-         <h2 className="modal-title">Recipe Name: {modalRecipeData.title}</h2>
-         <img className="modal-img" src={modalRecipeData.photo_url} alt="Recipe Image" />
-         <p className="modal-description">Here, you can provide a detailed description of your recipe or any other relevant info you want to share.</p>
-         <p>Ready In Minutes: {modalRecipeData.readyinminutes}</p>
-         <>Instructions: <br /> {modalRecipeData.instructions.replace(/<[^>]+>/g, '')}</>
-       </div>
-     ))}
-   </LikedRecipeModal>
+          </Card>
+        ))}
+      </div >
+      <LikedRecipeModal likedModalOpen={likedModalOpen} selectedLikedRecipe={selectedLikedRecipe} >
+        {console.log("liked recipe data inside modal", selectedLikedRecipe)}
+        {selectedLikedRecipe.map((modalRecipeData) => (
+          <div className="modal-container" key={modalRecipeData.id}>
+            <button className="modal-close-btn" onClick={closeModal}>×</button>
+            <h2 className="modal-title">Recipe Name: {modalRecipeData.title}</h2>
+            <img className="modal-img" src={modalRecipeData.photo_url} alt="Recipe Image" />
+            <p className="modal-description">Here, you can provide a detailed description of your recipe or any other relevant info you want to share.</p>
+            <p>Ready In Minutes: {modalRecipeData.readyinminutes}</p>
+            <p>Instructions: <br /> {modalRecipeData.instructions.replace(/<[^>]+>/g, '')}</p>
+          </div>
+        ))}
+      </LikedRecipeModal>
     </>
   );
-             }
-  export default LikedRecipe;
-              
+};
+export default LikedRecipe;
+

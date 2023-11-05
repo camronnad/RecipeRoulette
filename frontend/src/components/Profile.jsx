@@ -7,26 +7,26 @@ import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 import { BrowserRouter, Link, useNavigate } from 'react-router-dom';
 
-const profiles = ['Profile', 'Liked-Recipe', 'Logout'];
+const profiles = ['Profile', 'Liked-Recipe', 'TopRecipes', 'Logout'];
 const UserProfile = ({ onLogout }) => {
-    const [anchorElUser, setAnchorElUser] = useState(null);
-    let navigate = useNavigate();
+  const [anchorElUser, setAnchorElUser] = useState(null);
+  let navigate = useNavigate();
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
 
-    const handleCloseUserMenu = () => {
-        setAnchorElUser(null);
-    };
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
 
-    const handleMenuClick = (profileOption) => {
-        handleCloseUserMenu();
-        if (profileOption === "Logout") {
-            onLogout();
-            navigate('/LoginForm');
-        }
-    };
+  const handleMenuClick = (profileOption) => {
+    handleCloseUserMenu();
+    if (profileOption === "Logout") {
+      onLogout();
+      navigate('/LoginForm');
+    }
+  };
 
   return (
     <>
