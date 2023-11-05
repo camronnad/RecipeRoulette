@@ -54,8 +54,6 @@ function App() {
           {/* isLoggedIn={isLoggedIn} /> <HomeRoute /> </>: <Navigate to="/LoginForm" />} */}
           {/* /> */}
           <Route path="/login" element={<Authentication onLogin={handleLogin} />} />
-          <Route path="/Liked-Recipe" element={<><NavigationBar onLogout={handleLogout}
-            isLoggedIn={isLoggedIn} /> <LikedRecipe /> </>} />
           <Route path="/LoginForm" element={isLoggedIn ? <Navigate to="/" /> : <LoginForm onAuthenticate={handleLogin} />} />
           <Route path="/Signup" element={<Signup />} />
           <Route path="/preferences" element={<PreferencesPage />} />
