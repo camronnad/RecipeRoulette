@@ -13,8 +13,10 @@ import HomeRoute from "./routes/HomeRoute";
 import NavigationBar from "./components/NavigationBar";
 import LoginForm from "./components/LoginForm";
 import Signup from "./components/Signup";
+import TopRecipes from "./components/TopRecipes";
 import Authentication from "./components/Authentication";
 import PreferencesPage from "./components/PreferencePage";
+
 import './App.css';
 // import TopRecipes from "./components/TopRecipes";
 function App() {
@@ -45,6 +47,8 @@ function App() {
 
           <Route path="/Liked-Recipe" element={<><NavigationBar onLogout={handleLogout}
             isLoggedIn={isLoggedIn} /> <LikedRecipe /> </>} />
+          <Route path="/TopRecipes" element={<><NavigationBar onLogout={handleLogout}
+            isLoggedIn={isLoggedIn} /> <TopRecipes /> </>} />
           {/* <Route path="/" */}
           {/* element={isLoggedIn ?<> <NavigationBar   onLogout={handleLogout} */}
           {/* isLoggedIn={isLoggedIn} /> <HomeRoute /> </>: <Navigate to="/LoginForm" />} */}

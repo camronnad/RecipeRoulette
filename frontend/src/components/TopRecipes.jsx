@@ -167,7 +167,7 @@ const TopRecipes = (props) => {
             <img className="modal-img" src={modalRecipeData.recipe_photo_url} alt="Recipe Image" />
             <p className="modal-description">Here, you can provide a detailed description of your recipe or any other relevant info you want to share.</p>
             <p>Ready In Minutes: {modalRecipeData.recipe_readyinminutes}</p>
-            <>Instructions: <br /> {modalRecipeData.recipe_instructions}</>
+            <>Instructions: <br /> {modalRecipeData.recipe_instructions.replace(/<[^>]+>/g, '')}</>
           </div>
         ))}
       </LikedRecipeModal>
