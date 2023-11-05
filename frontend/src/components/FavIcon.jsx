@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
-const FavIcon = ({ color, onFavCLick }) => {
+const FavIcon = ({ color, selected }) => {
+
 
 
 
@@ -27,3 +28,4 @@ const FavIcon = ({ color, onFavCLick }) => {
 };
 
 export default FavIcon;
+

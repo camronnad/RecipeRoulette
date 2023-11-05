@@ -23,6 +23,7 @@ const UserProfile = ({ onLogout }) => {
     const handleMenuClick = (profileOption) => {
         handleCloseUserMenu();
         if (profileOption === "Logout") {
+          console.log("OnLogout", onLogout())
             onLogout();
             navigate('/LoginForm');
         }

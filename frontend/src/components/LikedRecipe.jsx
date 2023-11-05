@@ -136,7 +136,7 @@ const LikedRecipe = (props) => {
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center center',
-    minHeight: '100vh',
+    minHeight: '0',
     display: 'grid', // This creates columns that grow to fit the container., // This sets the gap between the grid items.
     padding: '20px',
   };

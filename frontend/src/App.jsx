@@ -30,25 +30,16 @@ function App() {
 
   return (
 
-
-
     <div className="App">
 
       <BrowserRouter>
 
         <Routes>
-          <Route
-            path="/"
-            element={isLoggedIn ? <> <NavigationBar onLogout={handleLogout}
-              isLoggedIn={isLoggedIn} /> <HomeRoute /> </> : <Navigate to="/LoginForm" />}
-          />
+    
 
-          <Route path="/Liked-Recipe" element={<><NavigationBar onLogout={handleLogout}
-            isLoggedIn={isLoggedIn} /> <LikedRecipe /> </>} />
-          {/* <Route path="/" */}
-          {/* element={isLoggedIn ?<> <NavigationBar   onLogout={handleLogout} */}
-          {/* isLoggedIn={isLoggedIn} /> <HomeRoute /> </>: <Navigate to="/LoginForm" />} */}
-          {/* /> */}
+          {/* <Route path="/Liked-Recipe" element={<><NavigationBar onLogout={handleLogout}
+            isLoggedIn={isLoggedIn} /> <LikedRecipe /> </>} /> */}
+          
           <Route path="/login" element={<Authentication onLogin={handleLogin} />} />
           <Route path="/Liked-Recipe" element={<><NavigationBar onLogout={handleLogout}
             isLoggedIn={isLoggedIn} /> <LikedRecipe /> </>} />

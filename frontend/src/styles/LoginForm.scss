@@ -75,7 +75,7 @@
       border: 2px solid black;
       border-radius: 5px;
       background-color: rgba(255, 255, 255, 0.9);
-      font-size: 30px;
+      font-size: 20px;
       height: 30px;
       transition: border-color 0.3s ease;
     
@@ -84,6 +84,11 @@
         border-color: #4a7e29;  
         outline: none;
       }
+    }
+    .error-message {
+      color: red;
+      margin-bottom: 30px;
+      margin-left: 30px;
     }
 
    
