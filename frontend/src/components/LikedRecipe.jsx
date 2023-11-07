@@ -246,6 +246,19 @@ const LikedRecipe = (props) => {
           value={searchKeyword}
           onChange={(e) => setSearchKeyword(e.target.value)}
         />
+        <Button variant="contained" onClick={openDrawer} style={{ float: "right" }}>
+          Open Drawer
+        </Button>
+        <Drawer anchor="right" open={drawerOpen} onClose={closeDrawer}>
+          <div>
+            <SimilarRecipesCard
+              similarRecipes={similarRecipes}
+              isFlipped={isFlipped}
+              setIsFlipped={setIsFlipped}
+
+            />
+          </div>
+        </Drawer>
         {console.log("recipe data need recipe id", filteredLikedRecipeData)}
         {/* {likedRecipeData.map((recipe) => ( */}
         {filteredLikedRecipeData.map((recipe) => (
@@ -311,6 +324,9 @@ const LikedRecipe = (props) => {
                                   DELETE
                                 </button>
                                 {/* Sharing options */}
+                                <div onClick={() => fetchSimilarRecipesFromBackend(recipe.recipe_id)}>
+                                  <button>Find Simlar Recipes</button>
+                                </div>
                                 <div>
                                   <FacebookShareButton url={recipe.recipe_link} quote={`check it out`}>
                                     <FacebookIcon size={32} round />
@@ -324,32 +340,7 @@ const LikedRecipe = (props) => {
                           </CardContent>
                         </Card>
                       </Grid>
-                      <Grid item xs={2}>
-                        {/* New card within the same scope as the main grid */}
-                        <Card >
-                          <CardContent >
-                            <div onClick={() => fetchSimilarRecipesFromBackend(recipe.recipe_id)}>
-                              <button>Find Simlar Recipes</button>
-                            </div>
 
-                            {/* {showSimilarRecipes && (
-                              <Card style={similarRecipesContainerStyle}>
-
-                                <CardContent>
-                                  <div>
-                                    <SimilarRecipesCard
-                                      similarRecipes={similarRecipes}
-                                      handleFlipClick={handleFlipClick}
-                                      isFlipped={isFlipped}
-                                    />
-                                    <button onClick={() => closeSimilarRecipesModal()}>X</button>
-                                  </div>
-                                </CardContent>
-                              </Card>
-                            )} */}
-                          </CardContent>
-                        </Card>
-                      </Grid>
                     </Grid>
                   </CardContent>
                 </Card>
@@ -358,19 +349,7 @@ const LikedRecipe = (props) => {
           </Card>
         ))}
       </div>
-      <Button variant="contained" onClick={openDrawer}>
-        Open Drawer
-      </Button>
-      <Drawer anchor="right" open={drawerOpen} onClose={closeDrawer}>
-        <div>
-          <SimilarRecipesCard
-            similarRecipes={similarRecipes}
-            isFlipped={isFlipped}
-            setIsFlipped={setIsFlipped}
 
-          />
-        </div>
-      </Drawer>
 
       <LikedRecipeModal likedModalOpen={likedModalOpen} selectedLikedRecipe={selectedLikedRecipe} setIsFlipped={setIsFlipped} >
         {console.log("liked recipe data inside modal", selectedLikedRecipe)}
@@ -381,7 +360,16 @@ const LikedRecipe = (props) => {
             <img className="modal-img" src={modalRecipeData.photo_url} alt="Recipe Image" />
             <p className="modal-description">Here, you can provide a detailed description of your recipe or any other relevant info you want to share.</p>
             <p>Ready In Minutes: {modalRecipeData.readyinminutes}</p>
-            <p>Instructions: <br /> {modalRecipeData.instructions.replace(/<[^>]+>/g, '')}</p>
+            <p>{modalRecipeData.instructions.replace(/<[^>]+>/g, '')}</p>
+            <p> INGREDIENTS:  {modalRecipeData.ingredients && modalRecipeData.ingredients.map(ingredient => {
+
+              return <div>
+                <ol>
+                  <li>{ingredient}</li>
+                </ol>
+              </div>;
+            })}
+            </p>
           </div>
         ))}
       </LikedRecipeModal>

@@ -16,6 +16,7 @@ const RecipeItemGrid = ({ handleCardClick, activeModal, recipeData, imgSpin }) =
 
   const userId = localStorage.getItem("userId");
 
+
   // const [activeModal, setActiveModal] = useState(null);
 
   const closeModal = () => {
@@ -45,6 +46,9 @@ const RecipeItemGrid = ({ handleCardClick, activeModal, recipeData, imgSpin }) =
   }, []);
 
   const handleFavClick = (isLiked, recipe) => {
+    const ingredientOriginals = recipe.extendedIngredients.map(ingredient => ingredient.original);
+    const ingredientsString = JSON.stringify(ingredientOriginals);
+
     console.log("selected recipe.id", recipe.id);
     console.log(isLiked);
     console.log("selected recipe.id before", selectedRecipe.id);
@@ -58,7 +62,9 @@ const RecipeItemGrid = ({ handleCardClick, activeModal, recipeData, imgSpin }) =
         recipe_link: recipe.spoonacularSourceUrl,
         summary: recipe.summary,
         instructions: recipe.instructions,
-        readyInMinutes: recipe.readyInMinutes
+        readyInMinutes: recipe.readyInMinutes,
+        ingredients: ingredientsString
+
       })
         .then(response => {
           setLikedItems(prev => ([...prev, recipe.id]));

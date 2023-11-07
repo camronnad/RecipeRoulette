@@ -60,7 +60,7 @@ const SimilarRecipesCard = ({ similarRecipes, isFlipped, setIsFlipped }) => {
           <div key={outerIndex}>
             {innerArray.map((recipe, innerIndex) => (
               <div
-                style={{ width: '13vw', margin: '0 auto' }}
+                style={{ height: "23vh", width: '15vw', margin: '0 auto', borderTop: "1px solid black", paddingLeft: "5px" }}
                 key={innerIndex}
               >
                 {/* Front side of the card for each recipe */}
@@ -71,11 +71,10 @@ const SimilarRecipesCard = ({ similarRecipes, isFlipped, setIsFlipped }) => {
                       src={`https://spoonacular.com/recipeImages/${recipe.id}-636x393.${recipe.imageType}`}
                       alt={`Image of ${recipe.title}`}
                     />
-                    <p>Ready in {recipe.readyInMinutes} minutes</p>
-                    <p>Servings: {recipe.servings}</p>
-                    <a href={recipe.sourceUrl} target="_blank" rel="noopener noreferrer">
+                    <p>Ready in {recipe.readyInMinutes} and serves {recipe.servings}</p>
+                    {/* <a href={recipe.sourceUrl} target="_blank" rel="noopener noreferrer">
                       Link to Recipe
-                    </a>
+                    </a> */}
                     <button onClick={() => handleViewDetails(recipe.id, outerIndex)}>View Details</button>
                   </>
                 ) : (
@@ -87,12 +86,19 @@ const SimilarRecipesCard = ({ similarRecipes, isFlipped, setIsFlipped }) => {
             ))}
           </div>
           {/* Back side of the card  */}
-          <div style={{ width: '13vw', margin: '0 auto' }}
+          <div
+            style={{ height: "23vh", width: '15vw', margin: '0 auto', borderTop: "1px solid black", paddingLeft: "5px" }}
           >
             {detailedInfo && (
               <div>
                 <h3>{detailedInfo.title}</h3>
-                <p>Ingredients: {detailedInfo.extendedIngredients.map((ingredient) => ingredient.original)}</p>
+                <p>Ingredients:
+                  <ul>
+                    {detailedInfo.extendedIngredients.map((ingredient, index) => (
+                      <li key={index}>{ingredient.original}</li>
+                    ))}
+                  </ul>
+                </p>
                 <p>Instructions: {detailedInfo.instructions}</p>
               </div>
             )}
