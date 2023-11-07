@@ -38,10 +38,9 @@ async function authenticate(email, password) {
 
     if (userResult.rows.length > 0) {
       const user = userResult.rows[0];
-      console.log(bcrypt);
+
       // Compare the provided password with the hashed password in the database
-      console.log(password)
-      console.log(user.password)
+      
       const isValid = await bcrypt.compare(password, user.password);
 
       if (isValid) {

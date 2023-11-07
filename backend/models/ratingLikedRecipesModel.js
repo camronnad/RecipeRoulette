@@ -40,7 +40,7 @@ const queryTopLikedRecipes = async () => {
 FROM users
 INNER JOIN likedRecipes ON users.id = likedRecipes.user_id
 WHERE likedRecipes.rating >= 4
-LIMIT 9;`;
+LIMIT 10;`;
   const result = await pool.query(queryString);
   // console.log(result)
   return result.rows;

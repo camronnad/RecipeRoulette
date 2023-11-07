@@ -30,6 +30,7 @@ app.post('/api/v1/users/signup', async (req, res) => {
       [fullName, email, hashedPasword]
     );
     res.json({ userId: result.rows[0].id });
+    console.log("result",result.rows[0].id )
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

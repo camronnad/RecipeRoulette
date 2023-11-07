@@ -33,6 +33,7 @@ const getUserEmail = async (req, res) => {
 // This function retrieves user preferences from the database
 async function getUserPreferences(req, res) {
   const userId = req.params.userId;
+  console.log("userId", userId)
   try {
     const result = await pool.query('SELECT preferences FROM users WHERE id = $1', [userId]);
     if (result.rows.length > 0) {
