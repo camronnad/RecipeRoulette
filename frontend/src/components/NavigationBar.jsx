@@ -18,25 +18,29 @@ const NavigationBar = ({ onLogout, isLoggedIn }) => {
 
   const location = useLocation();
   
-  let appBarStyle;
+  // let appBarStyle = {};
 
-if (location.pathname === "/likedrecipes") {
-    appBarStyle = {
-        backgroundImage: 'url("/SomeOtherImageForLikedRecipes.png")', // Replace with the path to your image specific for LikedRecipe page
-        backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat'
-    };
-} else {
-    appBarStyle = {
-        backgroundImage: 'url("/HomeRouteImgcopy.png")',
-        backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat'
-    };
-}
+// if (location.pathname === "/") {
+//   appBarStyle.backgroundImage = 'url("/HomeRouteImg.png")';
+  
+//     } else if (location.pathname === '/Profile') { // Replace with the specific path you want
+//       appBarStyle.backgroundImage = 'url("/HomeRouteImg.png")';
+//     } else {
+//       appBarStyle.backgroundImage = 'url("/BackDrop.png")';
+//       appBarStyle.position = "relative"
+//       appBarStyle.left = "20%"
+//     }
+//     appBarStyle.backgroundSize = 'cover';
+//     appBarStyle.backgroundRepeat = 'no-repeat';
+//     appBarStyle.backgroundColor = 'transparent';
+//     appBarStyle.boxShadow = 'none';
+  
+//     console.log('App Bar Style: ', appBarStyle)
+ 
 
  
   return (
-    <AppBar position="static" sx={{...appBarStyle, backgroundColor: "transparent"}}>
+    <AppBar position="static" sx={{ backgroundColor: "transparent", boxShadow: "none", marginLeft: 2}}>
       <Container maxWidth="xl">
       <Toolbar disableGutters sx={{ height: '100px' }}>
       <div>
@@ -59,23 +63,25 @@ if (location.pathname === "/likedrecipes") {
           >
          
           </Typography>
-          <Box sx={{ marginRight: 2 }}>
-            <Link to="/preferences" style={{ color: 'black', textDecoration: 'none' }}>
-              Preferences
-            </Link>
-          </Box>
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
+          <Box sx={{ marginLeft: 'auto', marginRight: 1 }}>
+    <Link to="/preferences" style={{ color: 'black', textDecoration: 'none' }}>
+      Preferences
+    </Link>
+  </Box>
+          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' }  }}>
+            {/* <IconButton
               size="large"
               aria-label="account of current user"
               aria-controls="menu-appbar"
               aria-haspopup="true"
               color="inherit"
+              
+              
             >
-              <MenuIcon />
-            </IconButton>
+              
+            </IconButton> */}
           </Box>
-          <Box sx={{ flexGrow: 1 }}></Box>
+          
           <UserProfile onLogout={onLogout} isLoggedIn={isLoggedIn} />
          
         </Toolbar>

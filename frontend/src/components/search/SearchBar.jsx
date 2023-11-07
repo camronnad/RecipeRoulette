@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import SearchButton from "./SearchButton";
 import SearchContainer from "./SearchContainer";
+import rouletteAudio from "../../assets/roulette wheel - sound effect.mp3";
 function SearchBar(props) {
 
   const toggleSpin = () => {
@@ -14,6 +15,7 @@ function SearchBar(props) {
 
   const searchHandler = () => {
     props.setImgSpin(true); 
+    // start()
     console.log("togglespin called:", props.imgSpin);
     console.log("search query:", search);
     let searchData;
@@ -35,8 +37,10 @@ function SearchBar(props) {
       });
   };
 
-  var audio = new Audio('audio_file.mp3');
-
+  // const  audio = new Audio(rouletteAudio);
+  // const start = () => {
+  //   audio.play()
+  // }
 
   return (
     <>

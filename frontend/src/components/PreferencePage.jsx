@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import CheckboxGroup from './checkbox';
 import NavigationBar from './NavigationBar';
+import "../styles/PreferencePage.scss"
 
 const initialPreferences = {
   dietary: [],
@@ -62,7 +63,9 @@ const PreferencesPage = () => {
         const response = await axios.get(API_ENDPOINT);
         if (response.data && typeof response.data === 'object' && 'dietary' in response.data) {
           // If the structure of response.data is correct
+          
           setPreferences(response.data);
+          
         } else {
           // If response.data is null or doesn't have the expected structure
           console.error('Invalid or null data structure received:', response.data);
@@ -107,7 +110,7 @@ const PreferencesPage = () => {
   return (
     <>
     <NavigationBar />
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="fixed-checkbox">
       {Object.entries(allOptions).map(([category, options]) => {
         const selectedOptions = preferences[category];
         // Ensure selectedOptions is an array before rendering CheckboxGroup
@@ -117,10 +120,12 @@ const PreferencesPage = () => {
             <legend>{category}</legend>
             {Array.isArray(selectedOptions) ? (
               <CheckboxGroup
+               className="fixed-checkbox"
                 options={options}
                 selectedOptions={selectedOptions}
                 onChange={handlePreferenceChange}
                 category={category}
+                
               />
             ) : (
               <p>Loading preferences...</p> // or some error message if needed

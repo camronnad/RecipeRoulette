@@ -59,10 +59,10 @@ h1 {
 .wrapper {
   display: flex;
   justify-content: center;
-  position: relative; 
   flex-direction: row;
   width: 100%;
   gap: 10px;
+
 
 
 }
