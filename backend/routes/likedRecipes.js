@@ -4,17 +4,17 @@ const { pool } = require("../db/connect");
 require('dotenv').config();
 
 router.post('/', async (req, res) => {
-  const { title, recipe_link, summary, photo, instructions, readyInMinutes, recipeId } = req.body;
+  const { userId, title, recipe_link, summary, photo, instructions, readyInMinutes, recipeId } = req.body;
   console.log("recipe id ", recipeId);
-  console.log("req body", req.body);
+  console.log("userID from front end", userId);
   if (!title || !recipe_link || !summary || !photo || !instructions || !readyInMinutes) {
     return res.status(400).json({ error: 'Missing required parameters.' });
   }
 
   try {
     await pool.query(
-      `INSERT INTO likedRecipes (title, recipe_link, summary, photo_url, recipe_id, instructions, readyInMinutes, user_id ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
-      [title, recipe_link, summary, photo, recipeId, instructions, readyInMinutes, 5]
+      `INSERT INTO likedRecipes (user_id , title, recipe_link, summary, photo_url, recipe_id, instructions, readyInMinutes) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
+      [userId, title, recipe_link, summary, photo, recipeId, instructions, readyInMinutes]
     );
 
     res.status(200).json({ message: 'Successfully added to liked recipes.' });

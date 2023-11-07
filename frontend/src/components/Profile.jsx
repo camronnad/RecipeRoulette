@@ -7,7 +7,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 import { BrowserRouter, Link, useNavigate } from 'react-router-dom';
 
-const profiles = ['Profile', 'Liked-Recipe', 'TopRecipes', 'Logout'];
+const profiles = ['Profile', 'Liked-Recipe', 'SimilarRecipes', 'TopRecipes', 'Logout'];
 const UserProfile = ({ onLogout }) => {
   const [anchorElUser, setAnchorElUser] = useState(null);
   let navigate = useNavigate();

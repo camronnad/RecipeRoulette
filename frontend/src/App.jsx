@@ -16,9 +16,9 @@ import Signup from "./components/Signup";
 import TopRecipes from "./components/TopRecipes";
 import Authentication from "./components/Authentication";
 import PreferencesPage from "./components/PreferencePage";
-
+import SimilarRecipes from "./components/SimilarRecipesCard";
 import './App.css';
-// import TopRecipes from "./components/TopRecipes";
+
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -49,6 +49,8 @@ function App() {
             isLoggedIn={isLoggedIn} /> <LikedRecipe /> </>} />
           <Route path="/TopRecipes" element={<><NavigationBar onLogout={handleLogout}
             isLoggedIn={isLoggedIn} /> <TopRecipes /> </>} />
+          <Route path="/SimilarRecipes" element={<><NavigationBar onLogout={handleLogout}
+            isLoggedIn={isLoggedIn} /> <SimilarRecipes /> </>} />
           {/* <Route path="/" */}
           {/* element={isLoggedIn ?<> <NavigationBar   onLogout={handleLogout} */}
           {/* isLoggedIn={isLoggedIn} /> <HomeRoute /> </>: <Navigate to="/LoginForm" />} */}

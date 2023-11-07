@@ -14,6 +14,8 @@ const RecipeItemGrid = ({ handleCardClick, activeModal, recipeData, imgSpin }) =
   const [selectedColor, setSelectedColor] = useState(true);
   const [extendedIngredients, setExtendedIngredients] = useState([]);
 
+  const userId = localStorage.getItem("userId");
+
   // const [activeModal, setActiveModal] = useState(null);
 
   const closeModal = () => {
@@ -49,6 +51,7 @@ const RecipeItemGrid = ({ handleCardClick, activeModal, recipeData, imgSpin }) =
     if (isLiked) {
       console.log("selected recipe.id", selectedRecipe.id);
       axios.post('/api/saveLikeRecipe', {
+        userId: userId,
         title: recipe.title,
         photo: recipe.image,
         recipeId: recipe.id,
@@ -103,8 +106,10 @@ const RecipeItemGrid = ({ handleCardClick, activeModal, recipeData, imgSpin }) =
   return (
     <>
       <Card
-        sx={{ width: "750px", padding: 3, margin: 3, borderRadius: 9,backgroundColor: 'transparent',  // Making the background transparent
-        boxShadow: 'none'  }}
+        sx={{
+          width: "750px", padding: 3, margin: 3, borderRadius: 9, backgroundColor: 'transparent',  // Making the background transparent
+          boxShadow: 'none'
+        }}
         className="recipe_grid"
       >
         {!imgSpin &&

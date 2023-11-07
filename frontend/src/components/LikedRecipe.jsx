@@ -10,6 +10,11 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import StarIcon from '@mui/icons-material/Star';
 import LikedRecipeModal from "./LikedRecipeModal";
 import TextField from "@mui/material/TextField";
+import Axios from 'axios';
+import SimilarRecipesCard from "./SimilarRecipesCard";
+import ReactCardFlip from 'react-card-flip';
+import Drawer from "@mui/material/Drawer";
+import { Button } from "@mui/material";
 
 
 // const mockData = [
@@ -28,15 +33,68 @@ const LikedRecipe = (props) => {
   const [likedRecipeData, setLikedRecipeData] = useState([]);
   const [selectedLikedRecipe, setSelectedLikedRecipe] = useState([]);
   const [searchKeyword, setSearchKeyword] = useState("");
+  const [similarRecipes, setSimilarRecipes] = useState([]);
+  const [isFlipped, setIsFlipped] = useState(false);
+  const [recipeModalOpen, setRecipeModalOpen] = useState(false);
+  const [showSimilarRecipes, setShowSimilarRecipes] = useState(false);
+  const [selectedRecipe, setSelectedRecipe] = useState(null); // Add this state variable
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
+  // const openRecipeDetails = (recipe) => {
+  //   setSelectedRecipe(recipe); // Set the selected recipe when it's opened
+  // };
+
+  const openDrawer = () => {
+    setDrawerOpen(true);
+  };
+
+  const closeDrawer = () => {
+    setDrawerOpen(false);
+  };
+
+  const openSimilarRecipesModal = () => {
+    setShowSimilarRecipes(true);
+
+  };
+
+  const closeSimilarRecipesModal = () => {
+    setShowSimilarRecipes(false);
+  };
+
+
+  console.log("isFlipped value before click", isFlipped);
+
+
 
   const closeModal = () => {
     setLikedModalOpen(false);
   };
 
-  console.log("props:", props);
-  //const { title, description, apiData } = props;
-  // console.log("Received props:", props);
-  // //const [likedModal, setLikedModal] = useState();
+
+
+  // const similarRecipesContainerStyle = {
+  //   height: "300px",
+  //   padding: 2,
+  //   margin: 20,
+  //   borderRadius: 10,
+  //   backgroundColor: "rgba(255, 255, 255, 0.5)",
+  //   transition: "height 0.5s",
+  // };
+
+  const fetchSimilarRecipesFromBackend = (recipeId) => {
+    console.log("recipe id in api function", recipeId);
+    Axios.get(`/api/liked-recipes/similar/${recipeId}`)
+      .then((response) => {
+        // Handle the response data here
+        const apiRecipes = response.data;
+        console.log('api recipes:', apiRecipes);
+        setSimilarRecipes([...similarRecipes, apiRecipes]); // Set the similar recipes in the state
+        console.log("simlar recipes stores from api", similarRecipes);
+      })
+      .catch((error) => {
+        console.error('Error fetching similar recipes from backend:', error);
+      });
+  };
 
   useEffect(() => {
     console.log("document.body.style", document.body.style.overflow);
@@ -93,6 +151,7 @@ const LikedRecipe = (props) => {
     const updatedLikedRecipeData = likedRecipeData.filter(recipe => recipe.id !== recipeId);
     setLikedRecipeData(updatedLikedRecipeData);
   };
+  const userId = localStorage.getItem("userId");
 
   const handleRateRecipe = (recipeId, rating) => {
     const putURL = `http://localhost:3000/api/liked-recipes/rate/${recipeId}`;
@@ -103,7 +162,7 @@ const LikedRecipe = (props) => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ rating }),
+      body: JSON.stringify({ rating, userId }),
     })
       .then((response) => {
         if (response.status === 200) {
@@ -187,11 +246,11 @@ const LikedRecipe = (props) => {
           value={searchKeyword}
           onChange={(e) => setSearchKeyword(e.target.value)}
         />
-
+        {console.log("recipe data need recipe id", filteredLikedRecipeData)}
         {/* {likedRecipeData.map((recipe) => ( */}
         {filteredLikedRecipeData.map((recipe) => (
           <Card key={recipe.id} style={cardStyle}>
-            <Grid container spacing={0} justifyContent="center">
+            <Grid container spacing={2} justifyContent="center">
               <Grid item xs={2}>
                 <Card style={innerCardStyle}>
                   <CardContent>
@@ -212,7 +271,6 @@ const LikedRecipe = (props) => {
                       Description
                     </Typography>
                     <Typography variant="body2" color="text.secondary" sx={{ textAlign: "center", maxHeight: "100px", overflowY: "auto" }}>
-                      {console.log("Summary:", recipe)}
                       {recipe.summary.replace(/<[^>]+>/g, '')}
                     </Typography>
                   </CardContent>
@@ -221,7 +279,6 @@ const LikedRecipe = (props) => {
               <Grid item xs={3}>
                 <Card style={innerCardStyle}>
                   <CardContent>
-
 
                     <Grid container spacing={0} justifyContent="center" >
                       {/* ...other Grid items... */}
@@ -253,7 +310,6 @@ const LikedRecipe = (props) => {
                                 >
                                   DELETE
                                 </button>
-
                                 {/* Sharing options */}
                                 <div>
                                   <FacebookShareButton url={recipe.recipe_link} quote={`check it out`}>
@@ -268,17 +324,55 @@ const LikedRecipe = (props) => {
                           </CardContent>
                         </Card>
                       </Grid>
+                      <Grid item xs={2}>
+                        {/* New card within the same scope as the main grid */}
+                        <Card >
+                          <CardContent >
+                            <div onClick={() => fetchSimilarRecipesFromBackend(recipe.recipe_id)}>
+                              <button>Find Simlar Recipes</button>
+                            </div>
+
+                            {/* {showSimilarRecipes && (
+                              <Card style={similarRecipesContainerStyle}>
+
+                                <CardContent>
+                                  <div>
+                                    <SimilarRecipesCard
+                                      similarRecipes={similarRecipes}
+                                      handleFlipClick={handleFlipClick}
+                                      isFlipped={isFlipped}
+                                    />
+                                    <button onClick={() => closeSimilarRecipesModal()}>X</button>
+                                  </div>
+                                </CardContent>
+                              </Card>
+                            )} */}
+                          </CardContent>
+                        </Card>
+                      </Grid>
                     </Grid>
-
-
                   </CardContent>
                 </Card>
               </Grid>
             </Grid>
           </Card>
         ))}
-      </div >
-      <LikedRecipeModal likedModalOpen={likedModalOpen} selectedLikedRecipe={selectedLikedRecipe} >
+      </div>
+      <Button variant="contained" onClick={openDrawer}>
+        Open Drawer
+      </Button>
+      <Drawer anchor="right" open={drawerOpen} onClose={closeDrawer}>
+        <div>
+          <SimilarRecipesCard
+            similarRecipes={similarRecipes}
+            isFlipped={isFlipped}
+            setIsFlipped={setIsFlipped}
+
+          />
+        </div>
+      </Drawer>
+
+      <LikedRecipeModal likedModalOpen={likedModalOpen} selectedLikedRecipe={selectedLikedRecipe} setIsFlipped={setIsFlipped} >
         {console.log("liked recipe data inside modal", selectedLikedRecipe)}
         {selectedLikedRecipe.map((modalRecipeData) => (
           <div className="modal-container" key={modalRecipeData.id}>
