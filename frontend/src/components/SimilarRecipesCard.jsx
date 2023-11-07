@@ -60,17 +60,22 @@ const SimilarRecipesCard = ({ similarRecipes, isFlipped, setIsFlipped }) => {
           <div key={outerIndex}>
             {innerArray.map((recipe, innerIndex) => (
               <div
-                style={{ height: "23vh", width: '15vw', margin: '0 auto', borderTop: "1px solid black", paddingLeft: "5px" }}
+                style={{ height: "20vh", width: '15vw', margin: '0 auto', paddingLeft: "5px", marginBotton: "50px" }}
                 key={innerIndex}
               >
                 {/* Front side of the card for each recipe */}
                 {recipe.title ? (
                   <>
-                    <h3>{recipe.title}</h3>
+                    <h3 style={{ borderTop: "1px solid black", borderBottom: "1px solid black" }}>{recipe.title}</h3>
+                    <br />
                     <img
                       src={`https://spoonacular.com/recipeImages/${recipe.id}-636x393.${recipe.imageType}`}
                       alt={`Image of ${recipe.title}`}
+                      height={"250px"}
+                      width={"250px"}
+
                     />
+                    <br />
                     <p>Ready in {recipe.readyInMinutes} and serves {recipe.servings}</p>
                     {/* <a href={recipe.sourceUrl} target="_blank" rel="noopener noreferrer">
                       Link to Recipe
@@ -87,7 +92,7 @@ const SimilarRecipesCard = ({ similarRecipes, isFlipped, setIsFlipped }) => {
           </div>
           {/* Back side of the card  */}
           <div
-            style={{ height: "23vh", width: '15vw', margin: '0 auto', borderTop: "1px solid black", paddingLeft: "5px" }}
+            style={{ height: "25vh", width: '15vw', margin: '0 auto', borderTop: "1px solid black", paddingLeft: "5px" }}
           >
             {detailedInfo && (
               <div>

@@ -45,12 +45,12 @@ function App() {
               isLoggedIn={isLoggedIn} /> <HomeRoute /> </> : <Navigate to="/LoginForm" />}
           /> */}
 
-          <Route path="/Liked-Recipe" element={<><NavigationBar onLogout={handleLogout}
+          <Route path="/Favourites" element={<><NavigationBar onLogout={handleLogout}
             isLoggedIn={isLoggedIn} /> <LikedRecipe /> </>} />
-          <Route path="/TopRecipes" element={<><NavigationBar onLogout={handleLogout}
+          <Route path="/Top Rated" element={<><NavigationBar onLogout={handleLogout}
             isLoggedIn={isLoggedIn} /> <TopRecipes /> </>} />
-          <Route path="/SimilarRecipes" element={<><NavigationBar onLogout={handleLogout}
-            isLoggedIn={isLoggedIn} /> <SimilarRecipes /> </>} />
+          <Route path="/Preferences" element={<><NavigationBar onLogout={handleLogout}
+            isLoggedIn={isLoggedIn} /> <PreferencesPage /> </>} />
           {/* <Route path="/" */}
           {/* element={isLoggedIn ?<> <NavigationBar   onLogout={handleLogout} */}
           {/* isLoggedIn={isLoggedIn} /> <HomeRoute /> </>: <Navigate to="/LoginForm" />} */}
@@ -58,7 +58,6 @@ function App() {
           <Route path="/login" element={<Authentication onLogin={handleLogin} />} />
           <Route path="/LoginForm" element={isLoggedIn ? <Navigate to="/" /> : <LoginForm onAuthenticate={handleLogin} />} />
           <Route path="/Signup" element={<Signup />} />
-          <Route path="/preferences" element={<PreferencesPage />} />
           <Route
             path="*"
             element={
