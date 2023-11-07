@@ -8,7 +8,12 @@ const { queryRatingLikedRecipes } = require("../models/ratingLikedRecipesModel")
 
 const likedRecipeRouter = (pool) => {
   router.get("/", (req, res) => {
-    queryAllLikedRecipes()
+    const userId = req.query.userId; // Get the user ID from the request query
+    console.log("query liked recipe id", userId);
+    // Ensure userId is available in the query
+
+
+    queryAllLikedRecipes(userId)
       .then(likedRecipes => {
         // console.log("query all liked recipes:", likedRecipes);
 

@@ -45,11 +45,10 @@ const allOptions = {
   ],
 };
 
-const user = {
-  id: '10', // Ideally this should come from a context or parent component
-};
+const userId = localStorage.getItem("userId");
 
-const API_ENDPOINT = `/api/users/${user.id}/preferences`;
+
+const API_ENDPOINT = `/api/users/${userId}/preferences`;
 
 const PreferencesPage = () => {
   const [preferences, setPreferences] = useState(initialPreferences);
@@ -58,7 +57,7 @@ const PreferencesPage = () => {
   useEffect(() => {
     const fetchPreferences = async () => {
       try {
-        const response = await axios.get(API_ENDPOINT);
+        const response = await fetch(API_ENDPOINT);
         if (response.data && typeof response.data === 'object' && 'dietary' in response.data) {
           // If the structure of response.data is correct
           setPreferences(response.data);

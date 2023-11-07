@@ -100,7 +100,7 @@ const LikedRecipe = (props) => {
     console.log("document.body.style", document.body.style.overflow);
     document.body.style["overflow"] = "scroll";
 
-    fetch(`/api/liked-recipes`)
+    fetch(`/api/liked-recipes?userId=${userId}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error(`Request failed with status ${response.status}`);
