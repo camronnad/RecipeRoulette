@@ -60,7 +60,7 @@ const SimilarRecipesCard = ({ similarRecipes, isFlipped, setIsFlipped }) => {
           <div key={outerIndex}>
             {innerArray.map((recipe, innerIndex) => (
               <div
-                style={{ height: "20vh", width: '15vw', margin: '0 auto', paddingLeft: "5px", marginBotton: "50px" }}
+                style={{ width: "500px", maxHeight: '600px', overflowY: 'auto', marginBottom: '20px', paddingLeft: "5px" }}
                 key={innerIndex}
               >
                 {/* Front side of the card for each recipe */}
@@ -71,8 +71,8 @@ const SimilarRecipesCard = ({ similarRecipes, isFlipped, setIsFlipped }) => {
                     <img
                       src={`https://spoonacular.com/recipeImages/${recipe.id}-636x393.${recipe.imageType}`}
                       alt={`Image of ${recipe.title}`}
-                      height={"250px"}
-                      width={"250px"}
+                      height={"300px"}
+                      width={"400px"}
 
                     />
                     <br />
@@ -92,19 +92,22 @@ const SimilarRecipesCard = ({ similarRecipes, isFlipped, setIsFlipped }) => {
           </div>
           {/* Back side of the card  */}
           <div
-            style={{ height: "25vh", width: '15vw', margin: '0 auto', borderTop: "1px solid black", paddingLeft: "5px" }}
+            style={{ width: "500px", maxHeight: '400px', overflowY: 'auto', margin: '0 auto', paddingLeft: "5px" }}
           >
             {detailedInfo && (
               <div>
                 <h3>{detailedInfo.title}</h3>
+
                 <p>Ingredients:
-                  <ul>
+                  <ul style={{ listStyleType: 'none', padding: 0, margin: 0 }}>
                     {detailedInfo.extendedIngredients.map((ingredient, index) => (
                       <li key={index}>{ingredient.original}</li>
                     ))}
                   </ul>
                 </p>
+
                 <p>Instructions: {detailedInfo.instructions}</p>
+
               </div>
             )}
             <button onClick={() => handleFlipClick(outerIndex)}>Flip Card</button>
