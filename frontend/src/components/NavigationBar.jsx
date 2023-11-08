@@ -59,11 +59,11 @@ const NavigationBar = ({ onLogout, isLoggedIn }) => {
           >
 
           </Typography>
-          {/* <Box sx={{ marginRight: 2 }}>
+          <Box sx={{ marginRight: 2 }}>
             <Link to="/preferences" style={{ color: 'white', textDecoration: 'none' }}>
               Preferences
             </Link>
-          </Box> */}
+          </Box>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
@@ -75,6 +75,7 @@ const NavigationBar = ({ onLogout, isLoggedIn }) => {
               <MenuIcon />
             </IconButton>
           </Box>
+          <Box sx={{ flexGrow: 1 }}></Box>
           <UserProfile onLogout={onLogout} isLoggedIn={isLoggedIn} />
 
         </Toolbar>

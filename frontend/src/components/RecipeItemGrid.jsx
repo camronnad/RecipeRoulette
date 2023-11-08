@@ -116,6 +116,10 @@ const RecipeItemGrid = ({ handleCardClick, activeModal, recipeData, imgSpin }) =
           width: "750px", padding: 3, margin: 3, borderRadius: 9, backgroundColor: 'transparent',  // Making the background transparent
           boxShadow: 'none'
         }}
+        sx={{
+          width: "750px", padding: 3, margin: 3, borderRadius: 9, backgroundColor: 'transparent',  // Making the background transparent
+          boxShadow: 'none', position: "relative", bottom: "31%", left: "4%"
+        }}
         className="recipe_grid"
       >
         {!imgSpin &&

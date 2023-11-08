@@ -35,6 +35,9 @@ function SearchBar(props) {
       });
   };
 
+  var audio = new Audio('audio_file.mp3');
+
+
   return (
     <>
       <div className="left-column">
@@ -45,6 +48,7 @@ function SearchBar(props) {
             alt="Roulette "
           />
         ) : (
+          
           <img
             src="roulette.png"
             alt="Roulette Animation"
