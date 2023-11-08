@@ -53,7 +53,7 @@ const UserProfile = ({ onLogout }) => {
       >
         {profiles.map((profile) => (
           <MenuItem key={profile} onClick={() => handleMenuClick(profile)}>
-            < Typography textAlign="center">{<Link to={`/${profile}`}>{profile}</Link >}</Typography>
+            <Typography textAlign="center">{<Link to={`/${profile}`}>{profile}</Link >}</Typography>
           </MenuItem>
         ))}
       </Menu>

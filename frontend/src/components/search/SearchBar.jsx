@@ -15,7 +15,7 @@ function SearchBar(props) {
 
   const searchHandler = () => {
     props.setImgSpin(true); 
-    // start()
+    start()
     console.log("togglespin called:", props.imgSpin);
     console.log("search query:", search);
     let searchData;
@@ -37,10 +37,10 @@ function SearchBar(props) {
       });
   };
 
-  // const  audio = new Audio(rouletteAudio);
-  // const start = () => {
-  //   audio.play()
-  // }
+  const  audio = new Audio(rouletteAudio);
+  const start = () => {
+    audio.play()
+  }
 
   return (
     <>

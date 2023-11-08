@@ -98,7 +98,8 @@ const PreferencesPage = () => {
       const response = await axios.post(API_ENDPOINT, { preferences });
       if (response.status === 200) {
         console.log('Preferences saved successfully!');
-        navigate('/'); // Navigate to the home page
+        navigate('/');
+     
       } else {
         console.error('Failed to save preferences:', response);
       }
@@ -108,9 +109,9 @@ const PreferencesPage = () => {
   };
 
   return (
-    <>
+    <div >
     <NavigationBar />
-    <form onSubmit={handleSubmit} className="fixed-checkbox">
+    <form onSubmit={handleSubmit} className="fixed-checkbox" style={{display: "flex", flexDirection: "column", justifyContent: "center", }}>
       {Object.entries(allOptions).map(([category, options]) => {
         const selectedOptions = preferences[category];
         // Ensure selectedOptions is an array before rendering CheckboxGroup
@@ -133,9 +134,34 @@ const PreferencesPage = () => {
           </fieldset>
         );
       })}
-      <button type="submit">Save Preferences</button>
+  
+  <div>
+    <button
+  type="submit"
+  style={{
+    marginTop: "15px",
+    padding: '25px 20px',
+    fontSize: '16px',
+    color: 'white',
+    backgroundColor: 'black',
+    border: 'none',
+    borderRadius: '5px',
+    cursor: 'pointer',
+    outline: 'none',
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
+    transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out',
+    width: "fit-content",
+    
+    
+    
+  }}
+>
+  Save Preferences
+</button>
+</div>
     </form>
-    </>
+
+    </div>
   );
 };
 

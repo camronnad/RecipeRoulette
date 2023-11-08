@@ -157,7 +157,7 @@ const TopRecipes = (props) => {
                     </div>
                   </Typography>
                   <Typography gutterBottom variant="h5" component="div" fontSize={16} marginBottom={-2} marginLeft={4}>
-                    Rated By: {recipe.user_name}
+                    {/* Rated By: {recipe.user_name} */}
                   </Typography>
                 </CardContent>
               </Card>
