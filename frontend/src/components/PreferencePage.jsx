@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import CheckboxGroup from './checkbox';
 import NavigationBar from './NavigationBar';
+import "../styles/PreferencePage.scss"
 
 const initialPreferences = {
   dietary: [],
@@ -61,7 +62,9 @@ const PreferencesPage = () => {
         const response = await fetch(API_ENDPOINT);
         if (response.data && typeof response.data === 'object' && 'dietary' in response.data) {
           // If the structure of response.data is correct
+          
           setPreferences(response.data);
+          
         } else {
           // If response.data is null or doesn't have the expected structure
           console.error('Invalid or null data structure received:', response.data);
@@ -94,7 +97,8 @@ const PreferencesPage = () => {
       const response = await axios.post(API_ENDPOINT, { preferences });
       if (response.status === 200) {
         console.log('Preferences saved successfully!');
-        navigate('/'); // Navigate to the home page
+        navigate('/');
+     
       } else {
         console.error('Failed to save preferences:', response);
       }
@@ -104,9 +108,9 @@ const PreferencesPage = () => {
   };
 
   return (
-    <>
+    <div >
     <NavigationBar />
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="fixed-checkbox" style={{display: "flex", flexDirection: "column", justifyContent: "center", }}>
       {Object.entries(allOptions).map(([category, options]) => {
         const selectedOptions = preferences[category];
         // Ensure selectedOptions is an array before rendering CheckboxGroup
@@ -116,10 +120,12 @@ const PreferencesPage = () => {
             <legend>{category}</legend>
             {Array.isArray(selectedOptions) ? (
               <CheckboxGroup
+               className="fixed-checkbox"
                 options={options}
                 selectedOptions={selectedOptions}
                 onChange={handlePreferenceChange}
                 category={category}
+                
               />
             ) : (
               <p>Loading preferences...</p> // or some error message if needed
@@ -127,9 +133,34 @@ const PreferencesPage = () => {
           </fieldset>
         );
       })}
-      <button type="submit">Save Preferences</button>
+  
+  <div>
+    <button
+  type="submit"
+  style={{
+    marginTop: "15px",
+    padding: '25px 20px',
+    fontSize: '16px',
+    color: 'white',
+    backgroundColor: 'black',
+    border: 'none',
+    borderRadius: '5px',
+    cursor: 'pointer',
+    outline: 'none',
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
+    transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out',
+    width: "fit-content",
+    
+    
+    
+  }}
+>
+  Save Preferences
+</button>
+</div>
     </form>
-    </>
+
+    </div>
   );
 };
 
