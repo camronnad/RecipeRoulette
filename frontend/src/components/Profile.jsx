@@ -6,8 +6,8 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 import { BrowserRouter, Link, useNavigate } from 'react-router-dom';
-
-const profiles = ['Profile', 'Liked-Recipe', 'TopRecipes', 'Logout'];
+// change the link names 
+const profiles = ['Home', 'Favourites', 'Preferences', 'Top Rated', 'Logout'];
 const UserProfile = ({ onLogout }) => {
   const [anchorElUser, setAnchorElUser] = useState(null);
   let navigate = useNavigate();
@@ -23,7 +23,12 @@ const UserProfile = ({ onLogout }) => {
   const handleMenuClick = (profileOption) => {
     handleCloseUserMenu();
     if (profileOption === "Logout") {
+      localStorage.removeItem('userId');
+      // Clear all items from local storage
+      localStorage.clear();
+
       onLogout();
+
       navigate('/LoginForm');
     }
   };
@@ -53,7 +58,16 @@ const UserProfile = ({ onLogout }) => {
       >
         {profiles.map((profile) => (
           <MenuItem key={profile} onClick={() => handleMenuClick(profile)}>
-            <Typography textAlign="center">{<Link to={`/${profile}`}>{profile}</Link >}</Typography>
+            < Typography textAlign="center">
+
+              {<Link to={`/${profile}`}
+                style={{
+                  textDecoration: 'none', // Remove underline
+                  color: 'inherit', // Inherit text color from parent
+                }}
+              >{profile}
+              </Link >}
+            </Typography>
           </MenuItem>
         ))}
       </Menu>

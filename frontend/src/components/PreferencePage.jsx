@@ -17,41 +17,40 @@ const initialPreferences = {
 
 const allOptions = {
   dietary: [
-    'Vegan', 'Ketogenic', 'Paleolithic', 'Vegetarian', 'Pescatarian', 'Gluten-Free', 
-    'Dairy-Free', 'Low-Carb', 'Low-Fat', 'High-Protein', 'Diabetic-Friendly', 
+    'Vegan', 'Ketogenic', 'Paleolithic', 'Vegetarian', 'Pescatarian', 'Gluten-Free',
+    'Dairy-Free', 'Low-Carb', 'Low-Fat', 'High-Protein', 'Diabetic-Friendly',
     'Halal', 'Kosher', 'Whole30', 'Autoimmune Protocol',
   ],
   allergens: [
-    'Tree Nuts', 'Peanuts', 'Dairy', 'Eggs', 'Wheat', 'Soy', 'Fish', 
-    'Shellfish', 'Sesame Seeds', 'Mustard', 'Celery', 'Sulfites', 
+    'Tree Nuts', 'Peanuts', 'Dairy', 'Eggs', 'Wheat', 'Soy', 'Fish',
+    'Shellfish', 'Sesame Seeds', 'Mustard', 'Celery', 'Sulfites',
     'Lupin', 'Molluscs', 'Crustaceans',
   ],
   cuisines: [
-    'Italian', 'Mexican', 'Chinese', 'Japanese', 'Indian', 'Thai', 
-    'French', 'Mediterranean', 'Greek', 'Spanish', 'Korean', 
+    'Italian', 'Mexican', 'Chinese', 'Japanese', 'Indian', 'Thai',
+    'French', 'Mediterranean', 'Greek', 'Spanish', 'Korean',
     'Vietnamese', 'Turkish', 'Ethiopian', 'Lebanese',
   ],
   cookingMethods: [
-    'Grilling', 'Baking', 'Sautéing', 'Boiling', 'Steaming', 'Frying', 
-    'Roasting', 'Slow Cooking', 'Microwaving', 'Broiling', 'Blanching', 
+    'Grilling', 'Baking', 'Sautéing', 'Boiling', 'Steaming', 'Frying',
+    'Roasting', 'Slow Cooking', 'Microwaving', 'Broiling', 'Blanching',
     'Poaching', 'Stir-Frying', 'Braising', 'Sous Vide',
   ],
   ingredients: [
-    'Chicken', 'Beef', 'Pork', 'Fish', 'Lamb', 'Tofu', 'Tempeh', 'Beans', 
+    'Chicken', 'Beef', 'Pork', 'Fish', 'Lamb', 'Tofu', 'Tempeh', 'Beans',
     'Lentils', 'Rice', 'Pasta', 'Cheese', 'Eggs', 'Tomatoes', 'Bell Peppers',
   ],
   mealTypes: [
-    'Breakfast', 'Brunch', 'Lunch', 'Tea', 'Dinner', 'Supper', 'Snack', 
-    'Dessert', 'Appetizer', 'Main Course', 'Side Dish', 'Salad', 'Soup', 
+    'Breakfast', 'Brunch', 'Lunch', 'Tea', 'Dinner', 'Supper', 'Snack',
+    'Dessert', 'Appetizer', 'Main Course', 'Side Dish', 'Salad', 'Soup',
     'Beverage', 'Smoothie',
   ],
-}
-
-const user = {
-  id: '15', // Ideally this should come from a context or parent component
 };
 
-const API_ENDPOINT = `/api/users/${user.id}/preferences`;
+const userId = localStorage.getItem("userId");
+
+
+const API_ENDPOINT = `/api/users/${userId}/preferences`;
 
 const PreferencesPage = () => {
   const [preferences, setPreferences] = useState(initialPreferences);
@@ -60,7 +59,7 @@ const PreferencesPage = () => {
   useEffect(() => {
     const fetchPreferences = async () => {
       try {
-        const response = await axios.get(API_ENDPOINT);
+        const response = await fetch(API_ENDPOINT);
         if (response.data && typeof response.data === 'object' && 'dietary' in response.data) {
           // If the structure of response.data is correct
           
@@ -76,7 +75,7 @@ const PreferencesPage = () => {
         setPreferences(initialPreferences); // Fallback to initial preferences in case of error
       }
     };
-  
+
     fetchPreferences();
   }, []);
 

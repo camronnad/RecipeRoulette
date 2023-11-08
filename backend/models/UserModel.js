@@ -21,11 +21,11 @@ const getUserByEmail = async (email) => {
 
 const getUserPreferences = async (userId) => {
   const { rows } = await pool.query('SELECT preferences FROM users WHERE id = $1', [userId]);
-  return rows[0].preferences; 
+  return rows[0].preferences;
 };
 
 const setUserPreferences = async (userId, preferences) => {
-  
+
   await pool.query('UPDATE users SET preferences = $1 WHERE id = $2', [preferences, userId]);
 };
 
@@ -42,7 +42,7 @@ async function authenticate(email, password) {
       // Compare the provided password with the hashed password in the database
       
       const isValid = await bcrypt.compare(password, user.password);
-
+      console.log("is valid log", isValid);
       if (isValid) {
         return user; // Passwords match, return the user
       } else {
@@ -58,7 +58,7 @@ async function authenticate(email, password) {
 module.exports = {
   queryAllUsers,
   getUserByEmail,
-  authenticate ,
+  authenticate,
   getUserPreferences,
   setUserPreferences,
 };  

@@ -10,6 +10,12 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import StarIcon from "@mui/icons-material/Star";
 import LikedRecipeModal from "./LikedRecipeModal";
 import TextField from "@mui/material/TextField";
+import Axios from 'axios';
+import SimilarRecipesCard from "./SimilarRecipesCard";
+import ReactCardFlip from 'react-card-flip';
+import Drawer from "@mui/material/Drawer";
+import { Button } from "@mui/material";
+
 
 // const mockData = [
 //   {
@@ -29,21 +35,74 @@ const LikedRecipe = (props) => {
   const [likedRecipeData, setLikedRecipeData] = useState([]);
   const [selectedLikedRecipe, setSelectedLikedRecipe] = useState([]);
   const [searchKeyword, setSearchKeyword] = useState("");
+  const [similarRecipes, setSimilarRecipes] = useState([]);
+  const [isFlipped, setIsFlipped] = useState(false);
+  const [recipeModalOpen, setRecipeModalOpen] = useState(false);
+  const [showSimilarRecipes, setShowSimilarRecipes] = useState(false);
+  const [selectedRecipe, setSelectedRecipe] = useState(null); // Add this state variable
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
+  // const openRecipeDetails = (recipe) => {
+  //   setSelectedRecipe(recipe); // Set the selected recipe when it's opened
+  // };
+
+  const openDrawer = () => {
+    setDrawerOpen(true);
+  };
+
+  const closeDrawer = () => {
+    setDrawerOpen(false);
+  };
+
+  const openSimilarRecipesModal = () => {
+    setShowSimilarRecipes(true);
+
+  };
+
+  const closeSimilarRecipesModal = () => {
+    setShowSimilarRecipes(false);
+  };
+
+
+  console.log("isFlipped value before click", isFlipped);
+
+
 
   const closeModal = () => {
     setLikedModalOpen(false);
   };
 
-  console.log("props:", props);
-  //const { title, description, apiData } = props;
-  // console.log("Received props:", props);
-  // //const [likedModal, setLikedModal] = useState();
+
+
+  // const similarRecipesContainerStyle = {
+  //   height: "300px",
+  //   padding: 2,
+  //   margin: 20,
+  //   borderRadius: 10,
+  //   backgroundColor: "rgba(255, 255, 255, 0.5)",
+  //   transition: "height 0.5s",
+  // };
+
+  const fetchSimilarRecipesFromBackend = (recipeId) => {
+    console.log("recipe id in api function", recipeId);
+    Axios.get(`/api/liked-recipes/similar/${recipeId}`)
+      .then((response) => {
+        // Handle the response data here
+        const apiRecipes = response.data;
+        console.log('api recipes:', apiRecipes);
+        setSimilarRecipes([...similarRecipes, apiRecipes]); // Set the similar recipes in the state
+        console.log("simlar recipes stores from api", similarRecipes);
+      })
+      .catch((error) => {
+        console.error('Error fetching similar recipes from backend:', error);
+      });
+  };
 
   useEffect(() => {
     console.log("document.body.style", document.body.style.overflow);
     document.body.style["overflow"] = "scroll";
 
-    fetch(`/api/liked-recipes`)
+    fetch(`/api/liked-recipes?userId=${userId}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error(`Request failed with status ${response.status}`);
@@ -98,6 +157,7 @@ const LikedRecipe = (props) => {
     );
     setLikedRecipeData(updatedLikedRecipeData);
   };
+  const userId = localStorage.getItem("userId");
 
   const handleRateRecipe = (recipeId, rating) => {
     const putURL = `http://localhost:3000/api/liked-recipes/rate/${recipeId}`;
@@ -113,7 +173,7 @@ const LikedRecipe = (props) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ rating }),
+      body: JSON.stringify({ rating, userId }),
     })
       .then((response) => {
         if (response.status === 200) {
@@ -202,11 +262,24 @@ const LikedRecipe = (props) => {
            
           }}
         />
+        <Button variant="contained" onClick={openDrawer} style={{ float: "right" }}>
+          Open Drawer
+        </Button>
+        <Drawer anchor="right" open={drawerOpen} onClose={closeDrawer}>
+          <div>
+            <SimilarRecipesCard
+              similarRecipes={similarRecipes}
+              isFlipped={isFlipped}
+              setIsFlipped={setIsFlipped}
 
+            />
+          </div>
+        </Drawer>
+        {console.log("recipe data need recipe id", filteredLikedRecipeData)}
         {/* {likedRecipeData.map((recipe) => ( */}
         {filteredLikedRecipeData.map((recipe) => (
           <Card key={recipe.id} style={cardStyle}>
-            <Grid container spacing={0} justifyContent="center">
+            <Grid container spacing={2} justifyContent="center">
               <Grid item xs={2}>
                 <Card style={innerCardStyle}>
                   <CardContent>
@@ -322,8 +395,10 @@ const LikedRecipe = (props) => {
                                 >
                                   DELETE
                                 </button>
-
                                 {/* Sharing options */}
+                                <div onClick={() => fetchSimilarRecipesFromBackend(recipe.recipe_id)}>
+                                  <button>Find Simlar Recipes</button>
+                                </div>
                                 <div>
                                   <FacebookShareButton
                                     url={recipe.recipe_link}
@@ -343,6 +418,7 @@ const LikedRecipe = (props) => {
                           </CardContent>
                         </Card>
                       </Grid>
+
                     </Grid>
                   </CardContent>
                 </Card>
@@ -374,9 +450,15 @@ const LikedRecipe = (props) => {
               other relevant info you want to share.
             </p>
             <p>Ready In Minutes: {modalRecipeData.readyinminutes}</p>
-            <p>
-              Instructions: <br />{" "}
-              {modalRecipeData.instructions.replace(/<[^>]+>/g, "")}
+            <p>{modalRecipeData.instructions.replace(/<[^>]+>/g, '')}</p>
+            <p> INGREDIENTS:  {modalRecipeData.ingredients && modalRecipeData.ingredients.map(ingredient => {
+
+              return <div>
+                <ol>
+                  <li>{ingredient}</li>
+                </ol>
+              </div>;
+            })}
             </p>
           </div>
         ))}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { AppBar } from '@mui/material';
-import { Link } from 'react-router-dom'; 
+import { Link } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -9,8 +9,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import { useLocation } from 'react-router-dom';
 
-import RecipeRouLogo from './RecipeRouLogo'; 
-import UserProfile from './Profile'; 
+import RecipeRouLogo from './RecipeRouLogo';
+import UserProfile from './Profile';
 
 
 
@@ -38,14 +38,14 @@ const NavigationBar = ({ onLogout, isLoggedIn }) => {
 //     console.log('App Bar Style: ', appBarStyle)
  
 
- 
+
   return (
     <AppBar position="static" sx={{ backgroundColor: "transparent", boxShadow: "none", marginLeft: 2}}>
       <Container maxWidth="xl">
-      <Toolbar disableGutters sx={{ height: '100px' }}>
-      <div>
-        <img src="RecipeRouletteLogo.png" className="logo" alt="Recipe Roulette Logo"  style={{ height: '90px', marginLeft: "200px"}}/>
-        </div>
+        <Toolbar disableGutters sx={{ height: '100px' }}>
+          <div>
+            <img src="RecipeRouletteLogo.png" className="logo" alt="Recipe Roulette Logo" style={{ height: '90px', marginLeft: "200px" }} />
+          </div>
           <Typography
             variant="h6"
             noWrap
@@ -61,7 +61,7 @@ const NavigationBar = ({ onLogout, isLoggedIn }) => {
               textDecoration: 'none',
             }}
           >
-         
+
           </Typography>
           <Box sx={{ marginLeft: 'auto', marginRight: 1 }}>
     <Link to="/preferences" style={{ color: 'black', textDecoration: 'none' }}>
@@ -83,10 +83,10 @@ const NavigationBar = ({ onLogout, isLoggedIn }) => {
           </Box>
           
           <UserProfile onLogout={onLogout} isLoggedIn={isLoggedIn} />
-         
+
         </Toolbar>
       </Container>
-      </AppBar>
+    </AppBar>
   );
 };
 

@@ -17,8 +17,9 @@ import TopRecipes from "./components/TopRecipes";
 import Authentication from "./components/Authentication";
 import PreferencesPage from "./components/PreferencePage";
 import { useLocation } from "react-router-dom";
+import SimilarRecipes from "./components/SimilarRecipesCard";
 import './App.css';
-// import TopRecipes from "./components/TopRecipes";
+
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -66,10 +67,12 @@ if (location.pathname === "/") {
               isLoggedIn={isLoggedIn} /> <HomeRoute /> </> : <Navigate to="/LoginForm" />}
           /> */}
 
-          <Route path="/Liked-Recipe" element={<><NavigationBar onLogout={handleLogout}
+          <Route path="/Favourites" element={<><NavigationBar onLogout={handleLogout}
             isLoggedIn={isLoggedIn} /> <LikedRecipe /> </>} />
-          <Route path="/TopRecipes" element={<><NavigationBar onLogout={handleLogout}
+          <Route path="/Top Rated" element={<><NavigationBar onLogout={handleLogout}
             isLoggedIn={isLoggedIn} /> <TopRecipes /> </>} />
+          <Route path="/Preferences" element={<><NavigationBar onLogout={handleLogout}
+            isLoggedIn={isLoggedIn} /> <PreferencesPage /> </>} />
           {/* <Route path="/" */}
           {/* element={isLoggedIn ?<> <NavigationBar   onLogout={handleLogout} */}
           {/* isLoggedIn={isLoggedIn} /> <HomeRoute /> </>: <Navigate to="/LoginForm" />} */}
@@ -77,7 +80,6 @@ if (location.pathname === "/") {
           <Route path="/login" element={<Authentication onLogin={handleLogin} />} />
           <Route path="/LoginForm" element={isLoggedIn ? <Navigate to="/" /> : <LoginForm onAuthenticate={handleLogin} />} />
           <Route path="/Signup" element={<Signup />} />
-          <Route path="/preferences" element={<PreferencesPage />} />
           <Route
             path="*"
             element={

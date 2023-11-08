@@ -8,7 +8,12 @@ const { queryRatingLikedRecipes } = require("../models/ratingLikedRecipesModel")
 
 const likedRecipeRouter = (pool) => {
   router.get("/", (req, res) => {
-    queryAllLikedRecipes()
+    const userId = req.query.userId; // Get the user ID from the request query
+    console.log("query liked recipe id", userId);
+    // Ensure userId is available in the query
+
+
+    queryAllLikedRecipes(userId)
       .then(likedRecipes => {
         // console.log("query all liked recipes:", likedRecipes);
 
@@ -30,12 +35,12 @@ const likedRecipeRouter = (pool) => {
   //const deleteLikedRecipeRouter = (pool) => {
   router.put('/rate/:id', async (req, res) => {
     const recipeId = req.params.id; // gets the id like above
-    const userId = 2
-    console.log() // hardcoded user id
+    const userId = req.body.userId; // hardcoded user id
+    console.log("user id from browser", userId);
     const rating = req.body.rating; // gets the rating from the req body
     // should validate the above to make sure its a number between 1-5 eg
 
-    console.log("Received PUT request for recipe ID:", recipeId);
+    // console.log("Received PUT request for recipe ID:", recipeId);
 
     queryRatingLikedRecipes(rating, userId, recipeId)
       .then(() => {
@@ -47,7 +52,28 @@ const likedRecipeRouter = (pool) => {
       });
   });
 
+  router.get('/similar/:id', (req, res) => {
+    const recipeId = req.params.id;
+    const numberOfRecipes = 1;
+    const apiKey = process.env.APIKEY;
 
+    // Make the Spoonacular API call to fetch similar recipes
+    axios.get(`https://api.spoonacular.com/recipes/${recipeId}/similar`, {
+      params: {
+        apiKey,
+        number: numberOfRecipes,
+      }
+    })
+      .then((response) => {
+        const similarRecipes = response.data;
+        console.log("simlar recipes backend", similarRecipes);
+        res.json(similarRecipes);
+      })
+      .catch((error) => {
+        console.error('Error fetching similar recipes from Spoonacular:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+      });
+  });
 
   router.delete('/:id', async (req, res) => {
     const recipeId = req.params.id;
