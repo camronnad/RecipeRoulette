@@ -18,14 +18,14 @@ function SearchButton(props) {
         </ul>
         <span className="btn-card-text">Go ahead, take a spin</span>
         <span className="btn-card-text">and spice up your meal plans!</span>
-<div>
-  
-</div>
+        <div>
+
+        </div>
         <span className="hint-text">Not happy with the result?</span>
         <span className="hint-text">You can always take another spin!</span>
       </div>
       <div>
-      <img src="NewArrow.png" className="arrow"/>
+        <img src="NewArrow.png" className="arrow" />
       </div>
       <button className="bttn" onClick={props.clickHandler}>
         {props.label}

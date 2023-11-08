@@ -23,7 +23,7 @@ const authenticateUser = async (email, password) => {
   }
 };
 
-const LoginForm = () => { 
+const LoginForm = () => {
   let navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -37,16 +37,19 @@ const LoginForm = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    setErrorMessage(''); 
+    setErrorMessage('');
     if (!email || !password) {
       setErrorMessage('Please enter both email and password.');
       return;
     }
 
     try {
-      const result = await authenticateUser(email, password); 
+      const result = await authenticateUser(email, password);
+      console.log("data from login", result);
+      localStorage.setItem("userId", result.user.id);
+
       if (result.message === 'Login successful') {
-        navigate('/'); 
+        navigate('/');
       } else {
         setErrorMessage('Invalid email or password.');
       }
@@ -60,13 +63,13 @@ const LoginForm = () => {
   };
   return (
     <animated.div style={fade} className="login-form">
-       <div className="reviews-container">
+      <div className="reviews-container">
         <LoginReviews />
-        </div>
-        <div>
-        <img src="RecipeRouletteLogo.png" className="logo" alt="Recipe Roulette Logo"/>
-        </div>
-     <div className="form-container">
+      </div>
+      <div>
+        <img src="RecipeRouletteLogo.png" className="logo" alt="Recipe Roulette Logo" />
+      </div>
+      <div className="form-container">
         <h2>Login</h2>
         {errorMessage && <div className="error-message">{errorMessage}</div>}
         <form onSubmit={handleLogin}>

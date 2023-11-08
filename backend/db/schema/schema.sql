@@ -21,5 +21,7 @@ CREATE TABLE likedRecipes (
   instructions VARCHAR(5000),
   readyInMinutes integer,
   user_id INT REFERENCES users(id) ON DELETE CASCADE,
-  rating integer DEFAULT 0
+  rating integer DEFAULT 0,
+  ingredients TEXT[]
+
 );

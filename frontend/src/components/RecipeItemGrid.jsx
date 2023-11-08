@@ -14,6 +14,9 @@ const RecipeItemGrid = ({ handleCardClick, activeModal, recipeData, imgSpin }) =
   const [selectedColor, setSelectedColor] = useState(true);
   const [extendedIngredients, setExtendedIngredients] = useState([]);
 
+  const userId = localStorage.getItem("userId");
+
+
   // const [activeModal, setActiveModal] = useState(null);
 
   const closeModal = () => {
@@ -43,19 +46,25 @@ const RecipeItemGrid = ({ handleCardClick, activeModal, recipeData, imgSpin }) =
   }, []);
 
   const handleFavClick = (isLiked, recipe) => {
+    const ingredientOriginals = recipe.extendedIngredients.map(ingredient => ingredient.original);
+    const ingredientsString = JSON.stringify(ingredientOriginals);
+
     console.log("selected recipe.id", recipe.id);
     console.log(isLiked);
     console.log("selected recipe.id before", selectedRecipe.id);
     if (isLiked) {
       console.log("selected recipe.id", selectedRecipe.id);
       axios.post('/api/saveLikeRecipe', {
+        userId: userId,
         title: recipe.title,
         photo: recipe.image,
         recipeId: recipe.id,
         recipe_link: recipe.spoonacularSourceUrl,
         summary: recipe.summary,
         instructions: recipe.instructions,
-        readyInMinutes: recipe.readyInMinutes
+        readyInMinutes: recipe.readyInMinutes,
+        ingredients: ingredientsString
+
       })
         .then(response => {
           setLikedItems(prev => ([...prev, recipe.id]));
@@ -103,8 +112,14 @@ const RecipeItemGrid = ({ handleCardClick, activeModal, recipeData, imgSpin }) =
   return (
     <>
       <Card
-        sx={{ width: "750px", padding: 3, margin: 3, borderRadius: 9,backgroundColor: 'transparent',  // Making the background transparent
-        boxShadow: 'none', position: "relative", bottom: "31%", left:"4%"  }}
+        sx={{
+          width: "750px", padding: 3, margin: 3, borderRadius: 9, backgroundColor: 'transparent',  // Making the background transparent
+          boxShadow: 'none'
+        }}
+        sx={{
+          width: "750px", padding: 3, margin: 3, borderRadius: 9, backgroundColor: 'transparent',  // Making the background transparent
+          boxShadow: 'none', position: "relative", bottom: "31%", left: "4%"
+        }}
         className="recipe_grid"
       >
         {!imgSpin &&
