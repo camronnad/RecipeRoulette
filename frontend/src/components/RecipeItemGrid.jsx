@@ -146,7 +146,7 @@ const RecipeItemGrid = ({ handleCardClick, activeModal, recipeData, imgSpin }) =
       <RecipeModal isOpen={isModalOpen} >
         <div className="modal-container">
           <button className="modal-close-btn" onClick={closeModal}>×</button>
-          <h2 className="modal-title">Recipe Name: {selectedRecipe.title}</h2>
+          <h2 className="modal-title"> {selectedRecipe.title}</h2>
           <img className="modal-img" src={selectedRecipe.image} alt="Recipe Image" />
           <div onClick={() => toggleLiked(selectedRecipe)}> <FavIcon selected={likedItems.includes(selectedRecipe.id)} /></div>
           <p className="modal-description">Here, you can provide a detailed description of your recipe or any other relevant info you want to share.</p>

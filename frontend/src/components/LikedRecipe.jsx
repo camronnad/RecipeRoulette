@@ -10,12 +10,13 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import StarIcon from "@mui/icons-material/Star";
 import LikedRecipeModal from "./LikedRecipeModal";
 import TextField from "@mui/material/TextField";
-import Axios from 'axios';
+import Axios from "axios";
 import SimilarRecipesCard from "./SimilarRecipesCard";
-import ReactCardFlip from 'react-card-flip';
+import ReactCardFlip from "react-card-flip";
 import Drawer from "@mui/material/Drawer";
 import { Button } from "@mui/material";
-
+import DeleteIcon from "@mui/icons-material/Delete";
+import "../styles/RecipeModal.scss";
 
 // const mockData = [
 //   {
@@ -56,23 +57,17 @@ const LikedRecipe = (props) => {
 
   const openSimilarRecipesModal = () => {
     setShowSimilarRecipes(true);
-
   };
 
   const closeSimilarRecipesModal = () => {
     setShowSimilarRecipes(false);
   };
 
-
   console.log("isFlipped value before click", isFlipped);
-
-
 
   const closeModal = () => {
     setLikedModalOpen(false);
   };
-
-
 
   // const similarRecipesContainerStyle = {
   //   height: "300px",
@@ -89,12 +84,12 @@ const LikedRecipe = (props) => {
       .then((response) => {
         // Handle the response data here
         const apiRecipes = response.data;
-        console.log('api recipes:', apiRecipes);
+        console.log("api recipes:", apiRecipes);
         setSimilarRecipes([...similarRecipes, apiRecipes]); // Set the similar recipes in the state
         console.log("simlar recipes stores from api", similarRecipes);
       })
       .catch((error) => {
-        console.error('Error fetching similar recipes from backend:', error);
+        console.error("Error fetching similar recipes from backend:", error);
       });
   };
 
@@ -209,13 +204,18 @@ const LikedRecipe = (props) => {
     minHeight: "0",
     display: "grid", // This creates columns that grow to fit the container., // This sets the gap between the grid items.
     padding: "20px",
+    display: "flex", // Switch to flexbox
+    justifyContent: "center", // Center horizontally
+    alignItems: "center",
+    display: "grid",
+    placeItems: "center",
   };
 
   const cardStyle = {
-    height: 200,
+    maxWidth: "1450px",
     padding: 2,
     margin: 20,
-    borderRadius: 10,
+    borderRadius: 50,
     backgroundColor: "rgba(255, 255, 255, 0.5)",
   };
 
@@ -223,9 +223,10 @@ const LikedRecipe = (props) => {
     padding: 2,
     borderRadius: 9,
     boxShadow: 3,
-    margin: "20px auto",
+    marginTop: 10,
     width: "100%",
-    height: "150px",
+    backgroundColor: "transparent",
+    boxShadow: "none",
   };
 
   const imageContainerStyle = {
@@ -258,12 +259,15 @@ const LikedRecipe = (props) => {
             left: "25%",
             marginTop: "60px",
             marginBottom: "20px",
-            backgroundColor: "white"
-           
+            backgroundColor: "white",
           }}
         />
-        <Button variant="contained" onClick={openDrawer} style={{ float: "right" }}>
-          Open Drawer
+        <Button
+          variant="contained"
+          onClick={openDrawer}
+          style={{ float: "right", backgroundColor: "black", padding: 15 }}
+        >
+          Open pantry
         </Button>
         <Drawer anchor="right" open={drawerOpen} onClose={closeDrawer}>
           <div>
@@ -271,161 +275,219 @@ const LikedRecipe = (props) => {
               similarRecipes={similarRecipes}
               isFlipped={isFlipped}
               setIsFlipped={setIsFlipped}
-
             />
           </div>
         </Drawer>
         {console.log("recipe data need recipe id", filteredLikedRecipeData)}
         {/* {likedRecipeData.map((recipe) => ( */}
-        {filteredLikedRecipeData.map((recipe) => (
-          <Card key={recipe.id} style={cardStyle}>
-            <Grid container spacing={2} justifyContent="center">
-              <Grid item xs={2}>
-                <Card style={innerCardStyle}>
-                  <CardContent>
+        <div style={{display: "flex", alignItems: "center", flexDirection: "column"}}>
+          {filteredLikedRecipeData.map((recipe) => (
+            <Card key={recipe.id} style={cardStyle}>
+              <Grid container spacing={2} justifyContent="center">
+                <Grid item xs={2}>
+                  <Card
+                    style={{
+                      ...innerCardStyle,
+                      padding: 0,
+                      width: "100%",
+                      boxSizing: "border-box",
+                    }}
+                  >
+                    <CardContent style={{ padding: 0 }}>
+                      <div
+                        onClick={() => clickHandler(recipe)}
+                        style={{ width: "100%", overflow: "hidden" }}
+                      >
+                        <img
+                          src={recipe.photo_url}
+                          alt={recipe.photo_url}
+                          style={{ width: "100%", height: "auto" }}
+                        />
+                      </div>
+                    </CardContent>
                     <div
-                      onClick={() => clickHandler(recipe)}
-                      style={{ height: "75px", overflow: "hidden" }}
-                    >
-                      <img
-                        src={recipe.photo_url}
-                        alt={recipe.photo_url}
-                        style={imageStyle}
-                      />
-                    </div>
-
-                    <Typography
-                      variant="h6"
-                      component="div"
-                      sx={{ textAlign: "center" }}
-                    >
-                      {recipe.title}
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-              <Grid item xs={6}>
-                <Card style={innerCardStyle}>
-                  <CardContent>
-                    <Typography
-                      variant="h6"
-                      component="div"
-                      sx={{ textAlign: "center" }}
-                    >
-                      Description
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      color="text.secondary"
-                      sx={{
-                        textAlign: "center",
-                        maxHeight: "100px",
-                        overflowY: "auto",
+                      style={{
+                        minWidth: "100%",
+                        backgroundColor: "white",
+                        padding: "0 10px",
+                        zIndex: 1000,
                       }}
                     >
-                      {console.log("Summary:", recipe)}
-                      {recipe.summary.replace(/<[^>]+>/g, "")}
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-              <Grid item xs={3}>
-                <Card style={innerCardStyle}>
-                  <CardContent>
-                    <Grid container spacing={0} justifyContent="center">
-                      {/* ...other Grid items... */}
-                      <Grid item xs={10} sx={{ mt: -5 }}>
-                        <Card style={innerCardStyle}>
-                          <CardContent>
-                            <div
-                              style={{
-                                display: "flex",
-                                flexDirection: "column",
-                              }}
-                            >
-                              {/* Rating at the top */}
-                              <div style={{ marginBottom: "10px" }}>
-                                <Typography
-                                  variant="h6"
-                                  component="div"
-                                  sx={{ textAlign: "center" }}
-                                >
-                                  Rating
-                                </Typography>
-                                <div
-                                  style={{
-                                    display: "flex",
-                                    justifyContent: "center",
-                                    padding: "10px 0",
-                                  }}
-                                >
-                                  {[1, 2, 3, 4, 5].map((rating) => (
-                                    <div
-                                      key={rating}
-                                      onClick={() =>
-                                        handleRateRecipe(recipe.id, rating)
-                                      }
-                                      style={{ cursor: "pointer" }}
-                                    >
-                                      <StarIcon
-                                        style={{
-                                          color:
-                                            recipe.rating >= rating
-                                              ? "gold"
-                                              : "gray",
-                                        }}
-                                      />
-                                    </div>
-                                  ))}
-                                </div>
-                              </div>
-
-                              {/* Delete and Share buttons side by side */}
+                      <Typography
+                        variant="h8"
+                        component="div"
+                        style={{ textAlign: "center", overflow: "hidden" }}
+                      >
+                        {recipe.title}
+                      </Typography>
+                    </div>
+                  </Card>
+                </Grid>
+                <Grid item xs={6}>
+                  <Card style={innerCardStyle}>
+                    <CardContent data-name="card-content" style={{ paddingTop: 10}}>
+                      <Typography
+                        variant="h6"
+                        component="div"
+                        sx={{ textAlign: "center" }}
+                      >
+                        Description
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        color="text.secondary"
+                        sx={{
+                          textAlign: "center",
+                          maxHeight: "100px",
+                          overflowY: "auto",
+                        }}
+                      >
+                        {console.log("Summary:", recipe)}
+                        {recipe.summary.replace(/<[^>]+>/g, "")}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Grid>
+                <Grid item xs={3}>
+                  <Card style={innerCardStyle}>
+                    <CardContent>
+                      <Grid container spacing={0} justifyContent="center">
+                        {/* ...other Grid items... */}
+                        <Grid item xs={10} sx={{ mt: -5 }}>
+                          <Card style={innerCardStyle}>
+                            <CardContent>
                               <div
                                 style={{
                                   display: "flex",
-                                  justifyContent: "space-between",
+                                  flexDirection: "column",
+                                  minWidth: 250
                                 }}
                               >
-                                <button
-                                  onClick={() => handleDeleteRecipe(recipe.id)}
-                                  variant="contained"
-                                  color="secondary"
-                                  size="small"
-                                >
-                                  DELETE
-                                </button>
-                                {/* Sharing options */}
-                                <div onClick={() => fetchSimilarRecipesFromBackend(recipe.recipe_id)}>
-                                  <button>Find Simlar Recipes</button>
+                                {/* Rating at the top */}
+                                <div style={{ marginBottom: "10px" }}>
+                                  <Typography
+                                    variant="h6"
+                                    component="div"
+                                    sx={{ textAlign: "center" }}
+                                  >
+                                    Rating
+                                  </Typography>
+                                  <div
+                                    style={{
+                                      display: "flex",
+                                      justifyContent: "center",
+                                      padding: "10px 0",
+                                      minwidth: 300
+                                    }}
+                                  >
+                                    {[1, 2, 3, 4, 5].map((rating) => (
+                                      <div
+                                        key={rating}
+                                        onClick={() =>
+                                          handleRateRecipe(recipe.id, rating)
+                                        }
+                                        style={{ cursor: "pointer" }}
+                                      >
+                                        <StarIcon
+                                          style={{
+                                            fontSize: "30px", // Use 'fontSize' instead of 'font' to set the icon size
+                                            color:
+                                              recipe.rating >= rating
+                                                ? "gold"
+                                                : "gray",
+                                          }}
+                                        />
+                                      </div>
+                                    ))}
+                                  </div>
                                 </div>
-                                <div>
-                                  <FacebookShareButton
-                                    url={recipe.recipe_link}
-                                    quote={`check it out`}
+
+                                {/* Delete and Share buttons side by side */}
+                                <div
+                                  style={{
+                                    display: "flex",
+                                    justifyContent: "space-between",
+                                   
+                                  }}
+                                >
+                                  <button
+                                    onClick={() =>
+                                      handleDeleteRecipe(recipe.id)
+                                    }
+                                    variant="contained"
+                                    color="secondary"
+                                    size="large"
+                                    style={{
+                                      size: "large",
+                                      // fontWeight: "bold",
+                                      color: "black",
+                                      backgroundColor: "transparent",
+                                      border: "none",
+                                      marginBottom: "5px", // Bootstrap's 'danger' color
+                                      // border: "none",
+                                      // borderRadius: "4px",
+                                      // cursor: "pointer",
+                                      // outline: "none",
+                                    }}
                                   >
-                                    <FacebookIcon size={32} round />
-                                  </FacebookShareButton>
-                                  <TwitterShareButton
-                                    url={recipe.recipe_link}
-                                    title="Check out Twitter"
+                                    <DeleteIcon
+                                      style={{
+                                        marginRight: "5px",
+                                        fontSize: "40px",
+                                      }}
+                                    />
+                                  </button>
+                                  {/* Sharing options */}
+                                  <div
+                                    onClick={() =>
+                                      fetchSimilarRecipesFromBackend(
+                                        recipe.recipe_id
+                                      )
+                                    }
                                   >
-                                    <TwitterIcon size={32} round />
-                                  </TwitterShareButton>
+                                    <button
+                                      style={{
+                                        padding: "5px",
+                                        fontSize: "14px",
+                                        fontWeight: "bold",
+                                        color: "black",
+                                        backgroundColor: "transparent", // Bootstrap's 'danger' color
+                                        borderRadius: "3px",
+
+                                        cursor: "pointer",
+                                        outline: "none",
+                                      }}
+                                    >
+                                      Find Simlar Recipes
+                                    </button>
+                                  </div>
+                                  <div>
+                                    <FacebookShareButton
+                                      url={recipe.recipe_link}
+                                      quote={`check it out`}
+                                    >
+                                      <FacebookIcon size={32} round />
+                                    </FacebookShareButton>
+                                    <TwitterShareButton
+                                      url={recipe.recipe_link}
+                                      title="Check out Twitter"
+                                    >
+                                      <TwitterIcon size={32} round />
+                                    </TwitterShareButton>
+                                  </div>
                                 </div>
                               </div>
-                            </div>
-                          </CardContent>
-                        </Card>
+                            </CardContent>
+                          </Card>
+                        </Grid>
                       </Grid>
-
-                    </Grid>
-                  </CardContent>
-                </Card>
+                    </CardContent>
+                  </Card>
+                </Grid>
               </Grid>
-            </Grid>
-          </Card>
-        ))}
+            </Card>
+          ))}
+        </div>
       </div>
       <LikedRecipeModal
         likedModalOpen={likedModalOpen}
@@ -450,15 +512,20 @@ const LikedRecipe = (props) => {
               other relevant info you want to share.
             </p>
             <p>Ready In Minutes: {modalRecipeData.readyinminutes}</p>
-            <p>{modalRecipeData.instructions.replace(/<[^>]+>/g, '')}</p>
-            <p> INGREDIENTS:  {modalRecipeData.ingredients && modalRecipeData.ingredients.map(ingredient => {
-
-              return <div>
-                <ol>
-                  <li>{ingredient}</li>
-                </ol>
-              </div>;
-            })}
+            <p>{modalRecipeData.instructions.replace(/<[^>]+>/g, "")}</p>
+            <p>
+              {" "}
+              INGREDIENTS:{" "}
+              {modalRecipeData.ingredients &&
+                modalRecipeData.ingredients.map((ingredient) => {
+                  return (
+                    <div>
+                      <ol>
+                        <li>{ingredient}</li>
+                      </ol>
+                    </div>
+                  );
+                })}
             </p>
           </div>
         ))}

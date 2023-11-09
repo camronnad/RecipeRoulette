@@ -38,7 +38,7 @@ if (location.pathname === "/") {
   console.log("checks out")
   appStyle.backgroundImage = 'url("/HomeRouteImg.png")';
   
-    } else if (location.pathname === '/Profile') {
+    } else if (location.pathname === '/Home') {
       console.log("checks out from proifle") // Replace with the specific path you want
       appStyle.backgroundImage = 'url("/HomeRouteImg.png")';
     } else {

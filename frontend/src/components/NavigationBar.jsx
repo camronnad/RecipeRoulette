@@ -18,24 +18,23 @@ const NavigationBar = ({ onLogout, isLoggedIn }) => {
 
   const location = useLocation();
   
-  // let appBarStyle = {};
-
-// if (location.pathname === "/") {
-//   appBarStyle.backgroundImage = 'url("/HomeRouteImg.png")';
+  let appBarStyle = {};
+  let logoStyle = { marginLeft: "530px", height: "90px"};
+if (location.pathname === "/" || location.pathname === '/Home') {
+  appBarStyle.backgroundImage = 'url("/HomeRouteImg.png")';
+  logoStyle.marginLeft = "200px"
+    
+    } else {
+      appBarStyle.backgroundImage = 'url("/BackDrop.png")';
+      appBarStyle.position = "relative"
+      appBarStyle.left = "20%"
+    }
+    appBarStyle.backgroundSize = 'cover';
+    appBarStyle.backgroundRepeat = 'no-repeat';
+    appBarStyle.backgroundColor = 'transparent';
+    appBarStyle.boxShadow = 'none';
   
-//     } else if (location.pathname === '/Profile') { // Replace with the specific path you want
-//       appBarStyle.backgroundImage = 'url("/HomeRouteImg.png")';
-//     } else {
-//       appBarStyle.backgroundImage = 'url("/BackDrop.png")';
-//       appBarStyle.position = "relative"
-//       appBarStyle.left = "20%"
-//     }
-//     appBarStyle.backgroundSize = 'cover';
-//     appBarStyle.backgroundRepeat = 'no-repeat';
-//     appBarStyle.backgroundColor = 'transparent';
-//     appBarStyle.boxShadow = 'none';
-  
-//     console.log('App Bar Style: ', appBarStyle)
+    console.log('App Bar Style: ', appBarStyle)
  
 
 
@@ -44,9 +43,9 @@ const NavigationBar = ({ onLogout, isLoggedIn }) => {
       <Container maxWidth="xl">
         <Toolbar disableGutters sx={{ height: '100px' }}>
           <div>
-            <img src="RecipeRouletteLogo.png" className="logo" alt="Recipe Roulette Logo" style={{ height: '90px', marginLeft: "200px" }} />
+            <img src="RecipeRouletteLogo.png" className="logo" alt="Recipe Roulette Logo" style={ logoStyle } />
           </div>
-          <Typography
+          {/* <Typography
             variant="h6"
             noWrap
             component="a"
@@ -62,7 +61,7 @@ const NavigationBar = ({ onLogout, isLoggedIn }) => {
             }}
           >
 
-          </Typography>
+          </Typography> */}
           <Box sx={{ marginLeft: 'auto', marginRight: 1 }}>
     <Link to="/preferences" style={{ color: 'black', textDecoration: 'none' }}>
       Preferences

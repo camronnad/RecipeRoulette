@@ -6,8 +6,19 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 import { BrowserRouter, Link, useNavigate } from 'react-router-dom';
+import HomeIcon from '@mui/icons-material/Home';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import StarIcon from '@mui/icons-material/StarRate';
+import LogoutIcon from '@mui/icons-material/Logout';
 // change the link names 
-const profiles = ['Home', 'Favourites', 'Preferences', 'Top Rated', 'Logout'];
+// Change the link names and add corresponding icons
+const profiles = [
+  { name: 'Home', icon: <HomeIcon /> },
+  { name: 'Favourites', icon: <FavoriteIcon /> },
+  { name: 'Top Rated', icon: <StarIcon /> },
+  { name: 'Logout', icon: <LogoutIcon /> }
+];
+
 const UserProfile = ({ onLogout }) => {
   const [anchorElUser, setAnchorElUser] = useState(null);
   let navigate = useNavigate();
@@ -57,19 +68,21 @@ const UserProfile = ({ onLogout }) => {
         onClose={handleCloseUserMenu}
       >
         {profiles.map((profile) => (
-          <MenuItem key={profile} onClick={() => handleMenuClick(profile)}>
-            < Typography textAlign="center">
-
-              {<Link to={`/${profile}`}
-                style={{
-                  textDecoration: 'none', // Remove underline
-                  color: 'inherit', // Inherit text color from parent
-                }}
-              >{profile}
-              </Link >}
-            </Typography>
-          </MenuItem>
-        ))}
+  <MenuItem key={profile.name} onClick={() => handleMenuClick(profile.name)}>
+    <Typography textAlign="center" sx={{ display: 'flex', alignItems: 'center' }}>
+      {profile.icon} {/* This will render the icon */}
+      <Link to={`/${profile.name}`}
+        style={{
+          textDecoration: 'none', // Remove underline
+          color: 'inherit', // Inherit text color from parent
+          marginLeft: '10px' // Add some space between the icon and text
+        }}
+      >
+        {profile.name}
+      </Link>
+    </Typography>
+  </MenuItem>
+))}
       </Menu>
     </>
   );

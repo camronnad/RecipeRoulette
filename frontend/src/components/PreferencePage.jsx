@@ -109,7 +109,7 @@ const PreferencesPage = () => {
 
   return (
     <div >
-    <NavigationBar />
+    {/* <NavigationBar /> */}
     <form onSubmit={handleSubmit} className="fixed-checkbox" style={{display: "flex", flexDirection: "column", justifyContent: "center", }}>
       {Object.entries(allOptions).map(([category, options]) => {
         const selectedOptions = preferences[category];

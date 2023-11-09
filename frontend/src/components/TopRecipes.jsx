@@ -8,6 +8,7 @@ import InstagramIcon from '@mui/icons-material/Instagram'; // Import Instagram i
 import StarIcon from '@mui/icons-material/Star';
 import LikedRecipeModal from "./LikedRecipeModal";
 import "../styles/TopRecipes.scss"
+import "../styles/RecipeModal.scss";
 
 
 // const mockData = [
@@ -85,7 +86,7 @@ const TopRecipes = (props) => {
     <>
       <div className="top-recipes">
         <div>
-        <img src="TopRatedRecipes.png" className="top-recipes-title "/>
+        {/* <img src="TopRatedRecipes.png" className="top-recipes-title "/> */}
       </div>
         {console.log("likedRecipedata before map", likedRecipeData)}
         {/* <Grid container spacing={2} justifyContent="center"> */}
