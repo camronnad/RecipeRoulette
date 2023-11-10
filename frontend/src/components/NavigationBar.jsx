@@ -63,9 +63,9 @@ if (location.pathname === "/" || location.pathname === '/Home') {
 
           </Typography> */}
           <Box sx={{ marginLeft: 'auto', marginRight: 1 }}>
-    <Link to="/preferences" style={{ color: 'black', textDecoration: 'none' }}>
+    {/* <Link to="/preferences" style={{ color: 'black', textDecoration: 'none' }}>
       Preferences
-    </Link>
+    </Link> */}
   </Box>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' }  }}>
             {/* <IconButton

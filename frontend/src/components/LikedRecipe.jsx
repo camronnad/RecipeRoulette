@@ -260,6 +260,7 @@ const LikedRecipe = (props) => {
             marginTop: "60px",
             marginBottom: "20px",
             backgroundColor: "white",
+            visibility: likedModalOpen ? 'hidden' : 'visible',
           }}
         />
         <Button

@@ -27,6 +27,17 @@ const TopRecipes = (props) => {
   const [likedRecipeData, setLikedRecipeData] = useState([]);
   const [selectedLikedRecipe, setSelectedLikedRecipe] = useState([]);
 
+  function generateRandomDate() {
+    // Define the range of dates
+    const startDate = new Date(2023, 10, 1); // January 1, 2010
+    const endDate = new Date(); // Current date
+
+    // Calculate a random timestamp within the range
+    const randomTimestamp = Math.random() * (endDate.getTime() - startDate.getTime()) + startDate.getTime();
+
+    // Create a Date object from the random timestamp
+    return new Date(randomTimestamp);
+  }
   const closeModal = () => {
     setLikedModalOpen(false);
   };
@@ -93,8 +104,13 @@ const TopRecipes = (props) => {
        
         <Grid container spacing={7} className="top-recipes-grid">
 
-          {likedRecipeData.map((recipe) => (
-            <Grid item lg={2} key={recipe.id}>
+          {likedRecipeData.map((recipe) => {
+            const randomDate = generateRandomDate();
+            const formattedDate = `${randomDate.getFullYear()}-${(randomDate.getMonth() + 1).toString().padStart(2, '0')}-${randomDate.getDate().toString().padStart(2, '0')}`;
+            return (<Grid item lg={2} key={recipe.id}>
+
+             
+             
               {/* // <Grid item xs={6} sm={4} md={3} lg={2} key={recipe.id}>
             // <Grid item xs={12} sm={6} md={4} lg={3} key={recipe.id}>
             // <Grid item xs={12} sm={6} md={4} lg={2} key={recipe.id}> */}
@@ -140,10 +156,10 @@ const TopRecipes = (props) => {
                     <div style={{ backgroundColor: "black", height: "50px", width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                       <span>
                         <InstagramIcon fontSize="medium"  style={{color:"white", marginLeft: "15px"}}/>
-                        <FacebookShareButton url={recipe.recipe_recipe_link} quote={`check it out`}>
+                        <FacebookShareButton url={recipe.recipe_link} quote={`check it out`}>
                           <FacebookIcon fontSize="medium" style={{color:"white"}} />
                         </FacebookShareButton >
-                        <TwitterShareButton url={recipe.recipe_recipe_link} title="Check out Twitter">
+                        <TwitterShareButton url={recipe.recipe_link} title="Check out Twitter">
                           <TwitterIcon fontSize="medium" style={{color:"white"}} />
                         </TwitterShareButton>
                       </span>
@@ -157,13 +173,19 @@ const TopRecipes = (props) => {
                       </div>
                     </div>
                   </Typography>
-                  <Typography gutterBottom variant="h5" component="div" fontSize={16} marginBottom={-2} marginLeft={4}>
-                    {/* Rated By: {recipe.user_name} */}
-                  </Typography>
+                  <Typography gutterBottom variant="h5" component="div" fontSize={16} marginBottom={-5} marginRight={1} marginLeft={1} sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <div>
+                        <h5> Rated By: {recipe.user_name}</h5>
+                      </div>
+                      <div>
+                        <h5>Posted: {formattedDate}</h5>
+                      </div>
+                    </Typography>
                 </CardContent>
               </Card>
             </Grid>
-          ))}
+                         ) 
+                         })}
 
         </Grid>
       </div >
@@ -178,6 +200,7 @@ const TopRecipes = (props) => {
             <p className="modal-description">Here, you can provide a detailed description of your recipe or any other relevant info you want to share.</p>
             <p>Ready In Minutes: {modalRecipeData.recipe_readyinminutes}</p>
             <>Instructions: <br /> {modalRecipeData.recipe_instructions.replace(/<[^>]+>/g, '')}</>
+            
           </div>
         ))}
       </LikedRecipeModal>

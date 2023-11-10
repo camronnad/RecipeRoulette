@@ -47,11 +47,14 @@ function buildPreferenceQueryParams(preferences) {
 
   // Assuming 'preferences' is an object with keys like 'diet' and 'intolerances'
   if (preferences.diet) {
-    queryParams += `&diet=${preferences.diet}`;
+    queryParams += `&diet=${preferences.diet.join(',')}`;
   }
-  if (preferences.intolerances) {
-    queryParams += `&intolerances=${preferences.intolerances.join(',')}`;
-  }
+  // if (preferences.diet) {
+  //   queryParams += `&diet=${preferences.diet}`;
+  // }
+  // if (preferences.intolerances) {
+  //   queryParams += `&intolerances=${preferences.intolerances.join(',')}`;
+  // }
 
   // Add more preferences handling as needed
 

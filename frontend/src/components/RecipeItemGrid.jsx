@@ -113,7 +113,7 @@ const RecipeItemGrid = ({ handleCardClick, activeModal, recipeData, imgSpin }) =
     <>
       <Card
         sx={{ width: "750px", padding: 3, margin: 3, borderRadius: 9,backgroundColor: 'transparent',  // Making the background transparent
-        boxShadow: 'none', position: "absolute", bottom: "1%", left:"4%"  }}
+        boxShadow: 'none', position: "absolute", bottom: 0, left:"4%"  }}
         className="recipe_grid"
       >
         {!imgSpin &&
@@ -149,7 +149,7 @@ const RecipeItemGrid = ({ handleCardClick, activeModal, recipeData, imgSpin }) =
           <h2 className="modal-title"> {selectedRecipe.title}</h2>
           <img className="modal-img" src={selectedRecipe.image} alt="Recipe Image" />
           <div onClick={() => toggleLiked(selectedRecipe)}> <FavIcon selected={likedItems.includes(selectedRecipe.id)} /></div>
-          <p className="modal-description">Here, you can provide a detailed description of your recipe or any other relevant info you want to share.</p>
+          <p className="modal-description"></p>
           <p>Ready In Minutes: {selectedRecipe.readyInMinutes}</p>
           <p> INGREDIENTS:  {selectedRecipe.extendedIngredients && selectedRecipe.extendedIngredients.map(ingredient => {
 
