@@ -10,25 +10,14 @@ import FavIcon from "./FavIcon";
 const RecipeItemGrid = ({ handleCardClick, activeModal, recipeData, imgSpin }) => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedRecipe, setSelectedRecipe] = useState({});
-  const [modalFav, setModalFav] = useState(false);
   const [selectedColor, setSelectedColor] = useState(true);
-  const [extendedIngredients, setExtendedIngredients] = useState([]);
+  const [likedItems, setLikedItems] = useState([]);
 
   const userId = localStorage.getItem("userId");
-
-
-  // const [activeModal, setActiveModal] = useState(null);
 
   const closeModal = () => {
     setModalOpen(false);
   };
-
-  const [likedItems, setLikedItems] = useState([]);
-  // const handleCardClick = (RecipeName, photo,) => {
-  //   if (activeModal === null) {
-  //     setActiveModal(RecipeName);
-  //   }
-  // };
 
   useEffect(() => {
     axios.get("/api/liked-recipes")
