@@ -6,11 +6,14 @@ import jsPDF from 'jspdf';
 function RecipeModal({ isOpen, children, onClose }) {
   const modalRef = useRef(null);
   const springStyles = useSpring({
-    opacity: isOpen ? 1 : 0,
-    transform: isOpen ? 'translateY(0)' : 'translateY(-50px)',
-    config: { tension: 220, friction: 120 }
+    from: { opacity: 0, transform: 'scale(0.5)' }, // Start from a scaled down version
+    to: {
+      opacity: isOpen ? 1 : 0,
+      transform: isOpen ? 'scale(1)' : 'scale(0.5)'
+    },
+    config: { mass: 1, tension: 170, friction: 26 }
   });
-
+  
   const downloadPDF = async () => {
     const canvas = await html2canvas(modalRef.current, {useCORS: true});
     const imgData = canvas.toDataURL('image/png');
@@ -33,13 +36,31 @@ function RecipeModal({ isOpen, children, onClose }) {
       background: 'rgba(0,0,0,0.7)', display: 'flex', 
       alignItems: 'center', justifyContent: 'center' }}>
       <animated.div style={{ ...springStyles, 
-        maxHeight: '80vh', overflowY: 'auto', width: '80%', 
+        maxHeight: '80vh', overflowY: 'auto', 
         boxSizing: 'border-box', padding: '20px', 
-        background: '#fff', borderRadius: '8px' }}>
+        background: '#f0ead6', borderRadius: '8px' }}>
         <div ref={modalRef}>  {/* Attach ref to this inner div */}
           {children}
         </div>
-        <button onClick={downloadPDF}>Download as PDF</button>
+        <button
+  onClick={downloadPDF}
+  style={{
+    padding: '10px 20px',
+    fontSize: '16px',
+    fontWeight: 'bold',
+    color: 'white',
+    backgroundColor: 'black',
+    border: 'none',
+    borderRadius: '5px',
+    cursor: 'pointer',
+    outline: 'none',
+  
+
+  }}
+>
+  Download as PDF
+</button>
+
       </animated.div>
     </div>
   );

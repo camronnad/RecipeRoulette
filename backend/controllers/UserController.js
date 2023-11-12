@@ -36,14 +36,33 @@ async function getUserPreferences(req, res) {
   console.log("userId", userId)
   try {
     const result = await pool.query('SELECT preferences FROM users WHERE id = $1', [userId]);
+    console.log("here", result.rows)
     if (result.rows.length > 0) {
-      res.json(result.rows[0].preferences);
+    
+      res.json(JSON.parse(result.rows[0].preferences));
     } else {
       res.status(404).json({ error: "User not found" });
     }
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "An error occurred while fetching preferences" });
+  }
+}
+
+async function getUserPreferencesById(userId) {
+
+  console.log("userId", userId)
+  try {
+    const result = await pool.query('SELECT preferences FROM users WHERE id = $1', [userId]);
+    console.log(result.rows)
+    if (result.rows.length > 0) {
+      return (result.rows[0].preferences);
+    } else {
+     return { error: "User not found" };
+    }
+  } catch (error) {
+    console.error(error);
+    return { error: "An error occurred while fetching preferences" };
   }
 }
 
@@ -58,6 +77,7 @@ async function updateUserPreferences(req, res) {
   const { preferences } = req.body;
 
   // Check if the user exists before updating
+  
   const userExists = await checkUserExists(userId);
   if (!userExists) {
     return res.status(404).json({ error: 'User not found' });
@@ -66,8 +86,9 @@ async function updateUserPreferences(req, res) {
   try {
     console.log("preferences", preferences)
     console.log("userId", userId)
-    await pool.query('UPDATE users SET preferences = $1 WHERE id = $2', [preferences, userId]);
-    res.json({ message: "Preferences updated successfully" });
+   const updatedUser = await pool.query('UPDATE users SET preferences = $1 WHERE id = $2 RETURNING *', [JSON.stringify(preferences), userId]);
+   console.log(updatedUser.rows)
+  res.json({ message: "Preferences updated successfully" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "An error occurred while updating preferences" });
@@ -79,4 +100,5 @@ module.exports = {
   getUserEmail,
   getUserPreferences,
   updateUserPreferences, 
+  getUserPreferencesById,
 };

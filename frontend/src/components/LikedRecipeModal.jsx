@@ -35,16 +35,32 @@ function LikedRecipeModal({ likedModalOpen, children, onClose }) {
         alignItems: 'center', justifyContent: 'center'
       }}>
       {/* <animated.div style={springStyles}> */}
-      <animated.div style={{
-        ...springStyles,
-        maxHeight: '80vh', overflowY: 'auto', width: '80%',
-        boxSizing: 'border-box', padding: '20px',
-        background: '#fff', borderRadius: '8px'
-      }}>
+      <animated.div style={{ ...springStyles, 
+        maxHeight: '80vh', overflowY: 'auto', 
+        boxSizing: 'border-box', padding: '20px', 
+        background: '#f0ead6', borderRadius: '8px' }}>
+    
         <div ref={modalRef}>  {/* Attach ref to this inner div */}
           {children}
         </div>
-        <button onClick={downloadPDF}>Download as PDF</button>
+        <button
+  onClick={downloadPDF}
+  style={{
+    padding: '10px 20px',
+    fontSize: '16px',
+    fontWeight: 'bold',
+    color: 'white',
+    backgroundColor: 'black',
+    border: 'none',
+    borderRadius: '5px',
+    cursor: 'pointer',
+    outline: 'none',
+  
+
+  }}
+>
+  Download as PDF
+</button>
       </animated.div>
     </div>
   );

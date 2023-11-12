@@ -12,6 +12,13 @@
 
 .top-recipes-grid {
  justify-content: center;
- 
+  display: flex;
+  flex-wrap: wrap; /* Or 'flex-start' if you don't want space between them */
+  gap: 80px; /* Adjust the gap as needed */
+}
 
+
+
+.top-recipes {
+margin-top: 100px;
 }

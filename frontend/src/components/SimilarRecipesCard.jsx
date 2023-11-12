@@ -48,74 +48,100 @@ const SimilarRecipesCard = ({ similarRecipes, isFlipped, setIsFlipped }) => {
   };
 
 
+  const cardStyle = {
+    width: "500px",
+    maxHeight: '600px',
+    overflowY: 'auto',
+    marginBottom: '20px',
+    padding: "20px",
+    boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
+    transition: '0.3s',
+    backgroundColor: 'white',
+    borderRadius: '10px',
+    border: '1px solid #ddd', // subtle border
+  };
+  
+  const titleStyle = {
+    borderTop: "1px solid #eee",
+    borderBottom: "1px solid #eee",
+    padding: '10px 0',
+    textAlign: 'center',
+    backgroundColor: '#f8f8f8',
+    borderRadius: '5px',
+    margin: '10px 0',
+  };
+  
+  const imageStyle = {
+    display: 'block', // to center the image
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    height: "300px",
+    width: "400px",
+    borderRadius: '5px', // rounding the corners of the image
+  };
+  
+  const buttonStyle = {
+    display: 'block', // to center the button
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginTop: '10px',
+    padding: '10px 20px',
+    backgroundColor: 'black',
+    color: 'white',
+    border: 'none',
+    borderRadius: '5px',
+    cursor: 'pointer',
+  };
+  
+  // Inside your component's return statement
   return (
     <div>
       {similarRecipes.map((innerArray, outerIndex) => (
-        <ReactCardFlip
-          key={outerIndex}
-          isFlipped={isFlippedArray[outerIndex]}
-          flipDirection="horizontal"
-        >
+        <ReactCardFlip key={outerIndex} isFlipped={isFlippedArray[outerIndex]} flipDirection="horizontal">
           {/* Front side of the card */}
           <div key={outerIndex}>
             {innerArray.map((recipe, innerIndex) => (
-              <div
-                style={{ width: "500px", maxHeight: '600px', overflowY: 'auto', marginBottom: '20px', paddingLeft: "5px" }}
-                key={innerIndex}
-              >
+              <div style={cardStyle} key={innerIndex}>
                 {/* Front side of the card for each recipe */}
                 {recipe.title ? (
                   <>
-                    <h3 style={{ borderTop: "1px solid black", borderBottom: "1px solid black" }}>{recipe.title}</h3>
-                    <br />
+                    <h3 style={titleStyle}>{recipe.title}</h3>
                     <img
                       src={`https://spoonacular.com/recipeImages/${recipe.id}-636x393.${recipe.imageType}`}
                       alt={`Image of ${recipe.title}`}
-                      height={"300px"}
-                      width={"400px"}
-
+                      style={imageStyle}
                     />
-                    <br />
-                    <p>Ready in {recipe.readyInMinutes} and serves {recipe.servings}</p>
-                    {/* <a href={recipe.sourceUrl} target="_blank" rel="noopener noreferrer">
-                      Link to Recipe
-                    </a> */}
-                    <button onClick={() => handleViewDetails(recipe.id, outerIndex)}>View Details</button>
+                    <p style={{ textAlign: 'center' }}>Ready in {recipe.readyInMinutes} and serves {recipe.servings}</p>
+                    <button onClick={() => handleViewDetails(recipe.id, outerIndex)} style={buttonStyle}>View Details</button>
                   </>
                 ) : (
-                  // Handle the case when properties are undefined
                   <p>Recipe information is not available</p>
                 )}
-                {/* <button onClick={handleFlipClick}>Flip Card {console.log("handleflipclick in card", handleFlipClick)}</button> */}
               </div>
             ))}
           </div>
-          {/* Back side of the card  */}
-          <div
-            style={{ width: "500px", maxHeight: '400px', overflowY: 'auto', margin: '0 auto', paddingLeft: "5px" }}
-          >
+          {/* Back side of the card */}
+          <div style={{ ...cardStyle, maxHeight: '400px' }}>
             {detailedInfo && (
               <div>
-                <h3>{detailedInfo.title}</h3>
-
+                <h3 style={titleStyle}>{detailedInfo.title}</h3>
                 <p>Ingredients:
-                  <ul style={{ listStyleType: 'none', padding: 0, margin: 0 }}>
+                  <ul style={{ listStyleType: 'none', padding: '0 20px' }}>
                     {detailedInfo.extendedIngredients.map((ingredient, index) => (
                       <li key={index}>{ingredient.original}</li>
                     ))}
                   </ul>
                 </p>
-
-                <p>Instructions: {detailedInfo.instructions}</p>
-
+                <p style={{ padding: '0 20px' }}>Instructions: {detailedInfo.instructions}</p>
               </div>
             )}
-            <button onClick={() => handleFlipClick(outerIndex)}>Flip Card</button>
+            <button onClick={() => handleFlipClick(outerIndex)} style={buttonStyle}>Flip Card</button>
           </div>
         </ReactCardFlip>
       ))}
     </div>
   );
+  
 };
 
 export default SimilarRecipesCard;
