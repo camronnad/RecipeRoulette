@@ -1,11 +1,11 @@
 const { pool } = require("../db/connect");
 const { queryAllUsers, getUserEmailModel } = require("../models/UserModel");
 
-// const { queryAllUsers, getUserByEmail, getUserPreferences, setUserPreferences } = require("../models/UserModel");
+
 const getAllUsers = async (req, res) => {
   try {
     const allUsers = await queryAllUsers();
-    res.json(allUsers);  // Sending the array of users as a response
+    res.json(allUsers);  
   } catch (error) {
     res.status(500).send(error.message);
   }
@@ -28,9 +28,6 @@ const getUserEmail = async (req, res) => {
 };
 
 
-
-// Add a new controller function to get user preferences
-// This function retrieves user preferences from the database
 async function getUserPreferences(req, res) {
   const userId = req.params.userId;
   console.log("userId", userId)
@@ -52,12 +49,12 @@ const checkUserExists = async (userId) => {
   return result.rows[0].exists;
 };
 
-// This function updates user preferences in the database
+
 async function updateUserPreferences(req, res) {
   const userId = req.params.userId;
   const { preferences } = req.body;
 
-  // Check if the user exists before updating
+
   const userExists = await checkUserExists(userId);
   if (!userExists) {
     return res.status(404).json({ error: 'User not found' });
