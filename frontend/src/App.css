@@ -1,17 +1,13 @@
 .App {
-  /* background-image: url("/HomeRouteImg.png"); */
   height: 100vh;
- background-color: transparent; 
- overflow-x: none;
-left: 0
+  background-color: transparent;
+  overflow-x: none;
+  left: 0;
 }
 
-
 body {
-  background-image: url('/public/BackDrop.png'); /* Replace with your image path */
-  background-repeat: repeat; /* This will repeat the background image infinitely in both directions */ /* Optional: this makes the background fixed during scroll */
+  background-image: url("/public/BackDrop.png");
+  background-repeat: repeat;
   background-size: contain;
-  /* overflow-x: hidden;
-  overflow-y: hidden; */
   margin: 0;
 }

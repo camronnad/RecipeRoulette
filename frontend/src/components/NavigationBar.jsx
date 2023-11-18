@@ -18,24 +18,7 @@ const NavigationBar = ({ onLogout, isLoggedIn }) => {
 
   const location = useLocation();
   
-  // let appBarStyle = {};
 
-// if (location.pathname === "/") {
-//   appBarStyle.backgroundImage = 'url("/HomeRouteImg.png")';
-  
-//     } else if (location.pathname === '/Profile') { // Replace with the specific path you want
-//       appBarStyle.backgroundImage = 'url("/HomeRouteImg.png")';
-//     } else {
-//       appBarStyle.backgroundImage = 'url("/BackDrop.png")';
-//       appBarStyle.position = "relative"
-//       appBarStyle.left = "20%"
-//     }
-//     appBarStyle.backgroundSize = 'cover';
-//     appBarStyle.backgroundRepeat = 'no-repeat';
-//     appBarStyle.backgroundColor = 'transparent';
-//     appBarStyle.boxShadow = 'none';
-  
-//     console.log('App Bar Style: ', appBarStyle)
  
 
 
@@ -69,17 +52,7 @@ const NavigationBar = ({ onLogout, isLoggedIn }) => {
     </Link>
   </Box>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' }  }}>
-            {/* <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              color="inherit"
-              
-              
-            >
-              
-            </IconButton> */}
+
           </Box>
           
           <UserProfile onLogout={onLogout} isLoggedIn={isLoggedIn} />

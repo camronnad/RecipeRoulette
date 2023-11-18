@@ -6,7 +6,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 import { BrowserRouter, Link, useNavigate } from 'react-router-dom';
-// change the link names 
+
 const profiles = ['Home', 'Favourites', 'Preferences', 'Top Rated', 'Logout'];
 const UserProfile = ({ onLogout }) => {
   const [anchorElUser, setAnchorElUser] = useState(null);
@@ -24,7 +24,6 @@ const UserProfile = ({ onLogout }) => {
     handleCloseUserMenu();
     if (profileOption === "Logout") {
       localStorage.removeItem('userId');
-      // Clear all items from local storage
       localStorage.clear();
 
       onLogout();
@@ -62,8 +61,8 @@ const UserProfile = ({ onLogout }) => {
 
               {<Link to={`/${profile}`}
                 style={{
-                  textDecoration: 'none', // Remove underline
-                  color: 'inherit', // Inherit text color from parent
+                  textDecoration: 'none', 
+                  color: 'inherit', 
                 }}
               >{profile}
               </Link >}

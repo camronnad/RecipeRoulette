@@ -39,7 +39,7 @@ if (location.pathname === "/") {
   appStyle.backgroundImage = 'url("/HomeRouteImg.png")';
   
     } else if (location.pathname === '/Profile') {
-      console.log("checks out from proifle") // Replace with the specific path you want
+      console.log("checks out from proifle") 
       appStyle.backgroundImage = 'url("/HomeRouteImg.png")';
     } else {
       console.log("checks out for other pages")
@@ -61,11 +61,7 @@ if (location.pathname === "/") {
     
 
         <Routes>
-          {/* <Route
-            path="/"
-            element={isLoggedIn ? <> <NavigationBar onLogout={handleLogout}
-              isLoggedIn={isLoggedIn} /> <HomeRoute /> </> : <Navigate to="/LoginForm" />}
-          /> */}
+  
 
           <Route path="/Favourites" element={<><NavigationBar onLogout={handleLogout}
             isLoggedIn={isLoggedIn} /> <LikedRecipe /> </>} />
@@ -73,10 +69,7 @@ if (location.pathname === "/") {
             isLoggedIn={isLoggedIn} /> <TopRecipes /> </>} />
           <Route path="/Preferences" element={<><NavigationBar onLogout={handleLogout}
             isLoggedIn={isLoggedIn} /> <PreferencesPage /> </>} />
-          {/* <Route path="/" */}
-          {/* element={isLoggedIn ?<> <NavigationBar   onLogout={handleLogout} */}
-          {/* isLoggedIn={isLoggedIn} /> <HomeRoute /> </>: <Navigate to="/LoginForm" />} */}
-          {/* /> */}
+
           <Route path="/login" element={<Authentication onLogin={handleLogin} />} />
           <Route path="/LoginForm" element={isLoggedIn ? <Navigate to="/" /> : <LoginForm onAuthenticate={handleLogin} />} />
           <Route path="/Signup" element={<Signup />} />

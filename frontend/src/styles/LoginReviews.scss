@@ -34,14 +34,13 @@
  text-align: center;
 }
 .review img {
-  width: 100%; /* Image takes the full width of the card */
-  height: 80%; /* Image takes up 90% of the card's height */
+  width: 100%;
+  height: 80%; 
   object-fit: cover;
- /* This will cover the div with the image, cropping it if necessary */
 }
 .stars {
-  color: black; /* This will make your stars green */
-  font-size: 22px; /* Adjust size as needed */
+  color: black;
+  font-size: 22px; 
 }
 
 @keyframes carousel-down{

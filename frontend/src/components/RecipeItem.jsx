@@ -11,11 +11,6 @@ import RecipeModal from "./RecipeModal";
 export default function RecipeItem({
   photo,
   RecipeName,
-  // handleCardClick,
-  // activeModal,
-  // recipeId,
-  // instructions,
-  // readyInMinutes,
   likedItems,
   handleFavIconClick,
   selectedColor,
@@ -30,45 +25,8 @@ export default function RecipeItem({
   toggleLiked
 }) {
 
-  // const [selectedColor, setSelectedColor] = useState(true);
-
-
-
-
-
-
-  // console.log("recipe passed down to recipeitem", recipe);
-  // console.log("recipe passed downn with id", recipe.id);
-
-
-  // function FavIconEnhanced({ onFavClick, onClick }) {
-  //   return (
-  //     <div onClick={onClick}>
-  //       <FavIconEnhanced onFavClick={handleFavClick}
-  //         onClick={e => e.stopPropagation()} />
-  //     </div>
-  //   );
-  // }
-
-  // const [isModalOpen, setModalOpen] = useState(false);
-  // const handleFavIconClick = () => {
-  //   handleFavClick(!selectedColor);
-  //   setSelectedColor(!selectedColor);
-  // };
-  // const clickHandler = (event) => {
-  //   console.log("event target", event.target);
-  //   setSelectedRecipe(recipe);
-  //   if (event.target.tagName === "path") {
-  //     handleFavClick(!selectedColor);
-  //     setSelectedColor(!selectedColor);
-  //     return;
-  //   }
-  //   setModalOpen(true);
-  // };
   const clickHandler = (event) => {
-    console.log("event target", event.target);
     setSelectedRecipe(recipe);
-    console.log("selected recipe inside handler", recipe);
     if (event.target.tagName === "path") {
       toggleLiked(recipe);
       return;

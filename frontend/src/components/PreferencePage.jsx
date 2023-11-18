@@ -1,4 +1,3 @@
-// PreferencesPage.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -61,18 +60,16 @@ const PreferencesPage = () => {
       try {
         const response = await fetch(API_ENDPOINT);
         if (response.data && typeof response.data === 'object' && 'dietary' in response.data) {
-          // If the structure of response.data is correct
           
           setPreferences(response.data);
           
         } else {
-          // If response.data is null or doesn't have the expected structure
           console.error('Invalid or null data structure received:', response.data);
           setPreferences(initialPreferences);
         }
       } catch (error) {
         console.error('Error fetching preferences:', error);
-        setPreferences(initialPreferences); // Fallback to initial preferences in case of error
+        setPreferences(initialPreferences); 
       }
     };
 
@@ -113,7 +110,6 @@ const PreferencesPage = () => {
     <form onSubmit={handleSubmit} className="fixed-checkbox" style={{display: "flex", flexDirection: "column", justifyContent: "center", }}>
       {Object.entries(allOptions).map(([category, options]) => {
         const selectedOptions = preferences[category];
-        // Ensure selectedOptions is an array before rendering CheckboxGroup
         return (
           
           <fieldset key={category}>
@@ -128,7 +124,7 @@ const PreferencesPage = () => {
                 
               />
             ) : (
-              <p>Loading preferences...</p> // or some error message if needed
+              <p>Loading preferences...</p> 
             )}
           </fieldset>
         );

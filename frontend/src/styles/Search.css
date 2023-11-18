@@ -20,8 +20,8 @@ h1 {
 }
 
 .arrow {
-  width: 50px; /* Adjust the width to make the arrow smaller */
-  height: auto; /* This ensures the aspect ratio is maintained */
+  width: 50px;
+  height: auto; 
   animation: bounce 2s ease-in-out infinite;
   position:relative;
   top: 270%;
@@ -103,7 +103,7 @@ h1 {
   bottom: 49%; 
   left: 57%;
   width: 500px;
-  font-size: 10px;  /* this makes sure the div only takes up as much space as it needs */
+  font-size: 10px;  
   border-radius: 3px;
   display: inline-flex;
   align-items: center;
@@ -132,25 +132,24 @@ h1 {
   position: relative;
   top: 55%;
   right: 20%;
-  background: black;  /* Button background color */
+  background: black;  
   border: solid 5px #97c754;
   border-radius: 30px;
-  color: white;  /* Text color */
+  color: white; 
   font-weight: bold;
   font-size: 5em;
   padding: 15px 40px;
   text-align: center;
   text-decoration: none;
   cursor: pointer;
-  box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+  box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.2); 
   transition: transform 0.2s ease;
   margin-bottom: 450px;
 
-  /* Smooth transition for the hover effect */
 }
 
 .bttn:hover {
-  transform: scale(1.07); /* Make the button slightly larger when hovered */
+  transform: scale(1.07); 
 }
 
 

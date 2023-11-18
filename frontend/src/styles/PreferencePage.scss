@@ -1,9 +1,7 @@
 .fixed-checkbox {
   position: fixed;
-  top: 20%; /* Distance from the top */
+  top: 20%;
   left: 10%;
-   /* Distance from the left */
   z-index: 1000;
   overflow: scroll;
-   /* Ensure it's above other elements */
 }

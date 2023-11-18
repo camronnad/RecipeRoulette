@@ -6,7 +6,7 @@
   height: 100vh;
   font-family: 'Arial', sans-serif;
   background-image: url('../../public/backgroundLogin.png');
-  overflow-x: hidden; /* Prevent horizontal scrolling */
+  overflow-x: hidden; 
   overflow-y: hidden; 
 
 
@@ -17,7 +17,6 @@
     left: 150;
     width: 70%;
     height: 100%;
-    // background-image: url('../../public/Login.jpg');
     background-size: auto 100%;
     background-position: -10% center;
     background-repeat: no-repeat;

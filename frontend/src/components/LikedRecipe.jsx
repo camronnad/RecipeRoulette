@@ -15,18 +15,6 @@ import SimilarRecipesCard from "./SimilarRecipesCard";
 import ReactCardFlip from 'react-card-flip';
 import Drawer from "@mui/material/Drawer";
 import { Button } from "@mui/material";
-
-
-// const mockData = [
-//   {
-//     id: 1,
-//     imgSrc: "mushroomPasta.png",
-//     name: "Mushroom Pasta",
-//     description: "Delicious mushroom pasta with creamy sauce.",
-//   }
-//   // Add more recipe objects as needed
-// ];
-
 import "../styles/LikedRecipe.scss";
 
 const LikedRecipe = (props) => {
@@ -39,12 +27,9 @@ const LikedRecipe = (props) => {
   const [isFlipped, setIsFlipped] = useState(false);
   const [recipeModalOpen, setRecipeModalOpen] = useState(false);
   const [showSimilarRecipes, setShowSimilarRecipes] = useState(false);
-  const [selectedRecipe, setSelectedRecipe] = useState(null); // Add this state variable
+  const [selectedRecipe, setSelectedRecipe] = useState(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
 
-  // const openRecipeDetails = (recipe) => {
-  //   setSelectedRecipe(recipe); // Set the selected recipe when it's opened
-  // };
 
   const openDrawer = () => {
     setDrawerOpen(true);
@@ -73,24 +58,13 @@ const LikedRecipe = (props) => {
   };
 
 
-
-  // const similarRecipesContainerStyle = {
-  //   height: "300px",
-  //   padding: 2,
-  //   margin: 20,
-  //   borderRadius: 10,
-  //   backgroundColor: "rgba(255, 255, 255, 0.5)",
-  //   transition: "height 0.5s",
-  // };
-
   const fetchSimilarRecipesFromBackend = (recipeId) => {
     console.log("recipe id in api function", recipeId);
     Axios.get(`/api/liked-recipes/similar/${recipeId}`)
       .then((response) => {
-        // Handle the response data here
         const apiRecipes = response.data;
         console.log('api recipes:', apiRecipes);
-        setSimilarRecipes([...similarRecipes, apiRecipes]); // Set the similar recipes in the state
+        setSimilarRecipes([...similarRecipes, apiRecipes]); 
         console.log("simlar recipes stores from api", similarRecipes);
       })
       .catch((error) => {
@@ -140,7 +114,6 @@ const LikedRecipe = (props) => {
       .then((response) => {
         if (response.status === 204) {
           console.log("this is response data", response);
-          // If the deletion was successful, update the state to remove the recipe
           const updatedLikedRecipeData = likedRecipeData.filter(
             (recipe) => recipe.id !== recipeId
           );
@@ -207,7 +180,7 @@ const LikedRecipe = (props) => {
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center center",
     minHeight: "0",
-    display: "grid", // This creates columns that grow to fit the container., // This sets the gap between the grid items.
+    display: "grid", 
     padding: "20px",
   };
 
@@ -276,7 +249,6 @@ const LikedRecipe = (props) => {
           </div>
         </Drawer>
         {console.log("recipe data need recipe id", filteredLikedRecipeData)}
-        {/* {likedRecipeData.map((recipe) => ( */}
         {filteredLikedRecipeData.map((recipe) => (
           <Card key={recipe.id} style={cardStyle}>
             <Grid container spacing={2} justifyContent="center">
@@ -333,7 +305,6 @@ const LikedRecipe = (props) => {
                 <Card style={innerCardStyle}>
                   <CardContent>
                     <Grid container spacing={0} justifyContent="center">
-                      {/* ...other Grid items... */}
                       <Grid item xs={10} sx={{ mt: -5 }}>
                         <Card style={innerCardStyle}>
                           <CardContent>
@@ -343,7 +314,6 @@ const LikedRecipe = (props) => {
                                 flexDirection: "column",
                               }}
                             >
-                              {/* Rating at the top */}
                               <div style={{ marginBottom: "10px" }}>
                                 <Typography
                                   variant="h6"
@@ -380,7 +350,6 @@ const LikedRecipe = (props) => {
                                 </div>
                               </div>
 
-                              {/* Delete and Share buttons side by side */}
                               <div
                                 style={{
                                   display: "flex",
@@ -395,7 +364,6 @@ const LikedRecipe = (props) => {
                                 >
                                   DELETE
                                 </button>
-                                {/* Sharing options */}
                                 <div onClick={() => fetchSimilarRecipesFromBackend(recipe.recipe_id)}>
                                   <button>Find Simlar Recipes</button>
                                 </div>
