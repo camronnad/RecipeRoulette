@@ -1,7 +1,7 @@
 const { pool } = require("../db/connect");
 
 const queryRatingLikedRecipes = async (rating, userId, id) => {
-  console.log('queryRatingLikedRecipes function called'); // Add this line for debugging purposes
+  console.log("queryRatingLikedRecipes function called");
   console.log("Received rating for user:", userId);
   console.log("received id:", id);
   console.log("received rating:", rating);
@@ -15,7 +15,9 @@ const queryRatingLikedRecipes = async (rating, userId, id) => {
     if (result.rowCount > 0) {
       console.log("Rating updated successfully");
     } else {
-      console.log("No rows were updated. Rating may not exist for the provided user and recipe.");
+      console.log(
+        "No rows were updated. Rating may not exist for the provided user and recipe."
+      );
     }
     return result.rows;
   } catch (error) {
@@ -42,9 +44,7 @@ INNER JOIN likedRecipes ON users.id = likedRecipes.user_id
 WHERE likedRecipes.rating >= 4
 LIMIT 10;`;
   const result = await pool.query(queryString);
-  // console.log(result)
   return result.rows;
 };
-
 
 module.exports = { queryRatingLikedRecipes, queryTopLikedRecipes };

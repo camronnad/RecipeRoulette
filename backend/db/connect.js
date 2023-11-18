@@ -18,7 +18,6 @@ const connectDB = () => {
     )
     .catch((err) => console.error("connection error", err));
 
-  // return pool
 };
 
 

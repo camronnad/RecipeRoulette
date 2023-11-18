@@ -4,7 +4,7 @@ const { pool } = require("../db/connect");
 const queryAllUsers = async () => {
   try {
     const result = await pool.query('SELECT * FROM users');
-    return result.rows;  // This will be the array of users
+    return result.rows;  
   } catch (error) {
     throw new Error(error);
   }
@@ -13,7 +13,7 @@ const queryAllUsers = async () => {
 const getUserByEmail = async (email) => {
   try {
     const result = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
-    return result.rows[0];  // Assuming email is unique and only one record should match
+    return result.rows[0]; 
   } catch (error) {
     throw new Error(error);
   }
@@ -39,12 +39,12 @@ async function authenticate(email, password) {
     if (userResult.rows.length > 0) {
       const user = userResult.rows[0];
 
-      // Compare the provided password with the hashed password in the database
+ 
       
       const isValid = await bcrypt.compare(password, user.password);
       console.log("is valid log", isValid);
       if (isValid) {
-        return user; // Passwords match, return the user
+        return user; 
       } else {
         throw new Error('Invalid password');
       }
@@ -52,7 +52,7 @@ async function authenticate(email, password) {
       throw new Error('User not found, please sign up');
     }
   } catch (error) {
-    throw error; // Or handle the error as you see fit
+    throw error; 
   }
 }
 module.exports = {

@@ -13,7 +13,7 @@ const queryDeleteLikedRecipes = async (resourceId) => {
     const result = await pool.query(queryString, values);
     if (result.rowCount > 0) {
       console.log("Recipe deleted successfully. Rows affected:", result.rowCount);
-      return true; // Returns true if a row was deleted
+      return true;
     } else {
       console.log("Recipe not found.");
       return false;
