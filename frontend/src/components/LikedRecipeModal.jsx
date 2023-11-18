@@ -2,7 +2,6 @@ import React, { useRef } from "react";
 import { animated, useSpring } from "@react-spring/web";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
-import LikedRecipe from "./LikedRecipe";
 
 function LikedRecipeModal({ likedModalOpen, children, onClose }) {
   const modalRef = useRef(null);

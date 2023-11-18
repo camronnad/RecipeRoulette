@@ -36,7 +36,7 @@ function RecipeModal({ isOpen, children, onClose }) {
         maxHeight: '80vh', overflowY: 'auto', width: '80%', 
         boxSizing: 'border-box', padding: '20px', 
         background: '#fff', borderRadius: '8px' }}>
-        <div ref={modalRef}>  {/* Attach ref to this inner div */}
+        <div ref={modalRef}>  
           {children}
         </div>
         <button onClick={downloadPDF}>Download as PDF</button>

@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
-import RecipeModal from '../components/RecipeModal';
 import SearchContainer from '../components/search/SearchContainer';
-import NavigationBar from '../components/NavigationBar';
 import RecipeItemGrid from '../components/RecipeItemGrid';
-
-import { useSpring, animated } from "react-spring";
+import { animated } from "react-spring";
 
 
 export default function HomeRoute({ isLoggedIn, setIsLoggedIn }) {

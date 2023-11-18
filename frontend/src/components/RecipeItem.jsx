@@ -4,7 +4,7 @@ import CardMedia from "@mui/material/CardMedia";
 import FavIcon from "./FavIcon";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import '../styles/RecipeModal.scss';
+import "../styles/RecipeModal.scss";
 import { useState } from "react";
 import RecipeModal from "./RecipeModal";
 
@@ -12,19 +12,12 @@ export default function RecipeItem({
   photo,
   RecipeName,
   likedItems,
-  handleFavIconClick,
-  selectedColor,
   recipeId,
-  recipe_link,
-  summary,
-  onFavClick,
   setModalOpen,
-  handleFavClick,
   setSelectedRecipe,
   recipe,
-  toggleLiked
+  toggleLiked,
 }) {
-
   const clickHandler = (event) => {
     setSelectedRecipe(recipe);
     if (event.target.tagName === "path") {
@@ -34,7 +27,6 @@ export default function RecipeItem({
       setModalOpen(true);
     }
   };
-
 
   return (
     <>
@@ -46,7 +38,12 @@ export default function RecipeItem({
         <Box sx={{ position: "absolute", right: -2, bottom: 170, p: 1 }}>
           <FavIcon selected={likedItems.includes(recipeId)} />
         </Box>
-        <CardMedia component="img" height="194" src={photo} alt="Recipe Image" />
+        <CardMedia
+          component="img"
+          height="194"
+          src={photo}
+          alt="Recipe Image"
+        />
         <Box
           sx={{
             height: "35px",
@@ -56,12 +53,14 @@ export default function RecipeItem({
             justifyContent: "center",
           }}
         >
-          <Typography variant="subtitle1" sx={{ fontWeight: "bold", fontSize: '0.8em' }}>
+          <Typography
+            variant="subtitle1"
+            sx={{ fontWeight: "bold", fontSize: "0.8em" }}
+          >
             {RecipeName}
           </Typography>
         </Box>
       </Card>
     </>
   );
-};
-
+}

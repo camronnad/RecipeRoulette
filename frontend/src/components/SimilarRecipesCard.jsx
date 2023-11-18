@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ReactCardFlip from "react-card-flip";
 import Axios from "axios";
-import LikedRecipe from "./LikedRecipe";
 const SimilarRecipesCard = ({ similarRecipes, isFlipped, setIsFlipped }) => {
   const [detailedInfo, setDetailedInfo] = useState(null);
   const [isFlippedArray, setIsFlippedArray] = useState(
@@ -14,10 +13,8 @@ const SimilarRecipesCard = ({ similarRecipes, isFlipped, setIsFlipped }) => {
     setIsFlippedArray(updatedIsFlippedArray);
   };
 
-  console.log("similar recipes in card component", similarRecipes);
 
   useEffect(() => {
-    console.log("isFlipped value in SimilarRecipesCard:", isFlipped);
   }, [isFlipped]);
 
   const handleViewDetails = (recipeId, outerIndex) => {
@@ -29,10 +26,7 @@ const SimilarRecipesCard = ({ similarRecipes, isFlipped, setIsFlipped }) => {
     })
       .then((response) => {
         const detailedRecipe = response.data;
-        console.log("detailed reciepes in simlar recipes card", detailedRecipe);
         setDetailedInfo(detailedRecipe);
-        console.log("detailed info state in simlar recipes card", detailedInfo);
-        console.log("");
         const updatedIsFlippedArray = [...isFlippedArray];
         updatedIsFlippedArray[outerIndex] = !updatedIsFlippedArray[outerIndex];
         setIsFlippedArray(updatedIsFlippedArray);

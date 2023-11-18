@@ -1,18 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
-import RecipeItem from "./RecipeItem";
-import RecipeCardList from "./RecipeCardList";
 import { Card, CardContent, Typography } from "@mui/material";
 import { FacebookShareButton, TwitterShareButton } from "react-share";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
-import InstagramIcon from "@mui/icons-material/Instagram";
 import StarIcon from "@mui/icons-material/Star";
 import LikedRecipeModal from "./LikedRecipeModal";
 import TextField from "@mui/material/TextField";
 import Axios from 'axios';
 import SimilarRecipesCard from "./SimilarRecipesCard";
-import ReactCardFlip from 'react-card-flip';
 import Drawer from "@mui/material/Drawer";
 import { Button } from "@mui/material";
 import "../styles/LikedRecipe.scss";
@@ -49,7 +45,6 @@ const LikedRecipe = (props) => {
   };
 
 
-  console.log("isFlipped value before click", isFlipped);
 
 
 
@@ -59,13 +54,10 @@ const LikedRecipe = (props) => {
 
 
   const fetchSimilarRecipesFromBackend = (recipeId) => {
-    console.log("recipe id in api function", recipeId);
     Axios.get(`/api/liked-recipes/similar/${recipeId}`)
       .then((response) => {
         const apiRecipes = response.data;
-        console.log('api recipes:', apiRecipes);
         setSimilarRecipes([...similarRecipes, apiRecipes]); 
-        console.log("simlar recipes stores from api", similarRecipes);
       })
       .catch((error) => {
         console.error('Error fetching similar recipes from backend:', error);
@@ -73,7 +65,6 @@ const LikedRecipe = (props) => {
   };
 
   useEffect(() => {
-    console.log("document.body.style", document.body.style.overflow);
     document.body.style["overflow"] = "scroll";
 
     fetch(`/api/liked-recipes?userId=${userId}`)
@@ -85,7 +76,6 @@ const LikedRecipe = (props) => {
       })
       .then((data) => {
         setLikedRecipeData(data);
-        console.log("data object:", data);
       })
       .catch((error) => {
         console.error("Fetch error:", error);
@@ -105,8 +95,6 @@ const LikedRecipe = (props) => {
 
   const handleDeleteRecipe = (recipeId) => {
     const deleteURL = `http://localhost:3000/api/liked-recipes/${recipeId}`;
-    console.log(`Sending DELETE request to: ${deleteURL}`);
-    console.log("Deleting recipe with ID:", recipeId);
 
     fetch(`/api/liked-recipes/${recipeId}`, {
       method: "DELETE",
@@ -166,12 +154,7 @@ const LikedRecipe = (props) => {
       });
   };
   const clickHandler = (recipe) => {
-    console.log("handler clicked");
-
-    console.log("recipe data outside handler", recipe);
-
     setSelectedLikedRecipe([recipe]);
-    console.log("recipe data inside handler", recipe);
     setLikedModalOpen(true);
   };
 
@@ -248,7 +231,6 @@ const LikedRecipe = (props) => {
             />
           </div>
         </Drawer>
-        {console.log("recipe data need recipe id", filteredLikedRecipeData)}
         {filteredLikedRecipeData.map((recipe) => (
           <Card key={recipe.id} style={cardStyle}>
             <Grid container spacing={2} justifyContent="center">
@@ -295,7 +277,6 @@ const LikedRecipe = (props) => {
                         overflowY: "auto",
                       }}
                     >
-                      {console.log("Summary:", recipe)}
                       {recipe.summary.replace(/<[^>]+>/g, "")}
                     </Typography>
                   </CardContent>
@@ -399,7 +380,6 @@ const LikedRecipe = (props) => {
         likedModalOpen={likedModalOpen}
         selectedLikedRecipe={selectedLikedRecipe}
       >
-        {console.log("liked recipe data inside modal", selectedLikedRecipe)}
         {selectedLikedRecipe.map((modalRecipeData) => (
           <div className="modal-container" key={modalRecipeData.id}>
             <button className="modal-close-btn" onClick={closeModal}>

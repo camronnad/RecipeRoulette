@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import IconButton from '@mui/material/IconButton';
-import PersonIcon from '@mui/icons-material/Person';
-import Tooltip from '@mui/material/Tooltip';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import Typography from '@mui/material/Typography';
-import { BrowserRouter, Link, useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import IconButton from "@mui/material/IconButton";
+import PersonIcon from "@mui/icons-material/Person";
+import Tooltip from "@mui/material/Tooltip";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import Typography from "@mui/material/Typography";
+import { Link, useNavigate } from "react-router-dom";
 
-const profiles = ['Home', 'Favourites', 'Preferences', 'Top Rated', 'Logout'];
+const profiles = ["Home", "Favourites", "Preferences", "Top Rated", "Logout"];
 const UserProfile = ({ onLogout }) => {
   const [anchorElUser, setAnchorElUser] = useState(null);
   let navigate = useNavigate();
@@ -23,12 +23,12 @@ const UserProfile = ({ onLogout }) => {
   const handleMenuClick = (profileOption) => {
     handleCloseUserMenu();
     if (profileOption === "Logout") {
-      localStorage.removeItem('userId');
+      localStorage.removeItem("userId");
       localStorage.clear();
 
       onLogout();
 
-      navigate('/LoginForm');
+      navigate("/LoginForm");
     }
   };
 
@@ -40,32 +40,35 @@ const UserProfile = ({ onLogout }) => {
         </IconButton>
       </Tooltip>
       <Menu
-        sx={{ mt: '45px' }}
+        sx={{ mt: "45px" }}
         id="menu-appbar"
         anchorEl={anchorElUser}
         anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
+          vertical: "top",
+          horizontal: "right",
         }}
         keepMounted
         transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
+          vertical: "top",
+          horizontal: "right",
         }}
         open={Boolean(anchorElUser)}
         onClose={handleCloseUserMenu}
       >
         {profiles.map((profile) => (
           <MenuItem key={profile} onClick={() => handleMenuClick(profile)}>
-            < Typography textAlign="center">
-
-              {<Link to={`/${profile}`}
-                style={{
-                  textDecoration: 'none', 
-                  color: 'inherit', 
-                }}
-              >{profile}
-              </Link >}
+            <Typography textAlign="center">
+              {
+                <Link
+                  to={`/${profile}`}
+                  style={{
+                    textDecoration: "none",
+                    color: "inherit",
+                  }}
+                >
+                  {profile}
+                </Link>
+              }
             </Typography>
           </MenuItem>
         ))}

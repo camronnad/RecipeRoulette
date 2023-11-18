@@ -3,7 +3,6 @@ import Grid from "@mui/material/Grid";
 import {
   Card,
   CardContent,
-  CardActions,
   CardMedia,
   Button,
   Typography,
@@ -198,7 +197,6 @@ const TopRecipes = (props) => {
         likedModalOpen={likedModalOpen}
         selectedLikedRecipe={selectedLikedRecipe}
       >
-        {console.log("liked recipe data inside modal", selectedLikedRecipe)}
         {selectedLikedRecipe.map((modalRecipeData) => (
           <div className="modal-container" key={modalRecipeData.id}>
             <button className="modal-close-btn" onClick={closeModal}>

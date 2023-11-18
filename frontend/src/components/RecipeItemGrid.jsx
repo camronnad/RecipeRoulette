@@ -30,7 +30,6 @@ const RecipeItemGrid = ({
     axios
       .get("/api/liked-recipes")
       .then((res) => {
-        console.log({ res });
         setLikedItems(res.data.map((item) => item.recipe_id));
       })
       .catch((err) => {
@@ -44,11 +43,7 @@ const RecipeItemGrid = ({
     );
     const ingredientsString = JSON.stringify(ingredientOriginals);
 
-    console.log("selected recipe.id", recipe.id);
-    console.log(isLiked);
-    console.log("selected recipe.id before", selectedRecipe.id);
     if (isLiked) {
-      console.log("selected recipe.id", selectedRecipe.id);
       axios
         .post("/api/saveLikeRecipe", {
           userId: userId,
@@ -63,7 +58,6 @@ const RecipeItemGrid = ({
         })
         .then((response) => {
           setLikedItems((prev) => [...prev, recipe.id]);
-          console.log("response for isliked", response);
           if (response.data.message) {
             console.log("Recipe saved to liked recipes!");
           } else {
@@ -184,7 +178,6 @@ const RecipeItemGrid = ({
             {selectedRecipe.analyzedInstructions &&
               selectedRecipe.analyzedInstructions.map((instruction) => {
                 {
-                  console.log("instruction loop", instruction);
                 }
                 return (
                   <div>

@@ -1,5 +1,4 @@
-
-import React from 'react';
+import React from "react";
 
 const CheckboxGroup = ({ options, selectedOptions, onChange, category }) => {
   const handleCheckboxChange = (event) => {

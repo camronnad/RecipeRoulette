@@ -6,10 +6,10 @@ import LoginReviews from "./LoginReviews";
 
 const authenticateUser = async (email, password) => {
   try {
-    const response = await fetch('/api/v1/users/login', {
-      method: 'POST',
+    const response = await fetch("/api/v1/users/login", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({ email, password }),
     });
@@ -25,9 +25,9 @@ const authenticateUser = async (email, password) => {
 
 const LoginForm = () => {
   let navigate = useNavigate();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const fade = useSpring({
     from: { opacity: 0 },
@@ -37,29 +37,28 @@ const LoginForm = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    setErrorMessage('');
+    setErrorMessage("");
     if (!email || !password) {
-      setErrorMessage('Please enter both email and password.');
+      setErrorMessage("Please enter both email and password.");
       return;
     }
 
     try {
       const result = await authenticateUser(email, password);
-      console.log("data from login", result);
       localStorage.setItem("userId", result.user.id);
 
-      if (result.message === 'Login successful') {
-        navigate('/');
+      if (result.message === "Login successful") {
+        navigate("/");
       } else {
-        setErrorMessage('Invalid email or password.');
+        setErrorMessage("Invalid email or password.");
       }
     } catch (error) {
-      setErrorMessage('Login failed: ' + error.message);
+      setErrorMessage("Login failed: " + error.message);
     }
   };
 
   const goToSignup = () => {
-    navigate('/signup');
+    navigate("/signup");
   };
   return (
     <animated.div style={fade} className="login-form">
@@ -67,7 +66,11 @@ const LoginForm = () => {
         <LoginReviews />
       </div>
       <div>
-        <img src="RecipeRouletteLogo.png" className="logo" alt="Recipe Roulette Logo" />
+        <img
+          src="RecipeRouletteLogo.png"
+          className="logo"
+          alt="Recipe Roulette Logo"
+        />
       </div>
       <div className="form-container">
         <h2>Login</h2>
@@ -93,9 +96,13 @@ const LoginForm = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          <button type="submit" className="form-button">Login</button>
+          <button type="submit" className="form-button">
+            Login
+          </button>
         </form>
-        <button onClick={goToSignup} className="switch-form-button">Create new account</button>
+        <button onClick={goToSignup} className="switch-form-button">
+          Create new account
+        </button>
       </div>
     </animated.div>
   );
